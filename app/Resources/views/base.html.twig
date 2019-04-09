@@ -1,13 +1,46 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+
+        <!-- BOOTSTRAP CSS -->
+        <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.min.css') }}">
+
+        <!-- SELECT2 -->
+        <link rel="stylesheet" href="{{ asset('select2-4.0.6-rc.1/dist/css/select2.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('select2-bootstrap-theme-master/dist/select2-bootstrap.min.css') }}">
+
+        <!-- FONTAWESOME -->
+        <link rel="stylesheet" href="{{ asset('fontawesome-free-5.7.2-web/css/all.min.css') }}">
+
+        <!-- ESTILOS APLICACION -->
+        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+
+        {% block stylesheets %}{% endblock %}
+
+        <title>{% block title %}{% endblock %}</title>
     </head>
     <body>
         {% block body %}{% endblock %}
+        <!-- Bootstrap JS y sus dependencias (jQuery y popper.js) -->
+        <script src="{{ asset('jquery/jquery-3.3.1.min.js') }}"></script>
+        <script src="{{ asset('popper/popper.min.js') }}"></script>
+        <script src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script>
+
+        <!-- Select2 -->
+        <script src="{{ asset('select2-4.0.6-rc.1/dist/js/select2.min.js') }}"></script>
+        <script src="{{ asset('select2-4.0.6-rc.1/dist/js/i18n/es.js') }}"></script>
         {% block javascripts %}{% endblock %}
+
+        <script>
+            $(document).ready(function() {
+                $('select').select2({
+                    theme: "bootstrap"
+                });
+            });
+        </script>
     </body>
 </html>
