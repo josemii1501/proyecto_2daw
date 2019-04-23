@@ -12,6 +12,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class History
 {
+    /**
+     * @ORM\Column(type="datetime")
+     */
     private $timestamp;
 
 }
