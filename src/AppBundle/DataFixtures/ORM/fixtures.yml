@@ -27,6 +27,11 @@ AppBundle\Entity\User:
     publisher: false
     admin: false
 
+AppBundle\Entity\Category:
+  category_{1..5}:
+    name: <en_EN:word()>
+    photo: php.png
+
 AppBundle\Entity\Video:
   video_{1..10}:
     route: uploads/video.flv
@@ -36,3 +41,4 @@ AppBundle\Entity\Video:
     reproductions: <numberBetween( 0, 10000000)>
     miniature: uploads/prueba.jpg
     creator: '@user*'
+    category: '@category*'

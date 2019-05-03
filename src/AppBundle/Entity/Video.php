@@ -59,11 +59,17 @@ class Video
 
     /**
     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="videos")
-    * @ORM\JoinColumn(nullable=true)
+    * @ORM\JoinColumn(nullable=false)
     * @var User
     */
     private $creator;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Category", inversedBy="video")
+     * @ORM\JoinColumn(nullable=true)
+     * @var Category
+     */
+    private $category;
     /**
      * @return int
      */
@@ -197,6 +203,25 @@ class Video
         $this->creator = $creator;
         return $this;
     }
+
+    /**
+     * @return Category
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * @param Category $category
+     * @return Video
+     */
+    public function setCategory($category)
+    {
+        $this->category = $category;
+        return $this;
+    }
+
 
     public function __toString()
     {

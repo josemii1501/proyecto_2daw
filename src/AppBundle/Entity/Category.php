@@ -33,6 +33,11 @@ class Category
     private $photo;
 
     /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Video", mappedBy="category")
+     * @var Video[]
+     */
+    private $video;
+    /**
      * @return int
      */
     public function getId()
@@ -74,6 +79,29 @@ class Category
     {
         $this->photo = $photo;
         return $this;
+    }
+
+    /**
+     * @return Video[]
+     */
+    public function getVideo()
+    {
+        return $this->video;
+    }
+
+    /**
+     * @param Video[] $video
+     * @return Category
+     */
+    public function setVideo($video)
+    {
+        $this->video = $video;
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->getName().'';
     }
 
 
