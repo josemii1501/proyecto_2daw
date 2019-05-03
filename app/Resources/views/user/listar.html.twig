@@ -25,19 +25,19 @@
             <tbody>
             {% for usuario in usuarios %}
                 <tr>
-                    <td>usuario.id</td>
-                    <td>usuario.name</td>
-                    <td>usuario.lastname</td>
-                    <td>usuario.email</td>
-                    <td>usuario.phone</td>
-                    <td>usuario.birthdate</td>
-                    <td>usuario.login</td>
-                    <td>usuario.password</td>
-                    <td>usuario.avatar</td>
-                    <td>usuario.urlwebsite</td>
-                    <td>usuario.description</td>
-                    <td>usuario.publisher</td>
-                    <td>usuario.admin</td>
+                    <td>{{ usuario.id }}</td>
+                    <td>{{ usuario.name }}</td>
+                    <td>{{ usuario.lastname }}</td>
+                    <td>{{ usuario.email }}</td>
+                    <td>{{ usuario.phone }}</td>
+                    <td>{{ usuario.birthday | date('d/m/Y') }}</td>
+                    <td>{{ usuario.login }}</td>
+                    <td>{{ usuario.password }}</td>
+                    <td>{{ usuario.avatar }}</td>
+                    <td>{{ usuario.urlwebsite }}</td>
+                    <td>{{ usuario.description }}</td>
+                    <td>{{ usuario.publisher }}</td>
+                    <td>{{ usuario.admin }}</td>
                 </tr>
             {% endfor %}
             </tbody>

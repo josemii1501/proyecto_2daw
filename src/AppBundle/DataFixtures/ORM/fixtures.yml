@@ -14,15 +14,16 @@ AppBundle\Entity\User:
     admin: true
 
   user_{1..20}:
-    name: <firstName()>
-    lastname: <lastName()>
+    name: <es_ES:firstName()>
+    lastname: <es_ES:lastName()>
     email: <email()>
-    phone: <phoneNumber()>
+    phone: <es_ES:phoneNumber()>
     birthday: <dateTime('now','CET')>
-    login: <word()>
-    password: <word()>
+    login: <es_ES:word()>
+    password: <es_ES:word()>
     avatar: uploads/default.png
     urlWebSite: <url()>
-    description: <text(100)>
+    description: <es_ES:text(100)>
     publisher: false
     admin: false
+
