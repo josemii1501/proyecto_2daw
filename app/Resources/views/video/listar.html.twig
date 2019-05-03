@@ -1,0 +1,33 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+
+    <h1>Listar videos</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>RUTA</th>
+            <th>TITULO</th>
+            <th>DESCRIPCION</th>
+            <th>FECHA</th>
+            <th>REPRODUCCIONES</th>
+            <th>MINIATURA</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for video in videos %}
+            <tr>
+                <td>{{ video.id }}</td>
+                <td>{{ video.route }}</td>
+                <td>{{ video.title }}</td>
+                <td>{{ video.description }}</td>
+                <td>{{ video.date | date('H:m:s | d/m/Y') }}</td>
+                <td>{{ video.reproductions }}</td>
+                <td>{{ video.miniature }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
