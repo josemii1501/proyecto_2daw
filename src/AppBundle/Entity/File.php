@@ -16,16 +16,19 @@ class File
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
+     * @var int
      */
     private $id;
 
     /**
      * @ORM\Column(type="string")
+     * @var string
      */
     private $file;
 
     /**
      * @ORM\Column(type="datetime")
+     * @var \DateTime
      */
     private $date;
 

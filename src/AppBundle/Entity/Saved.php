@@ -12,5 +12,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Saved
 {
-
+    /**
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Column(type="integer")
+     * @var int
+     */
+    private $id;
 }
