@@ -1,0 +1,27 @@
+AppBundle\Entity\User:
+  admin:
+    name: Administrador
+    lastname: Administrador
+    email: admin@devvideos.es
+    phone: 617928993
+    birthdate: 15/01/1999
+    login: admin
+    password: admin
+    avatar: uploads/prueba.jpg
+    urlWebSite: www.devvideos.com
+    description: Este es el administrador del sitio web devvideos
+    publisher: true
+    admin: true
+  user_{1..20}:
+    name: <firstName()>
+    lastname: <lastName()>
+    email: <email()>
+    phone: <phoneNumber()>
+    birthdate: <dateTimeBetween('-30 year','now',null)>
+    login: <word()>
+    password: <word()>
+    avatar: uploads/default.png
+    urlWebSite: <url()>
+    description: <text(100)>
+    publisher: false
+    admin: false
