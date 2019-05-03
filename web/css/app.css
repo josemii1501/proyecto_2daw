@@ -2,3 +2,6 @@ body{
     min-height: 75rem;
     padding-top: 4.5rem;
 }
+.avatar_lista{
+    max-width: 5em;
+}

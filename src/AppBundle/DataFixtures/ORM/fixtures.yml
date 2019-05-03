@@ -21,7 +21,7 @@ AppBundle\Entity\User:
     birthday: <dateTime('now','CET')>
     login: <es_ES:word()>
     password: <es_ES:word()>
-    avatar: uploads/default.png
+    avatar: uploads/prueba.jpg
     urlWebSite: <url()>
     description: <es_ES:text(100)>
     publisher: false
