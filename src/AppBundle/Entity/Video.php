@@ -58,6 +58,13 @@ class Video
     private $miniature;
 
     /**
+    * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="videos")
+    * @ORM\JoinColumn(nullable=true)
+    * @var User
+    */
+    private $creator;
+
+    /**
      * @return int
      */
     public function getId()
@@ -171,6 +178,29 @@ class Video
     {
         $this->miniature = $miniature;
         return $this;
+    }
+
+    /**
+     * @return User
+     */
+    public function getCreator()
+    {
+        return $this->creator;
+    }
+
+    /**
+     * @param User $creator
+     * @return Video
+     */
+    public function setCreator($creator)
+    {
+        $this->creator = $creator;
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->getTitle().' ';
     }
 
 

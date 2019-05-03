@@ -93,6 +93,11 @@ class User
     private $admin;
 
     /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Video", mappedBy="creator")
+     * @var Video[]
+     */
+    private $videos;
+    /**
      * @return int
      */
     public function getId()
@@ -314,6 +319,29 @@ class User
     {
         $this->admin = $admin;
         return $this;
+    }
+
+    /**
+     * @return Video[]
+     */
+    public function getVideos()
+    {
+        return $this->videos;
+    }
+
+    /**
+     * @param Video[] $videos
+     * @return User
+     */
+    public function setVideos($videos)
+    {
+        $this->videos = $videos;
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->getLastname().', '.$this->getName();
     }
 
 }

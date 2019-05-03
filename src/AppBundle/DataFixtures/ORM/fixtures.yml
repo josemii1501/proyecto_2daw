@@ -35,3 +35,4 @@ AppBundle\Entity\Video:
     date: <dateTime('now','CET')>
     reproductions: <numberBetween( 0, 10000000)>
     miniature: uploads/prueba.jpg
+    creator: '@user*'

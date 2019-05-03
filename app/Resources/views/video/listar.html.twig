@@ -14,6 +14,7 @@
             <th>FECHA</th>
             <th>REPRODUCCIONES</th>
             <th>MINIATURA</th>
+            <th>CREADOR</th>
         </tr>
         </thead>
         <tbody>
@@ -26,6 +27,7 @@
                 <td>{{ video.date | date('H:m:s | d/m/Y') }}</td>
                 <td>{{ video.reproductions }}</td>
                 <td>{{ video.miniature }}</td>
+                <td>{{ video.creator }}</td>
             </tr>
         {% endfor %}
         </tbody>
