@@ -4,4 +4,42 @@
 
 <h1>Listar Usuarios</h1>
 
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>NOMBRE</th>
+                    <th>APELLIDOS</th>
+                    <th>EMAIL</th>
+                    <th>TELEFONO</th>
+                    <th>FECHA NACIMIENTO</th>
+                    <th>LOGIN</th>
+                    <th>PASSWORD</th>
+                    <th>AVATAR</th>
+                    <th>URL</th>
+                    <th>DESCRIPCION</th>
+                    <th>PUBLICADOR</th>
+                    <th>ADMIN</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for usuario in usuarios %}
+                <tr>
+                    <td>usuario.id</td>
+                    <td>usuario.name</td>
+                    <td>usuario.lastname</td>
+                    <td>usuario.email</td>
+                    <td>usuario.phone</td>
+                    <td>usuario.birthdate</td>
+                    <td>usuario.login</td>
+                    <td>usuario.password</td>
+                    <td>usuario.avatar</td>
+                    <td>usuario.urlwebsite</td>
+                    <td>usuario.description</td>
+                    <td>usuario.publisher</td>
+                    <td>usuario.admin</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
 {% endblock %}

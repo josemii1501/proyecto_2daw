@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Repository\UsuarioRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -10,8 +11,12 @@ class UsuarioController extends Controller
     /**
      * @Route("/usuarios", name="usuarios_listar")
      */
-    public function indexAction()
+    public function usuarioListarAction(UsuarioRepository $usuarioRepository)
     {
-        return $this->render('user/listar.html.twig');
+        $todosUsuarios = $usuarioRepository->findAll();
+
+        return $this->render('user/listar.html.twig', [
+            'usuarios' => $todosUsuarios
+        ]);
     }
 }
