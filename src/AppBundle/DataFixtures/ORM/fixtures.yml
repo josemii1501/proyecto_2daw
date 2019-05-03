@@ -27,3 +27,11 @@ AppBundle\Entity\User:
     publisher: false
     admin: false
 
+AppBundle\Entity\Video:
+  video_{1..10}:
+    route: uploads/video.flv
+    title: <sentence(15, true)>
+    description: <text(200)>
+    date: <dateTime('now','CET')>
+    reproductions: <numberBetween( 0, 10000000)>
+    miniature: uploads/prueba.jpg
