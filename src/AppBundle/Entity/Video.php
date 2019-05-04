@@ -82,6 +82,13 @@ class Video
      * @var User
      */
     private $user;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
+     * @var User
+     */
+    private $savedUser;
+
     /**
      * @return int
      */
@@ -267,6 +274,24 @@ class Video
     public function setUser($user)
     {
         $this->user = $user;
+        return $this;
+    }
+
+    /**
+     * @return User
+     */
+    public function getSavedUser()
+    {
+        return $this->savedUser;
+    }
+
+    /**
+     * @param User $savedUser
+     * @return Video
+     */
+    public function setSavedUser($savedUser)
+    {
+        $this->savedUser = $savedUser;
         return $this;
     }
 

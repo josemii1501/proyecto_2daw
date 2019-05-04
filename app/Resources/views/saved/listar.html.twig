@@ -1,0 +1,25 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+
+    <h1>Listar Guardados</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>USUARIO</th>
+            <th>VIDEO</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in guardados %}
+            <tr>
+                <td>{{ item.id }}</td>
+                <td>{{ item.user }}</td>
+                <td>{{ item.video }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
