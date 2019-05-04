@@ -78,18 +78,6 @@ class Video
     private $file;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
-     * @var User
-     */
-    private $user;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
-     * @var User
-     */
-    private $savedUser;
-
-    /**
      * @return int
      */
     public function getId()
@@ -258,43 +246,6 @@ class Video
         $this->file = $file;
         return $this;
     }
-
-    /**
-     * @return User
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
-
-    /**
-     * @param User $user
-     * @return Video
-     */
-    public function setUser($user)
-    {
-        $this->user = $user;
-        return $this;
-    }
-
-    /**
-     * @return User
-     */
-    public function getSavedUser()
-    {
-        return $this->savedUser;
-    }
-
-    /**
-     * @param User $savedUser
-     * @return Video
-     */
-    public function setSavedUser($savedUser)
-    {
-        $this->savedUser = $savedUser;
-        return $this;
-    }
-
 
     public function __toString()
     {
