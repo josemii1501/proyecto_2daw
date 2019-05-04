@@ -70,6 +70,13 @@ class Video
      * @var Category
      */
     private $category;
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\File", mappedBy="video")
+     * @var File[]
+     */
+    private $file;
+
     /**
      * @return int
      */
@@ -219,6 +226,24 @@ class Video
     public function setCategory($category)
     {
         $this->category = $category;
+        return $this;
+    }
+
+    /**
+     * @return File[]
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
+     * @param File[] $file
+     * @return Video
+     */
+    public function setFile($file)
+    {
+        $this->file = $file;
         return $this;
     }
 

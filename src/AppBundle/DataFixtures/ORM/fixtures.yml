@@ -42,3 +42,9 @@ AppBundle\Entity\Video:
     miniature: uploads/prueba.jpg
     creator: '@user*'
     category: '@category*'
+
+AppBundle\Entity\File:
+  file_{1..20}:
+    file: <word()>
+    date: <dateTime('now','CET')>
+    video: '@video*'

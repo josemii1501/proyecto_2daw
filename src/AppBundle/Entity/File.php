@@ -33,6 +33,12 @@ class File
     private $date;
 
     /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Video", inversedBy="videos")
+     * @ORM\JoinColumn(nullable=true)
+     * @var video
+     */
+    private $video;
+    /**
      * @return int
      */
     public function getId()
@@ -73,6 +79,24 @@ class File
     public function setDate($date)
     {
         $this->date = $date;
+        return $this;
+    }
+
+    /**
+     * @return video
+     */
+    public function getVideo()
+    {
+        return $this->video;
+    }
+
+    /**
+     * @param video $video
+     * @return File
+     */
+    public function setVideo($video)
+    {
+        $this->video = $video;
         return $this;
     }
 
