@@ -27,7 +27,7 @@
                 <td>{{ video.description }}</td>
                 <td>{{ video.date | date('H:m:s | d/m/Y') }}</td>
                 <td>{{ video.reproductions }}</td>
-                <td>{{ video.miniature }}</td>
+                <td><img src="{{ video.miniature }}" alt="MINIATURA" class="miniatura_lista"></td>
                 <td>{{ video.creator }}</td>
                 <td>{{ video.category }}</td>
             </tr>
