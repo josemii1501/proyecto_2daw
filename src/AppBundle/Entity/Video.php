@@ -78,6 +78,11 @@ class Video
     private $file;
 
     /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
+     * @var User
+     */
+    private $user;
+    /**
      * @return int
      */
     public function getId()
@@ -244,6 +249,24 @@ class Video
     public function setFile($file)
     {
         $this->file = $file;
+        return $this;
+    }
+
+    /**
+     * @return User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param User $user
+     * @return Video
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
         return $this;
     }
 

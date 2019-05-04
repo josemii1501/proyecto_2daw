@@ -48,3 +48,9 @@ AppBundle\Entity\File:
     file: <word()>
     date: <dateTime('now','CET')>
     video: '@video*'
+
+AppBundle\Entity\History:
+  history_{1..20}:
+    user: '@user*'
+    video: '@video*'
+    timestamp: <dateTime('now','CET')>

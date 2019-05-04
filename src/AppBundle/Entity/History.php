@@ -7,7 +7,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\HistoryRepository")
  * @ORM\Table(name="history")
  */
 class History
@@ -19,6 +19,19 @@ class History
      * @var int
      */
     private $id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
+     * @var User
+     */
+    private $user;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Video")
+     * @var Video
+     */
+    private $video;
+
     /**
      * @ORM\Column(type="datetime")
      * @var \DateTime
@@ -31,6 +44,42 @@ class History
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param User $user
+     * @return History
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+        return $this;
+    }
+
+    /**
+     * @return Video
+     */
+    public function getVideo()
+    {
+        return $this->video;
+    }
+
+    /**
+     * @param Video $video
+     * @return History
+     */
+    public function setVideo($video)
+    {
+        $this->video = $video;
+        return $this;
     }
 
     /**
