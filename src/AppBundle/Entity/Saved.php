@@ -21,6 +21,11 @@ class Saved
     private $id;
 
     /**
+     * @ORM\Column(type="datetime")
+     * @var \DateTime
+     */
+    private $timestamp;
+    /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
      * @var User
      */
@@ -37,6 +42,24 @@ class Saved
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getTimestamp()
+    {
+        return $this->timestamp;
+    }
+
+    /**
+     * @param \DateTime $timestamp
+     * @return Saved
+     */
+    public function setTimestamp($timestamp)
+    {
+        $this->timestamp = $timestamp;
+        return $this;
     }
 
     /**

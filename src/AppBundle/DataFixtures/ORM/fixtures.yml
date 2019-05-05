@@ -59,3 +59,4 @@ AppBundle\Entity\Saved:
   history_{1..20}:
     user: '@user*'
     video: '@video*'
+    timestamp: <dateTime('now','CET')>
