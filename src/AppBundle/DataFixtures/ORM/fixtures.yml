@@ -60,3 +60,9 @@ AppBundle\Entity\Saved:
     user: '@user*'
     video: '@video*'
     timestamp: <dateTime('now','CET')>
+
+AppBundle\Entity\Suscription:
+  suscription_{1..20}:
+    suscriptor: '@user*'
+    chanel: '@user*'
+    timestamp: <dateTime('now','CET')>
