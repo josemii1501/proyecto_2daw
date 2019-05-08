@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class SavedController extends Controller
 {
     /**
-     * @Route("/guardados", name="guardados_listar")
+     * @Route("/saved", name="guardados_listar")
      */
     public function SavedListarAction(SavedRepository $savedRepository)
     {

@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class HistoryController extends Controller
 {
     /**
-     * @Route("/history", name="historiales_listar")
+     * @Route("/histories", name="historiales_listar")
      */
     public function HistoryListarAction(HistoryRepository $HistoryRepository)
     {

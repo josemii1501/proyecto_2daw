@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class UsuarioController extends Controller
 {
     /**
-     * @Route("/usuarios", name="usuarios_listar")
+     * @Route("/users", name="usuarios_listar")
      */
     public function usuarioListarAction(UsuarioRepository $usuarioRepository)
     {

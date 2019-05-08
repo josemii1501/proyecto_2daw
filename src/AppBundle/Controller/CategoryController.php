@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class CategoryController extends Controller
 {
     /**
-     * @Route("/categorias", name="categorias_listar")
+     * @Route("/categories", name="categorias_listar")
      */
     public function categoryListarAction(CategoryRepository $categoryRepository)
     {
