@@ -1,0 +1,27 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+
+    <h1>Listar Suscripciones</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>FECHA</th>
+            <th>SUSCRIPTOR</th>
+            <th>CANAL</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in subscriptions %}
+            <tr>
+                <td>{{ item.id }}</td>
+                <td>{{ item.timestamp }}</td>
+                <td>{{ item.suscriptor }}</td>
+                <td>{{ item.chanel }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
