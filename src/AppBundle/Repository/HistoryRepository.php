@@ -14,4 +14,15 @@ class HistoryRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, History::class);
     }
+    public function findAllHistories()
+    {
+        return $this->createQueryBuilder('h')
+            ->addSelect('u')
+            ->addSelect('v')
+            ->join('h.video','v')
+            ->leftJoin('h.user','u')
+            ->orderBy('h.timestamp')
+            ->getQuery()
+            ->getResult();
+    }
 }

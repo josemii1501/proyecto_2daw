@@ -14,4 +14,16 @@ class SavedRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Saved::class);
     }
+
+    public function findAllSaved()
+    {
+        return $this->createQueryBuilder('s')
+            ->addSelect('u')
+            ->addSelect('v')
+            ->join('s.video','v')
+            ->leftJoin('s.user','u')
+            ->orderBy('s.timestamp')
+            ->getQuery()
+            ->getResult();
+    }
 }

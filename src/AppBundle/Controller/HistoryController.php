@@ -13,7 +13,7 @@ class HistoryController extends Controller
      */
     public function HistoryListarAction(HistoryRepository $HistoryRepository)
     {
-        $todosHistorys = $HistoryRepository->findAll();
+        $todosHistorys = $HistoryRepository->findAllHistories();
 
         return $this->render('history/listar.html.twig', [
             'historiales' => $todosHistorys

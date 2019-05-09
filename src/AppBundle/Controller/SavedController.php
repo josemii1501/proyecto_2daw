@@ -13,7 +13,7 @@ class SavedController extends Controller
      */
     public function SavedListarAction(SavedRepository $savedRepository)
     {
-        $todosGuardadoss = $savedRepository->findAll();
+        $todosGuardadoss = $savedRepository->findAllSaved();
 
         return $this->render('saved/listar.html.twig', [
             'guardados' => $todosGuardadoss

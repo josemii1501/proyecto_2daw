@@ -13,7 +13,7 @@ class FileController extends Controller
      */
     public function FileListarAction(FileRepository $FileRepository)
     {
-        $todosFiles = $FileRepository->findAll();
+        $todosFiles = $FileRepository->findAllFiles();
 
         return $this->render('file/listar.html.twig', [
             'archivos' => $todosFiles

@@ -13,7 +13,7 @@ class VideoController extends Controller
      */
     public function videoListarAction(VideoRepository $videoRepository)
     {
-        $todosvideos = $videoRepository->findAll();
+        $todosvideos = $videoRepository->findAllVideos();
 
         return $this->render('video/listar.html.twig', [
             'videos' => $todosvideos

@@ -13,7 +13,7 @@ class SubscriptionController extends Controller
      */
     public function subscriptionsListAction(SubscriptionRepository $subscriptionRepository)
     {
-        $allSubscriptions = $subscriptionRepository->findAll();
+        $allSubscriptions = $subscriptionRepository->findAllSubscriptions();
 
         return $this->render('subscription/listar.html.twig', [
             'subscriptions' => $allSubscriptions

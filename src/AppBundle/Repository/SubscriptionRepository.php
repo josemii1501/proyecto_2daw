@@ -13,4 +13,15 @@ class SubscriptionRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Suscription::class);
     }
+    public function findAllSubscriptions()
+    {
+        return $this->createQueryBuilder('s')
+            ->addSelect('u1')
+            ->addSelect('u2')
+            ->join('s.suscriptor','u1')
+            ->leftJoin('s.chanel','u2')
+            ->orderBy('s.timestamp')
+            ->getQuery()
+            ->getResult();
+    }
 }
