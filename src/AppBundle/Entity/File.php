@@ -33,7 +33,7 @@ class File
     private $date;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Video", inversedBy="videos")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Video", inversedBy="file")
      * @ORM\JoinColumn(nullable=true)
      * @var video
      */
