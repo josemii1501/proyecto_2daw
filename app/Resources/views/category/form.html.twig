@@ -1,0 +1,13 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Modificar Categoria{% endblock %}
+
+{% block content %}
+    <h1>Modificar Categoria</h1>
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button type="submit" class="btn btn-primary"><i class="fas fa-check"></i> Guardar cambios</button>
+    {{ form_end(form) }}
+
+{% endblock %}
