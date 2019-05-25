@@ -2,7 +2,7 @@
 
 {% block content %}
 
-    <h1>Listar Categorias</h1>
+    <h1>Listar Categorias<a href="{{ path('categoria_nueva') }}" class="btn btn-success"><i class="fas fa-plus"></i> Añadir</a></h1>
 
     <table class="table">
         <thead>
@@ -15,7 +15,7 @@
         <tbody>
         {% for categoria in categorias %}
             <tr>
-                <td>{{ categoria.id }}</td>
+                <td><a href="{{ path('categoria_editar', {'id': categoria.id}) }}">{{ categoria.id }}</a></td>
                 <td>{{ categoria.name }}</td>
                 <td>{{ categoria.photo }}</td>
             </tr>

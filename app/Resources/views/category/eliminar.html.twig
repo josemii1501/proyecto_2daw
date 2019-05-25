@@ -1,0 +1,17 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Eliminar Categoría{% endblock %}
+
+{% block content %}
+    <h1>Eliminar Categoría</h1>
+
+    <div class="alert alert-danger">
+        ¡Atención! Esta operación no se puede deshacer.
+        ¿Desea realmente eliminar la categoría {{ categoria.id }}?
+    </div>
+
+    <form method="post">
+        <a href="{{ path('categoria_editar', {'id': categoria.id}) }}" class="btn btn-info"><i class="fas fa-arrow-left"></i> Volver</a>
+        <button type="submit" class="btn btn-danger" name="borrar"><i class="fas fa-trash"></i> Confirmar</button>
+    </form>
+{% endblock %}
