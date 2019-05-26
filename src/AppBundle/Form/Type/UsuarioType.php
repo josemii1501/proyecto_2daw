@@ -17,7 +17,7 @@ class UsuarioType extends AbstractType
             ->add('lastname',null,['label'=>'Apellidos: '])
             ->add('email',null,['label'=>'Email: '])
             ->add('phone',null,['label'=>'Teléfono: '])
-            ->add('birthday',null,['label'=>'Fecha Nacimiento: ', 'widget' => 'single_text'])
+            ->add('birthday',null,['label'=>'Fecha Nacimiento: '])
             ->add('login',null,['label'=>'Usuario: '])
             ->add('password',null,['label'=>'Contraseña: '])
             ->add('avatar',FileType::class,['label'=>'Avatar: '])
