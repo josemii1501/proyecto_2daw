@@ -7,6 +7,7 @@ use AppBundle\Form\Type\UsuarioType;
 use AppBundle\Repository\UsuarioRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -42,40 +43,53 @@ class UsuarioController extends Controller
      */
     public function formCategoriaAction(Request $request, User $user)
     {
-        $form = $this->createForm(UsuarioType::class, $user);
+        if(null === $user) {
+            $user = new $user();
+            $new = true;
+        } else {
+            $new = false;
+        }
+        $form = $this->createForm(UsuarioType::class, $user, [
+            'new' => $new
+        ]);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             // $file stores the uploaded PDF file
 
             try {
-                /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
-                $file = $user->getAvatar();
+                /** @var File $filename */
+                $file = $form->get('avatar')->getData();
 
-                $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
+                if ($file) {
+                    $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
 
-                // Move the file to the directory where brochures are stored
-                try {
-                    $file->move(
-                        "uploads/avatar_photo",
-                        $fileName
-                    );
-                } catch (FileException $e) {
+                    // Move the file to the directory where brochures are stored
+                    try {
+                        $file->move(
+                            "uploads/avatar_photo",
+                            $fileName
+                        );
+                    } catch (FileException $e) {
 
+                    }
+
+                    // updates the 'brochure' property to store the PDF file name
+                    // instead of its contents
+                    $user->setAvatar("uploads/avatar_photo/" . $fileName);
                 }
 
-                // updates the 'brochure' property to store the PDF file name
-                // instead of its contents
-                $user->setAvatar($fileName);
 
-                // ... persist the $product variable or any other work
                 $this->getDoctrine()->getManager()->flush();
                 $this->addFlash('exito', 'Cambios guardados correctamente.');
                 return $this->redirectToRoute('usuarios_listar');
             } catch (\Exception $e) {
                 $this->addFlash('error', 'Ha ocurrido un error al guardar los cambios');
             }
-
-            return $this->redirect($this->generateUrl('usuarios_listar'));
+            return $this->render('user/form.html.twig', [
+                'form' => $form->createView(),
+                'usuario' => $user,
+                'es_nueva' => $user->getId() === null
+            ]);
         }
 
 
@@ -87,7 +101,7 @@ class UsuarioController extends Controller
     }
 
     /**
-     * @Route("/category/eliminar/{id}", name="category_eliminar")
+     * @Route("/user/eliminar/{id}", name="usuario_eliminar")
      */
     public function eliminarAction(Request $request, User $user)
     {
@@ -99,6 +113,8 @@ class UsuarioController extends Controller
                 return $this->redirectToRoute('usuarios_listar');
             } catch (\Exception $e) {
                 $this->addFlash('error', 'Ha ocurrido un error al guardar los cambios');
+                $this->addFlash('error', $e->getMessage());
+
             }
         }
         return $this->render('user/eliminar.html.twig', [
@@ -112,4 +128,6 @@ class UsuarioController extends Controller
         // uniqid(), which is based on timestamps
         return md5(uniqid());
     }
+
+
 }
