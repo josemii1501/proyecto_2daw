@@ -7,6 +7,7 @@ use AppBundle\Form\Type\CategoryType;
 use AppBundle\Repository\CategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -41,40 +42,53 @@ class CategoryController extends Controller
      */
     public function formCategoriaAction(Request $request, Category $category)
     {
-        $form = $this->createForm(CategoryType::class, $category);
+        if(null === $category) {
+            $category = new $category();
+            $new = true;
+        } else {
+            $new = false;
+        }
+        $form = $this->createForm(CategoryType::class, $category, [
+            'new' => $new
+        ]);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             // $file stores the uploaded PDF file
 
             try {
-                /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
-                $file = $category->getPhoto();
+                /** @var File $filename */
+                $file = $form->get('photo')->getData();
 
-                $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
+                if ($file) {
+                    $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
 
-                // Move the file to the directory where brochures are stored
-                try {
-                    $file->move(
-                        "uploads/categories_photo",
-                        $fileName
-                    );
-                } catch (FileException $e) {
+                    // Move the file to the directory where brochures are stored
+                    try {
+                        $file->move(
+                            "uploads/categories_photo",
+                            $fileName
+                        );
+                    } catch (FileException $e) {
 
+                    }
+
+                    // updates the 'brochure' property to store the PDF file name
+                    // instead of its contents
+                    $category->setPhoto("uploads/categories_photo/" . $fileName);
                 }
 
-                // updates the 'brochure' property to store the PDF file name
-                // instead of its contents
-                $category->setPhoto($fileName);
 
-                // ... persist the $product variable or any other work
                 $this->getDoctrine()->getManager()->flush();
                 $this->addFlash('exito', 'Cambios guardados correctamente.');
                 return $this->redirectToRoute('categorias_listar');
             } catch (\Exception $e) {
                 $this->addFlash('error', 'Ha ocurrido un error al guardar los cambios');
             }
-
-            return $this->redirect($this->generateUrl('categorias_listar'));
+            return $this->render('category/form.html.twig', [
+                'form' => $form->createView(),
+                'categoria' => $category,
+                'es_nueva' => $category->getId() === null
+            ]);
         }
 
 
@@ -84,7 +98,6 @@ class CategoryController extends Controller
             'es_nueva' => $category->getId() === null
         ]);
     }
-
     /**
      * @Route("/category/eliminar/{id}", name="category_eliminar")
      */

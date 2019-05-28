@@ -113,7 +113,6 @@ class UsuarioController extends Controller
                 return $this->redirectToRoute('usuarios_listar');
             } catch (\Exception $e) {
                 $this->addFlash('error', 'Ha ocurrido un error al guardar los cambios');
-                $this->addFlash('error', $e->getMessage());
 
             }
         }
