@@ -6,7 +6,6 @@ use AppBundle\Entity\Category;
 use AppBundle\Entity\User;
 use AppBundle\Entity\Video;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -19,14 +18,14 @@ class VideoType extends AbstractType
             ->add('title',null,[
                 'label'=>'Titulo: '
             ])
-            ->add('creator',ChoiceType::class,[
+            ->add('creator',null,[
                 'label'=>'Creador: ',
                 'choice_label'=> function(User $user) {
                     return $user->getName() . " " . $user->getLastname();
                 },
                 'mapped'=> true
             ])
-            ->add('category',ChoiceType::class,[
+            ->add('category',null,[
                 'label'=>'Categoria: ',
                 'choice_label'=> function(Category $category) {
                     return $category->getName();
