@@ -1,0 +1,19 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Modificar Categoria{% endblock %}
+
+{% block content %}
+    {% if not es_nueva %}
+        <h1>Modificar Archivo</h1>
+    {% else %}
+        <h1>Nuevo Archivo</h1>
+    {% endif %}
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <a href="{{ path('archivos_listar') }}" class="btn btn-info"><i class="fas fa-arrow-left"></i> Volver</a>
+    <button type="submit" class="btn btn-primary"><i class="fas fa-check"></i> Guardar Cambios</button>
+    {% if not es_nueva %}<a href="{{ path('archivo_eliminar', {'id': archivo.id}) }}" class="btn btn-danger"><i class="fas fa-trash"></i> Eliminar Archivo</a>{% endif %}
+    {{ form_end(form) }}
+
+{% endblock %}

@@ -52,9 +52,12 @@ class VideoController extends Controller
         ]);
 
         $form->handleRequest($request);
-        if($new == false){
+        if($new == true){
             $video->setDate(new \DateTime());
             $video->setReproductions(0);
+        } else {
+            $video->setDate($video->getDate());
+            $video->setReproductions($video->getReproductions());
         }
         if ($form->isSubmitted() && $form->isValid()) {
             // $file stores the uploaded PDF file
