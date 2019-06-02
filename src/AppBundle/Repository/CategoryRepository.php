@@ -13,4 +13,13 @@ class CategoryRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Category::class);
     }
+    public function findCategoryRand()
+    {
+        return $this->createQueryBuilder('f')
+            ->addSelect('v')
+            ->join('f.video','v')
+            ->orderBy('f.date')
+            ->getQuery()
+            ->getResult();
+    }
 }

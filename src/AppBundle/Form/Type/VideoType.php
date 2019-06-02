@@ -5,8 +5,8 @@ namespace AppBundle\Form\Type;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\User;
 use AppBundle\Entity\Video;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -19,23 +19,19 @@ class VideoType extends AbstractType
             ->add('title',null,[
                 'label'=>'Titulo: '
             ])
-            ->add('creator_id',EntityType::class,[
+            ->add('creator',ChoiceType::class,[
                 'label'=>'Creador: ',
-                'class'=>User::class,
                 'choice_label'=> function(User $user) {
                     return $user->getName() . " " . $user->getLastname();
                 },
-                'data'=> [$options['user']],
-                'mapped'=> false
+                'mapped'=> true
             ])
-            ->add('category_id',EntityType::class,[
+            ->add('category',ChoiceType::class,[
                 'label'=>'Categoria: ',
-                'class'=>Category::class,
                 'choice_label'=> function(Category $category) {
                     return $category->getName();
                 },
-                'data'=> [$options['category']],
-                'mapped'=> false
+                'mapped'=> true
             ])
             ->add('route',null,[
                 'label'=>'Ruta: '
@@ -57,8 +53,6 @@ class VideoType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Video::class,
             'new' => false,
-            'user' => null,
-            'category' => []
         ]);
     }
 
