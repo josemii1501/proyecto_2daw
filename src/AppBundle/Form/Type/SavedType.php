@@ -23,7 +23,8 @@ class SavedType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Saved::class
+            'data_class' => Saved::class,
+            'new' => false
         ]);
     }
 
