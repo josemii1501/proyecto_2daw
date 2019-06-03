@@ -1,17 +1,17 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}Eliminar Suscripcion{% endblock %}
+{% block title %}Eliminar Historial{% endblock %}
 
 {% block content %}
-    <h1>Eliminar Suscripcion</h1>
+    <h1>Eliminar Historial</h1>
 
     <div class="alert alert-danger">
         ¡Atención! Esta operación no se puede deshacer.
-        ¿Desea realmente eliminar la suscripcion {{ subscriptions.id }}?
+        ¿Desea realmente eliminar el Historial {{ historial.id }}?
     </div>
 
     <form method="post">
-        <a href="{{ path('subscriptions_editar', {'id': subscriptions.id}) }}" class="btn btn-info"><i class="fas fa-arrow-left"></i> Volver</a>
+        <a href="{{ path('historiales_editar', {'id': historial.id}) }}" class="btn btn-info"><i class="fas fa-arrow-left"></i> Volver</a>
         <button type="submit" class="btn btn-danger" name="borrar"><i class="fas fa-trash"></i> Confirmar</button>
     </form>
 {% endblock %}

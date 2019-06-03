@@ -1,19 +1,19 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}Modificar Suscripcion{% endblock %}
+{% block title %}Modificar Historial{% endblock %}
 
 {% block content %}
     {% if not es_nueva %}
-        <h1>Modificar Suscripcion</h1>
+        <h1>Modificar Historial</h1>
     {% else %}
-        <h1>Nueva Suscripcion</h1>
+        <h1>Nueva Historial</h1>
     {% endif %}
 
     {{ form_start(form) }}
     {{ form_widget(form) }}
-    <a href="{{ path('subscription_listar') }}" class="btn btn-info"><i class="fas fa-arrow-left"></i> Volver</a>
+    <a href="{{ path('historiales_listar') }}" class="btn btn-info"><i class="fas fa-arrow-left"></i> Volver</a>
     <button type="submit" class="btn btn-primary"><i class="fas fa-check"></i> Guardar Cambios</button>
-    {% if not es_nueva %}<a href="{{ path('subscriptions_eliminar', {'id': subscriptions.id}) }}" class="btn btn-danger"><i class="fas fa-trash"></i> Eliminar Suscripcion</a>{% endif %}
+    {% if not es_nueva %}<a href="{{ path('historiales_eliminar', {'id': historial.id}) }}" class="btn btn-danger"><i class="fas fa-trash"></i> Eliminar Historial</a>{% endif %}
     {{ form_end(form) }}
 
 {% endblock %}

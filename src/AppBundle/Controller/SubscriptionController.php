@@ -25,20 +25,20 @@ class SubscriptionController extends Controller
     /**
      * @Route("/subscriptions/nueva", name="subscriptions_nueva")
      */
-    public function formNuevaCategoria(Request $request)
+    public function formNuevaSuscripcion(Request $request)
     {
         $suscription = New Suscription();
 
         $this->getDoctrine()->getManager()->persist($suscription);
 
-        return $this->formCategoriaAction($request, $suscription);
+        return $this->formSuscripcionAction($request, $suscription);
     }
 
     /**
      * @Route("/subscriptions/{id}", name="subscriptions_editar",
      *     requirements={"id":"\d+"})
      */
-    public function formCategoriaAction(Request $request, Suscription $suscription)
+    public function formSuscripcionAction(Request $request, Suscription $suscription)
     {
         if(null === $suscription) {
             $suscription = new $suscription();

@@ -26,20 +26,20 @@ class FileController extends Controller
     /**
      * @Route("/files/nuevo", name="archivo_nuevo")
      */
-    public function formNuevaCategoria(Request $request)
+    public function formNuevoFile(Request $request)
     {
         $archivo = New File();
 
         $this->getDoctrine()->getManager()->persist($archivo);
 
-        return $this->formCategoriaAction($request, $archivo);
+        return $this->formFileAction($request, $archivo);
     }
 
     /**
      * @Route("/files/{id}", name="archivo_editar",
      *     requirements={"id":"\d+"})
      */
-    public function formCategoriaAction(Request $request, File $archivo)
+    public function formFileAction(Request $request, File $archivo)
     {
         if(null === $archivo) {
             $archivo = new $archivo();

@@ -28,20 +28,20 @@ class UsuarioController extends Controller
     /**
      * @Route("/users/nuevo", name="usuario_nuevo")
      */
-    public function formNuevaCategoria(Request $request)
+    public function formNuevoUsuario(Request $request)
     {
         $usuario = New User();
 
         $this->getDoctrine()->getManager()->persist($usuario);
 
-        return $this->formCategoriaAction($request, $usuario);
+        return $this->formUsuarioAction($request, $usuario);
     }
 
     /**
      * @Route("/users/{id}", name="usuario_modificar",
      *     requirements={"id":"\d+"})
      */
-    public function formCategoriaAction(Request $request, User $user)
+    public function formUsuarioAction(Request $request, User $user)
     {
         if(null === $user) {
             $user = new $user();

@@ -99,7 +99,7 @@ class CategoryController extends Controller
         ]);
     }
     /**
-     * @Route("/category/eliminar/{id}", name="category_eliminar")
+     * @Route("/categories/eliminar/{id}", name="category_eliminar")
      */
     public function eliminarAction(Request $request, Category $category)
     {
