@@ -52,12 +52,9 @@ class VideoController extends Controller
         ]);
 
         $form->handleRequest($request);
-        if($new == true){
+        if($new == false){
             $video->setDate(new \DateTime());
             $video->setReproductions(0);
-        } else {
-            $video->setDate($video->getDate());
-            $video->setReproductions($video->getReproductions());
         }
         if ($form->isSubmitted() && $form->isValid()) {
             // $file stores the uploaded PDF file
@@ -108,7 +105,7 @@ class VideoController extends Controller
         ]);
     }
     /**
-     * @Route("/category/eliminar/{id}", name="category_eliminar")
+     * @Route("/videos/eliminar/{id}", name="video_eliminar")
      */
     public function eliminarAction(Request $request, Video $video)
     {

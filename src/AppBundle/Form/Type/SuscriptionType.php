@@ -23,7 +23,8 @@ class SuscriptionType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Suscription::class
+            'data_class' => Suscription::class,
+            'new' => false
         ]);
     }
 }

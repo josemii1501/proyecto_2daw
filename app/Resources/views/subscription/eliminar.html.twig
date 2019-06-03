@@ -1,17 +1,17 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}Eliminar Usuario{% endblock %}
+{% block title %}Eliminar Suscripcion{% endblock %}
 
 {% block content %}
-    <h1>Eliminar Video</h1>
+    <h1>Eliminar Suscripcion</h1>
 
     <div class="alert alert-danger">
         ¡Atención! Esta operación no se puede deshacer.
-        ¿Desea realmente eliminar el Video {{ video.id }}?
+        ¿Desea realmente eliminar la suscripcion {{ subscriptions.id }}?
     </div>
 
     <form method="post">
-        <a href="{{ path('video_editar', {'id': video.id}) }}" class="btn btn-info"><i class="fas fa-arrow-left"></i> Volver</a>
+        <a href="{{ path('subscriptions_editar', {'id': subscriptions.id}) }}" class="btn btn-info"><i class="fas fa-arrow-left"></i> Volver</a>
         <button type="submit" class="btn btn-danger" name="borrar"><i class="fas fa-trash"></i> Confirmar</button>
     </form>
 {% endblock %}

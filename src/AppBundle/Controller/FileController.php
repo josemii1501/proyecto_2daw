@@ -47,10 +47,8 @@ class FileController extends Controller
         } else {
             $new = false;
         }
-        if($new == true){
+        if($new == false){
             $archivo->setDate(new \DateTime());
-        } else {
-            $archivo->setDate($archivo->getDate());
         }
         $form = $this->createForm(ArchivoType::class, $archivo, [
             'new' => $new
@@ -87,6 +85,7 @@ class FileController extends Controller
                 return $this->redirectToRoute('archivos_listar');
             } catch (\Exception $e) {
                 $this->addFlash('error', 'Ha ocurrido un error al guardar los cambios');
+                $this->addFlash('error', $e->getMessage());
             }
             return $this->render('file/form.html.twig', [
                 'form' => $form->createView(),
