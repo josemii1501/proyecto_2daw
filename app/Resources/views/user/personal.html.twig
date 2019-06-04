@@ -6,6 +6,7 @@
     {{ form_start(form) }}
     {{ form_widget(form) }}
     <button type="submit" class="btn btn-primary"><i class="fas fa-check"></i> Guardar cambios</button>
+    <a href="{{ path('cambio_clave') }}" class="btn btn-info"><i class="fas fa-lock"></i> Cambiar contraseña</a>
     {{ form_end(form) }}
 {% endblock %}
 

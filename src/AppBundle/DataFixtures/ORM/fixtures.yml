@@ -6,7 +6,7 @@ AppBundle\Entity\User:
     phone: 617928993
     birthday: <dateTime('now','CET')>
     login: admin
-    password: <codificaClave('admin')>
+    clave: <codificaClave('admin')>
     avatar: uploads/prueba.jpg
     urlWebSite: www.devvideos.com
     description: Este es el administrador del sitio web devvideos
@@ -20,7 +20,7 @@ AppBundle\Entity\User:
     phone: <es_ES:phoneNumber()>
     birthday: <dateTime('now','CET')>
     login: <es_ES:word()>
-    password: <codificaClave('usuario')>
+    clave: <codificaClave('usuario')>
     avatar: uploads/prueba.jpg
     urlWebSite: <url()>
     description: <es_ES:text(100)>

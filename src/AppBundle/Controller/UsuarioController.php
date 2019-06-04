@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\User;
+use AppBundle\Form\Type\CambioClaveType;
 use AppBundle\Form\Type\UsuarioType;
 use AppBundle\Repository\UsuarioRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -10,6 +11,7 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UsuarioController extends Controller
 {
@@ -25,6 +27,36 @@ class UsuarioController extends Controller
         ]);
     }
 
+    /**
+     * @Route("/clave", name="cambio_clave")
+     */
+    public function cambioClaveAction(Request $request, UserPasswordEncoderInterface $passwordEncoder)
+    {
+        $usuario = $this->getUser();
+        $form = $this->createForm(CambioClaveType::class, $usuario, [
+            'es_admin' => false
+        ]);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            try {
+                $usuario->setClave(
+                    $passwordEncoder->encodePassword(
+                        $usuario,
+                        $form->get('nuevaClave')->getData()
+                    )
+                );
+                $this->getDoctrine()->getManager()->flush();
+                $this->addFlash('exito', 'Nueva contraseña guardada con éxito');
+                return $this->redirectToRoute('portada');
+            } catch (\Exception $e) {
+                $this->addFlash('error', 'Ha ocurrido un error al guardar la contraseña');
+            }
+        }
+        return $this->render('user/cambio_clave.html.twig', [
+            'form' => $form->createView(),
+            'usuario' => $usuario
+        ]);
+    }
     /**
      * @Route("/user/datos_personales", name="datos_personales")
      */

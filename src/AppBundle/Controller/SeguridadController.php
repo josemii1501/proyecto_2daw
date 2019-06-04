@@ -27,5 +27,6 @@ class SeguridadController extends Controller
      */
     public function salirAction()
     {
+
     }
 }

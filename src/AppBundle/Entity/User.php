@@ -62,7 +62,7 @@ class User implements AdvancedUserInterface
      * @ORM\Column(type="string")
      * @var string
      */
-    private $password;
+    private $clave;
 
     /**
      * @ORM\Column(type="string")
@@ -218,20 +218,21 @@ class User implements AdvancedUserInterface
     /**
      * @return string
      */
-    public function getPassword()
+    public function getClave()
     {
-        return $this->password;
+        return $this->clave;
     }
 
     /**
-     * @param string $password
+     * @param string $clave
      * @return User
      */
-    public function setPassword($password)
+    public function setClave($clave)
     {
-        $this->password = $password;
+        $this->clave = $clave;
         return $this;
     }
+
 
     /**
      * @return string
@@ -470,5 +471,18 @@ class User implements AdvancedUserInterface
     public function isEnabled()
     {
         return true;
+    }
+
+    /**
+     * Returns the password used to authenticate the user.
+     *
+     * This should be the encoded password. On authentication, a plain-text
+     * password will be salted, encoded, and then compared to this value.
+     *
+     * @return string The password
+     */
+    public function getPassword()
+    {
+        return $this->getClave();
     }
 }
