@@ -29,6 +29,14 @@ services:
         public: true
         tags: ['controller.service_arguments']
 
+    AppBundle\DataFixtures\ORM\ClaveProvider:
+        tags: [ { name: nelmio_alice.faker.provider } ]
+
+    Nelmio\Alice\Loader\SimpleFileLoader:
+        alias: nelmio_alice.file_loader.simple
+
+    Faker\Generator:
+        alias: nelmio_alice.faker.generator
     # add more services, or override services that need manual wiring
     # AppBundle\Service\ExampleService:
     #     arguments:

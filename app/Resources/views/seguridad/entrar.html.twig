@@ -1,0 +1,11 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <h1>Entrar en la aplicación</h1>
+
+    <form action="{{ path('usuario_entrar') }}" method="post">
+        <input type="text" name="_username" placeholder="Nombre de usuario">
+        <input type="password" name="_password" placeholder="Contraseña">
+        <button type="submit">Entrar</button>
+    </form>
+{% endblock %}
