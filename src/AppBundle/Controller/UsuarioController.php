@@ -26,6 +26,30 @@ class UsuarioController extends Controller
     }
 
     /**
+     * @Route("/user/datos_personales", name="datos_personales")
+     */
+    public function datosPersonales(Request $request)
+    {
+        $usuario = $this->getUser();
+        $form = $this->createForm(UsuarioType::class, $usuario, [
+            'es_admin' => $this->isGranted('ROLE_SECRETARIO')
+        ]);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            try {
+                $this->getDoctrine()->getManager()->flush();
+                $this->addFlash('exito', 'Datos personales guardados con éxito');
+                return $this->redirectToRoute('portada');
+            } catch (\Exception $e) {
+                $this->addFlash('error', 'Ha ocurrido un error al guardar los datos personales');
+            }
+        }
+        return $this->render('user/personal.html.twig', [
+            'form' => $form->createView(),
+            'usuario' => $usuario
+        ]);
+    }
+    /**
      * @Route("/users/nuevo", name="usuario_nuevo")
      */
     public function formNuevoUsuario(Request $request)
