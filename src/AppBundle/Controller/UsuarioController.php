@@ -64,7 +64,7 @@ class UsuarioController extends Controller
     {
         $usuario = $this->getUser();
         $form = $this->createForm(UsuarioType::class, $usuario, [
-            'es_admin' => $this->isGranted('ROLE_SECRETARIO')
+            'es_admin' => $this->isGranted('ROLE_USER')
         ]);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {

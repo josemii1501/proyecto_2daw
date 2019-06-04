@@ -12,10 +12,8 @@ security:
         AppBundle\Entity\User: bcrypt
 
     role_hierarchy:
-        ROLE_SECRETARIO: ['ROLE_DOCENTE', 'ROLE_GESTOR_PRESTAMOS']
-        ROLE_DOCENTE: 'ROLE_USER'
-        ROLE_GESTOR_PRESTAMOS: 'ROLE_USER'
-        ROLE_ORDENANZA: ['ROLE_USER', 'ROLE_GESTOR_PRESTAMOS']
+        ROLE_ADMIN: ['ROLE_USER', 'ROLE_PUBLISHER']
+        ROLE_PUBLISHER: 'ROLE_USER'
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
