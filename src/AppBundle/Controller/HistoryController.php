@@ -28,6 +28,7 @@ class HistoryController extends Controller
     public function formNuevoHistorial(Request $request)
     {
         $history = New History();
+        $history->setTimestamp(new \DateTime());
 
         $this->getDoctrine()->getManager()->persist($history);
 
@@ -50,9 +51,6 @@ class HistoryController extends Controller
             'new' => $new
         ]);
         $form->handleRequest($request);
-        if($new == false){
-            $history->setTimestamp(new \DateTime());
-        }
         if ($form->isSubmitted() && $form->isValid()) {
 
             try {

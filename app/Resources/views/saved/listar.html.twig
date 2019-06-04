@@ -17,6 +17,7 @@
             <tr>
                 <td>{{ item.id }}</td>
                 <td>{{ item.user }}</td>
+                <td>{{ item.timestamp | date('H:m:s | d/m/Y')}}</td>
                 <td>{{ item.video }}</td>
             </tr>
         {% endfor %}

@@ -29,6 +29,7 @@ class FileController extends Controller
     public function formNuevoFile(Request $request)
     {
         $archivo = New File();
+        $archivo->setDate(new \DateTime());
 
         $this->getDoctrine()->getManager()->persist($archivo);
 
@@ -46,9 +47,6 @@ class FileController extends Controller
             $new = true;
         } else {
             $new = false;
-        }
-        if($new == false){
-            $archivo->setDate(new \DateTime());
         }
         $form = $this->createForm(ArchivoType::class, $archivo, [
             'new' => $new

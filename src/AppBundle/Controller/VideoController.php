@@ -30,7 +30,9 @@ class VideoController extends Controller
     public function formNuevoVideo(Request $request)
     {
         $video = New Video();
-
+        $video
+            ->setDate(new \DateTime())
+            ->setReproductions(0);
         $this->getDoctrine()->getManager()->persist($video);
 
         return $this->formVideoAction($request, $video);
@@ -52,10 +54,7 @@ class VideoController extends Controller
         ]);
 
         $form->handleRequest($request);
-        if($new == false){
-            $video->setDate(new \DateTime());
-            $video->setReproductions(0);
-        }
+
         if ($form->isSubmitted() && $form->isValid()) {
             // $file stores the uploaded PDF file
 

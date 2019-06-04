@@ -29,6 +29,7 @@ class SavedController extends Controller
     public function formNuevoSaved(Request $request)
     {
         $saved = New Saved();
+        $saved->setTimestamp(new \DateTime());
 
         $this->getDoctrine()->getManager()->persist($saved);
 
@@ -51,9 +52,6 @@ class SavedController extends Controller
             'new' => $new
         ]);
         $form->handleRequest($request);
-        if($new == false){
-            $saved->setTimestamp(new \DateTime());
-        }
         if ($form->isSubmitted() && $form->isValid()) {
 
             try {

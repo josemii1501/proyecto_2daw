@@ -28,6 +28,7 @@ class SubscriptionController extends Controller
     public function formNuevaSuscripcion(Request $request)
     {
         $suscription = New Suscription();
+        $suscription->setTimestamp(new \DateTime());
 
         $this->getDoctrine()->getManager()->persist($suscription);
 
@@ -50,9 +51,6 @@ class SubscriptionController extends Controller
             'new' => $new
         ]);
         $form->handleRequest($request);
-        if($new == false){
-            $suscription->setTimestamp(new \DateTime());
-        }
         if ($form->isSubmitted() && $form->isValid()) {
 
             try {
