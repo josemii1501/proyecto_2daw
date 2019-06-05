@@ -7,11 +7,11 @@
 
     <div class="alert alert-danger">
         ¡Atención! Esta operación no se puede deshacer.
-        ¿Desea realmente eliminar la categoría {{ categoria.id }}?
+        ¿Desea realmente eliminar la categoría {{ categoria.name }}?
     </div>
 
     <form method="post">
-        <a href="{{ path('categoria_editar', {'id': categoria.id}) }}" class="btn btn-info"><i class="fas fa-arrow-left"></i> Volver</a>
+        <a href="{{ path('categoria_modificar', {'id': categoria.id}) }}" class="btn btn-info"><i class="fas fa-arrow-left"></i> Volver</a>
         <button type="submit" class="btn btn-danger" name="borrar"><i class="fas fa-trash"></i> Confirmar</button>
     </form>
 {% endblock %}

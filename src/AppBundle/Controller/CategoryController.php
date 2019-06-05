@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Category;
 use AppBundle\Form\Type\CategoryType;
 use AppBundle\Repository\CategoryRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\File;
@@ -14,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class CategoryController extends Controller
 {
     /**
-     * @Route("/categories", name="categorias_listar")
+     * @Route("/categorias", name="categorias_listar")
      */
     public function categoryListarAction(CategoryRepository $categoryRepository)
     {
@@ -25,7 +26,8 @@ class CategoryController extends Controller
         ]);
     }
     /**
-     * @Route("/categories/nueva", name="categoria_nueva")
+     * @Route("/categorias/nueva", name="categoria_nueva")
+     * @Security("is_granted('ROLE_ADMIN')")
      */
     public function formNuevaCategoria(Request $request)
     {
@@ -37,8 +39,9 @@ class CategoryController extends Controller
     }
 
     /**
-     * @Route("/categories/{id}", name="categoria_editar",
+     * @Route("/categorias/modificar/{id}", name="categoria_modificar",
      *     requirements={"id":"\d+"})
+     * @Security("is_granted('ROLE_ADMIN')")
      */
     public function formCategoriaAction(Request $request, Category $category)
     {
@@ -65,7 +68,7 @@ class CategoryController extends Controller
                     // Move the file to the directory where brochures are stored
                     try {
                         $file->move(
-                            "uploads/categories_photo",
+                            "uploads/fotos_categoria",
                             $fileName
                         );
                     } catch (FileException $e) {
@@ -74,7 +77,7 @@ class CategoryController extends Controller
 
                     // updates the 'brochure' property to store the PDF file name
                     // instead of its contents
-                    $category->setPhoto("uploads/categories_photo/" . $fileName);
+                    $category->setPhoto("uploads/fotos_categoria/" . $fileName);
                 }
 
 
@@ -99,7 +102,8 @@ class CategoryController extends Controller
         ]);
     }
     /**
-     * @Route("/categories/eliminar/{id}", name="category_eliminar")
+     * @Route("/categorias/eliminar/{id}", name="categoria_eliminar")
+     * @Security("is_granted('ROLE_ADMIN')")
      */
     public function eliminarAction(Request $request, Category $category)
     {
