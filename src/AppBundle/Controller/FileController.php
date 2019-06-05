@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\File;
 use AppBundle\Form\Type\ArchivoType;
 use AppBundle\Repository\FileRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class FileController extends Controller
 {
     /**
-     * @Route("/files", name="archivos_listar")
+     * @Route("/archivos", name="archivos_listar")
      */
     public function FileListarAction(FileRepository $FileRepository)
     {
@@ -24,7 +25,8 @@ class FileController extends Controller
         ]);
     }
     /**
-     * @Route("/files/nuevo", name="archivo_nuevo")
+     * @Route("/archivos/nuevo", name="archivo_nuevo")
+     * @Security("is_granted('ROLE_PUBLISHER')")
      */
     public function formNuevoFile(Request $request)
     {
@@ -37,8 +39,9 @@ class FileController extends Controller
     }
 
     /**
-     * @Route("/files/{id}", name="archivo_editar",
+     * @Route("/archivos/modificar/{id}", name="archivo_modificar",
      *     requirements={"id":"\d+"})
+     * @Security("is_granted('ROLE_PUBLISHER')")
      */
     public function formFileAction(Request $request, File $archivo)
     {
@@ -65,7 +68,7 @@ class FileController extends Controller
                     // Move the file to the directory where brochures are stored
                     try {
                         $file->move(
-                            "uploads/file_files",
+                            "uploads/archivos_videos",
                             $fileName
                         );
                     } catch (FileException $e) {
@@ -74,7 +77,7 @@ class FileController extends Controller
 
                     // updates the 'brochure' property to store the PDF file name
                     // instead of its contents
-                    $archivo->setFile("uploads/file_files/" . $fileName);
+                    $archivo->setFile("uploads/archivos_videos/" . $fileName);
                 }
 
 
@@ -100,7 +103,8 @@ class FileController extends Controller
         ]);
     }
     /**
-     * @Route("/file/eliminar/{id}", name="archivo_eliminar")
+     * @Route("/archivos/eliminar/{id}", name="archivo_eliminar")
+     * @Security("is_granted('ROLE_PUBLISHER')")
      */
     public function eliminarAction(Request $request, File $archivo)
     {
