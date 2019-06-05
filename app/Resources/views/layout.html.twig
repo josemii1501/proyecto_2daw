@@ -15,6 +15,9 @@
                 <li class="nav-item">
                     <a class="nav-link{% if ruta starts with "archivo" %} active{% endif %}" href="{{ path('archivos_listar') }}">Archivos</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link{% if ruta starts with "historial" %} active{% endif %}" href="{{ path('historiales_listar') }}">Historiales</a>
+                </li>
             </ul>
             {% if app.user %}
                 <span class="navbar-text">¡Hola <a href="{{ path('datos_personales') }}">{{ app.user.name }}</a>!</span>
