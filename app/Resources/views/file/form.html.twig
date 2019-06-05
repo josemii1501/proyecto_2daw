@@ -1,6 +1,12 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}Modificar Categoria{% endblock %}
+{% block title %}
+    {% if not es_nueva %}
+        Modificar Archivo - DevVideos
+    {% else %}
+        Nuevo Archivo - DevVideos
+    {% endif %}
+{% endblock %}
 
 {% block content %}
     {% if not es_nueva %}
