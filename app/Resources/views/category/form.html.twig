@@ -1,12 +1,18 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}Modificar Categoria{% endblock %}
+{% block title %}
+    {% if not es_nueva %}
+        Modificar Categoría - DevVideos
+    {% else %}
+        Nueva Categoría - DevVideos
+    {% endif %}
+{% endblock %}
 
 {% block content %}
     {% if not es_nueva %}
-        <h1>Modificar Categoria</h1>
+        <h1>Modificar Categoría</h1>
     {% else %}
-        <h1>Nueva Categoria</h1>
+        <h1>Nueva Categoría</h1>
     {% endif %}
 
     {{ form_start(form) }}

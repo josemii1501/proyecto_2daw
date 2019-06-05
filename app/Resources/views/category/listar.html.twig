@@ -1,10 +1,10 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %} Categorias - DevVideos{% endblock %}
+{% block title %} Categorías - DevVideos{% endblock %}
 
 {% block content %}
 
-    <h1>Listar Categorias </h1>
+    <h1>Listar Categorías </h1>
 
     {% if is_granted('ROLE_ADMIN') %}
         <a href="{{ path('categoria_nueva') }}" class="btn btn-success"><i class="fas fa-plus"></i> Añadir</a>
