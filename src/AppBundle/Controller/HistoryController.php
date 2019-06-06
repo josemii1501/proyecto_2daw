@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\History;
 use AppBundle\Form\Type\HistoryType;
 use AppBundle\Repository\HistoryRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -12,7 +13,8 @@ use Symfony\Component\Routing\Annotation\Route;
 class HistoryController extends Controller
 {
     /**
-     * @Route("/histories", name="historiales_listar")
+     * @Route("/historiales", name="historiales_listar")
+     * @Security("is_granted('ROLE_USER')")
      */
     public function HistoryListarAction(HistoryRepository $HistoryRepository)
     {
@@ -23,7 +25,8 @@ class HistoryController extends Controller
         ]);
     }
     /**
-     * @Route("/histories/nuevo", name="historiales_nuevo")
+     * @Route("/historiales/nuevo", name="historial_nuevo")
+     * @Security("is_granted('ROLE_ADMIN')")
      */
     public function formNuevoHistorial(Request $request)
     {
@@ -36,8 +39,9 @@ class HistoryController extends Controller
     }
 
     /**
-     * @Route("/histories/{id}", name="historiales_editar",
+     * @Route("/historiales/modificar/{id}", name="historial_modificar",
      *     requirements={"id":"\d+"})
+     * @Security("is_granted('ROLE_ADMIN')")
      */
     public function formHistorialAction(Request $request, History $history)
     {
@@ -77,7 +81,8 @@ class HistoryController extends Controller
         ]);
     }
     /**
-     * @Route("/histories/eliminar/{id}", name="historiales_eliminar")
+     * @Route("/historiales/eliminar/{id}", name="historial_eliminar")
+     * @Security("is_granted('ROLE_ADMIN')")
      */
     public function eliminarAction(Request $request, History $history)
     {

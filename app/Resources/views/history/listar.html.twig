@@ -3,25 +3,32 @@
 {% block content %}
 
     <h1>Listar Historial</h1>
+    <div class="pnlAccionNueva">
+        <a href="{{ path('historial_nuevo') }}" class="btn btn-success"><i class="fas fa-plus"></i> Añadir</a>
+        <span class="ayuda"> Crea un nuevo registro de historial.</span>
+    </div>
 
-    <table class="table">
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>USUARIO</th>
-            <th>VIDEO</th>
-            <th>FECHA</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for historial in historiales %}
-            <tr>
-                <td>{{ historial.id }}</td>
-                <td>{{ historial.user }}</td>
-                <td>{{ historial.video }}</td>
-                <td>{{ historial.timestamp | date('H:m:s | d/m/Y') }}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    {% for historial in historiales %}
+        <div class="panel_historial">
+            {% if is_granted('ROLE_ADMIN') %}
+                <div class="id_historial">
+                    <a href="{{ path('historial_modificar', {'id': historial.id}) }}">{{ historial.id }}</a>
+                </div>
+
+            <div class="usuario_historial">
+                <img src="{{ historial.user.avatar }}" alt="Foto {{ historial.user.name }}" class="miniatura_lista"/>
+                <span class="nombre_usuario_historial">{{ historial.user.name }}</span>
+
+            </div>
+            {% endif %}
+            <div class="panel_fecha_historial">
+                <span class="fecha_historial">{{ historial.timestamp | date('H:m:s | d/m/Y') }}</span>
+            </div>
+            <div class="video_historial">
+                <img src="{{ historial.video.miniature }}" alt="Foto {{ historial.video.title }}" class="miniatura_lista"/>
+                <span class="titulo_video_historial">{{ historial.video.title }}</span>
+            </div>
+        </div>
+    {% endfor %}
+
 {% endblock %}
