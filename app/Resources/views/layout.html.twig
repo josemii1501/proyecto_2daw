@@ -18,6 +18,18 @@
                 <li class="nav-item">
                     <a class="nav-link{% if ruta starts with "historial" %} active{% endif %}" href="{{ path('historiales_listar') }}">Historiales</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link{% if ruta starts with "guardado" %} active{% endif %}" href="{{ path('guardados_listar') }}">Guardados</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link{% if ruta starts with "suscripcion" %} active{% endif %}" href="{{ path('suscripciones_listar') }}">Guardados</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link{% if ruta starts with "usuario" %} active{% endif %}" href="{{ path('usuarios_listar') }}">Guardados</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link{% if ruta starts with "video" %} active{% endif %}" href="{{ path('videos_listar') }}">Guardados</a>
+                </li>
             </ul>
             {% if app.user %}
                 <span class="navbar-text">¡Hola <a href="{{ path('datos_personales') }}">{{ app.user.name }}</a>!</span>
