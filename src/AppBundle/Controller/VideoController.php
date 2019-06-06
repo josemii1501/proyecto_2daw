@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Video;
 use AppBundle\Form\Type\VideoType;
 use AppBundle\Repository\VideoRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\File;
@@ -26,6 +27,7 @@ class VideoController extends Controller
     }
     /**
      * @Route("/videos/nuevo", name="video_nuevo")
+     * @Security("is_granted('ROLE_PUBLISHER')")
      */
     public function formNuevoVideo(Request $request)
     {
@@ -38,8 +40,9 @@ class VideoController extends Controller
         return $this->formVideoAction($request, $video);
     }
     /**
-     * @Route("/videos/{id}", name="video_editar",
+     * @Route("/videos/modificar/{id}", name="video_modificar",
      *     requirements={"id":"\d+"})
+     * @Security("is_granted('ROLE_PUBLISHER')")
      */
     public function formVideoAction(Request $request, Video $video)
     {
@@ -105,6 +108,7 @@ class VideoController extends Controller
     }
     /**
      * @Route("/videos/eliminar/{id}", name="video_eliminar")
+     * @Security("is_granted('ROLE_PUBLISHER')")
      */
     public function eliminarAction(Request $request, Video $video)
     {

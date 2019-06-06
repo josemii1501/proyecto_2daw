@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Saved;
 use AppBundle\Form\Type\SavedType;
 use AppBundle\Repository\SavedRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,6 +14,7 @@ class SavedController extends Controller
 {
     /**
      * @Route("/guardados", name="guardados_listar")
+     * @Security("is_granted('ROLE_USER')")
      */
     public function SavedListarAction(SavedRepository $savedRepository)
     {
@@ -25,6 +27,7 @@ class SavedController extends Controller
 
     /**
      * @Route("/guardados/nuevo", name="guardado_nuevo")
+     * @Security("is_granted('ROLE_ADMIN')")
      */
     public function formNuevoSaved(Request $request)
     {
@@ -39,6 +42,7 @@ class SavedController extends Controller
     /**
      * @Route("/guardados/modificar/{id}", name="guardado_modificar",
      *     requirements={"id":"\d+"})
+     * @Security("is_granted('ROLE_ADMIN')")
      */
     public function formSavedAction(Request $request, Saved $saved)
     {
@@ -79,6 +83,7 @@ class SavedController extends Controller
     }
     /**
      * @Route("/guardados/eliminar/{id}", name="guardado_eliminar")
+     * @Security("is_granted('ROLE_USER')")
      */
     public function eliminarAction(Request $request, Saved $saved)
     {

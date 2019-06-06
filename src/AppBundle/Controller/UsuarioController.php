@@ -6,6 +6,7 @@ use AppBundle\Entity\User;
 use AppBundle\Form\Type\CambioClaveType;
 use AppBundle\Form\Type\UsuarioType;
 use AppBundle\Repository\UsuarioRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\File;
@@ -16,7 +17,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class UsuarioController extends Controller
 {
     /**
-     * @Route("/users", name="usuarios_listar")
+     * @Route("/usuarios", name="usuarios_listar")
      */
     public function usuarioListarAction(UsuarioRepository $usuarioRepository)
     {
@@ -29,6 +30,7 @@ class UsuarioController extends Controller
 
     /**
      * @Route("/clave", name="cambio_clave")
+     * @Security("is_granted('ROLE_USER')")
      */
     public function cambioClaveAction(Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
@@ -58,7 +60,8 @@ class UsuarioController extends Controller
         ]);
     }
     /**
-     * @Route("/user/datos_personales", name="datos_personales")
+     * @Route("/usuarios/datos_personales", name="datos_personales")
+     * @Security("is_granted('ROLE_USER')")
      */
     public function datosPersonales(Request $request)
     {
@@ -82,7 +85,7 @@ class UsuarioController extends Controller
         ]);
     }
     /**
-     * @Route("/users/nuevo", name="usuario_nuevo")
+     * @Route("/usuarios/nuevo", name="usuario_nuevo")
      */
     public function formNuevoUsuario(Request $request)
     {
@@ -94,8 +97,9 @@ class UsuarioController extends Controller
     }
 
     /**
-     * @Route("/users/{id}", name="usuario_modificar",
+     * @Route("/usuarios/modificar/{id}", name="usuario_modificar",
      *     requirements={"id":"\d+"})
+     * @Security("is_granted('ROLE_USER')")
      */
     public function formUsuarioAction(Request $request, User $user)
     {
@@ -157,7 +161,8 @@ class UsuarioController extends Controller
     }
 
     /**
-     * @Route("/user/eliminar/{id}", name="usuario_eliminar")
+     * @Route("/usuarios/eliminar/{id}", name="usuario_eliminar")
+     * @Security("is_granted('ROLE_USER')")
      */
     public function eliminarAction(Request $request, User $user)
     {

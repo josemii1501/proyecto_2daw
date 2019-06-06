@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Suscription;
 use AppBundle\Form\Type\SuscriptionType;
 use AppBundle\Repository\SubscriptionRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,6 +14,7 @@ class SubscriptionController extends Controller
 {
     /**
      * @Route("/suscripciones", name="suscripciones_listar")
+     * @Security("is_granted('ROLE_USER')")
      */
     public function subscriptionsListAction(SubscriptionRepository $subscriptionRepository)
     {
@@ -24,6 +26,7 @@ class SubscriptionController extends Controller
     }
     /**
      * @Route("/suscripciones/nueva", name="suscripcion_nueva")
+     * @Security("is_granted('ROLE_ADMIN')")
      */
     public function formNuevaSuscripcion(Request $request)
     {
@@ -38,6 +41,7 @@ class SubscriptionController extends Controller
     /**
      * @Route("/suscripciones/modificar/{id}", name="suscripcion_editar",
      *     requirements={"id":"\d+"})
+     * @Security("is_granted('ROLE_ADMIN')")
      */
     public function formSuscripcionAction(Request $request, Suscription $suscription)
     {
@@ -78,6 +82,7 @@ class SubscriptionController extends Controller
     }
     /**
      * @Route("/suscripciones/eliminar/{id}", name="suscripcion_eliminar")
+     * @Security("is_granted('ROLE_USER')")
      */
     public function eliminarAction(Request $request, Suscription $suscription)
     {

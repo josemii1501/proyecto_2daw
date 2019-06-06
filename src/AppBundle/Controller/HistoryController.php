@@ -82,7 +82,7 @@ class HistoryController extends Controller
     }
     /**
      * @Route("/historiales/eliminar/{id}", name="historial_eliminar")
-     * @Security("is_granted('ROLE_ADMIN')")
+     * @Security("is_granted('ROLE_USER')")
      */
     public function eliminarAction(Request $request, History $history)
     {
