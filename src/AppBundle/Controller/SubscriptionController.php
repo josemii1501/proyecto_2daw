@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class SubscriptionController extends Controller
 {
     /**
-     * @Route("/subscriptions", name="subscription_listar")
+     * @Route("/suscripciones", name="suscripciones_listar")
      */
     public function subscriptionsListAction(SubscriptionRepository $subscriptionRepository)
     {
@@ -23,7 +23,7 @@ class SubscriptionController extends Controller
         ]);
     }
     /**
-     * @Route("/subscriptions/nueva", name="subscriptions_nueva")
+     * @Route("/suscripciones/nueva", name="suscripcion_nueva")
      */
     public function formNuevaSuscripcion(Request $request)
     {
@@ -36,7 +36,7 @@ class SubscriptionController extends Controller
     }
 
     /**
-     * @Route("/subscriptions/{id}", name="subscriptions_editar",
+     * @Route("/suscripciones/modificar/{id}", name="suscripcion_editar",
      *     requirements={"id":"\d+"})
      */
     public function formSuscripcionAction(Request $request, Suscription $suscription)
@@ -57,7 +57,7 @@ class SubscriptionController extends Controller
 
                 $this->getDoctrine()->getManager()->flush();
                 $this->addFlash('exito', 'Cambios guardados correctamente.');
-                return $this->redirectToRoute('subscription_listar');
+                return $this->redirectToRoute('suscripciones_listar');
             } catch (\Exception $e) {
                 $this->addFlash('error', 'Ha ocurrido un error al guardar los cambios');
                 $this->addFlash('error', $e->getMessage());
@@ -77,7 +77,7 @@ class SubscriptionController extends Controller
         ]);
     }
     /**
-     * @Route("/subscriptions/eliminar/{id}", name="subscriptions_eliminar")
+     * @Route("/suscripciones/eliminar/{id}", name="suscripcion_eliminar")
      */
     public function eliminarAction(Request $request, Suscription $suscription)
     {
@@ -86,7 +86,7 @@ class SubscriptionController extends Controller
                 $this->getDoctrine()->getManager()->remove($suscription);
                 $this->getDoctrine()->getManager()->flush();
                 $this->addFlash('exito', 'Suscripcion Borrada Con Éxito');
-                return $this->redirectToRoute('subscription_listar');
+                return $this->redirectToRoute('suscripciones_listar');
             } catch (\Exception $e) {
                 $this->addFlash('error', 'Ha ocurrido un error al guardar los cambios');
             }

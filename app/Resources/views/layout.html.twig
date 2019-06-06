@@ -22,13 +22,13 @@
                     <a class="nav-link{% if ruta starts with "guardado" %} active{% endif %}" href="{{ path('guardados_listar') }}">Guardados</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link{% if ruta starts with "suscripcion" %} active{% endif %}" href="{{ path('suscripciones_listar') }}">Guardados</a>
+                    <a class="nav-link{% if ruta starts with "suscripcion" %} active{% endif %}" href="{{ path('suscripciones_listar') }}">Suscripciones</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link{% if ruta starts with "usuario" %} active{% endif %}" href="{{ path('usuarios_listar') }}">Guardados</a>
+                    <a class="nav-link{% if ruta starts with "usuario" %} active{% endif %}" href="{{ path('usuarios_listar') }}">Usuarios</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link{% if ruta starts with "video" %} active{% endif %}" href="{{ path('videos_listar') }}">Guardados</a>
+                    <a class="nav-link{% if ruta starts with "video" %} active{% endif %}" href="{{ path('videos_listar') }}">Videos</a>
                 </li>
             </ul>
             {% if app.user %}

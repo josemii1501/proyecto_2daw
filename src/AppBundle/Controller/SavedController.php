@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class SavedController extends Controller
 {
     /**
-     * @Route("/saved", name="saved_listar")
+     * @Route("/guardados", name="guardados_listar")
      */
     public function SavedListarAction(SavedRepository $savedRepository)
     {
@@ -24,7 +24,7 @@ class SavedController extends Controller
     }
 
     /**
-     * @Route("/saved/nuevo", name="saved_nuevo")
+     * @Route("/guardados/nuevo", name="guardado_nuevo")
      */
     public function formNuevoSaved(Request $request)
     {
@@ -37,7 +37,7 @@ class SavedController extends Controller
     }
 
     /**
-     * @Route("/saved/{id}", name="saved_editar",
+     * @Route("/guardados/modificar/{id}", name="guardado_modificar",
      *     requirements={"id":"\d+"})
      */
     public function formSavedAction(Request $request, Saved $saved)
@@ -58,7 +58,7 @@ class SavedController extends Controller
 
                 $this->getDoctrine()->getManager()->flush();
                 $this->addFlash('exito', 'Cambios guardados correctamente.');
-                return $this->redirectToRoute('saved_listar');
+                return $this->redirectToRoute('guardados_listar');
             } catch (\Exception $e) {
                 $this->addFlash('error', 'Ha ocurrido un error al guardar los cambios');
                 $this->addFlash('error', $e->getMessage());
@@ -78,7 +78,7 @@ class SavedController extends Controller
         ]);
     }
     /**
-     * @Route("/saved/eliminar/{id}", name="saved_eliminar")
+     * @Route("/guardados/eliminar/{id}", name="guardado_eliminar")
      */
     public function eliminarAction(Request $request, Saved $saved)
     {
@@ -87,7 +87,7 @@ class SavedController extends Controller
                 $this->getDoctrine()->getManager()->remove($saved);
                 $this->getDoctrine()->getManager()->flush();
                 $this->addFlash('exito', 'Guardado Borrado Con Éxito');
-                return $this->redirectToRoute('saved_listar');
+                return $this->redirectToRoute('guardados_listar');
             } catch (\Exception $e) {
                 $this->addFlash('error', 'Ha ocurrido un error al guardar los cambios');
             }
