@@ -1,12 +1,17 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}Modificar Video{% endblock %}
+{% block title %}
+    {% if not es_nueva %}
+        Modificar Video - DevVideos
+    {% else %}
+        Nuevo Video - DevVideos
+    {% endif %}{% endblock %}
 
 {% block content %}
     {% if not es_nueva %}
-        <h1>Modificar Video</h1>
+        <h1 class="titulo_seccion">Modificar Video</h1>
     {% else %}
-        <h1>Nuevo Video</h1>
+        <h1 class="titulo_seccion">Nuevo Video</h1>
     {% endif %}
 
     {{ form_start(form) }}

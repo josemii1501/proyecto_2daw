@@ -1,37 +1,37 @@
 {% extends 'layout.html.twig' %}
 
+{% block title %} Videos - DevVideos{% endblock %}
+
 {% block content %}
 
-    <h1>Listar videos</h1>
+    <h1 class="titulo_seccion">Videos</h1>
 
-    <table class="table">
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>RUTA</th>
-            <th>TITULO</th>
-            <th>DESCRIPCION</th>
-            <th>FECHA</th>
-            <th>REPRODUCCIONES</th>
-            <th>MINIATURA</th>
-            <th>CREADOR</th>
-            <th>CATEGORIA</th>
-        </tr>
-        </thead>
-        <tbody>
+    {% if is_granted('ROLE_ADMIN') %}
+        <div class="pnlAccionNueva">
+            <a href="{{ path('video_nuevo') }}" class="btn btn-success"><i class="fas fa-plus"></i> Añadir</a>
+            <span class="ayuda"> Suba un video para que los usuarios lo vean.</span>
+        </div>
+    {% endif %}
+
         {% for video in videos %}
-            <tr>
-                <td>{{ video.id }}</td>
-                <td>{{ video.route }}</td>
-                <td>{{ video.title }}</td>
-                <td>{{ video.description }}</td>
-                <td>{{ video.date | date('H:m:s | d/m/Y') }}</td>
-                <td>{{ video.reproductions }}</td>
-                <td><img src="{{ video.miniature }}" alt="MINIATURA" class="miniatura_lista"></td>
-                <td>{{ video.creator }}</td>
-                <td>{{ video.category }}</td>
-            </tr>
+            <div class="panel_video">
+                {% if is_granted('ROLE_ADMIN') %}
+                    <div class="editar_video">
+                        <a href="{{ path('video_modificar', {'id': video.id}) }}" class="btn btn-warning"><i class="fas fa-tools"></i></a>
+                    </div>
+                {% endif %}
+            </div>
+            <a href="{{ path('visualizar_video',{'id': video.id}) }}" class="enlace_video">
+                <div class="imagen_categoria">
+                    <img src="{{ video.miniature }}" alt="Miniatura Video" class="miniatura_lista"/>
+                </div>
+                <div class="descripcion_video">
+                    <span class="titulo_video">{{ video.title }}</span>
+                    <span class="descripcion_video">{{ video.description }}</span>
+                    <span class="fecha_video">{{ video.date | date('H:m:s - d/m/Y') }}</span>
+                    <span class="reproducciones_video">{{ video.reproductions }}</span>
+                    <span class="categoria_video">{{ video.category }}</span>
+                </div>
+            </a>
         {% endfor %}
-        </tbody>
-    </table>
 {% endblock %}

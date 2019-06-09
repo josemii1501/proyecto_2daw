@@ -28,6 +28,17 @@ class VideoController extends Controller
         ]);
     }
     /**
+     * @Route("/videos/{id}", name="visualizar_video",
+     *     requirements={"id":"\d+"})
+     */
+    public function videoVisualizarAction(Video $video)
+    {
+
+        return $this->render('video/visualizar.html.twig', [
+            'video' => $video
+        ]);
+    }
+    /**
      * @Route("/videos", name="videos_listar")
      */
     public function videoListarAction(VideoRepository $videoRepository)
