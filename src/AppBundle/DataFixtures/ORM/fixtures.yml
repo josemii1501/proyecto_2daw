@@ -7,7 +7,7 @@ AppBundle\Entity\User:
     birthday: <dateTime('now','CET')>
     login: admin
     clave: <codificaClave('admin')>
-    avatar: uploads/prueba.jpg
+    avatar: "https://pixel.nymag.com/imgs/daily/vulture/2018/11/02/02-avatar-2.w700.h700.jpg"
     urlWebSite: www.devvideos.com
     description: Este es el administrador del sitio web devvideos
     publisher: true
@@ -21,7 +21,7 @@ AppBundle\Entity\User:
     birthday: <dateTime('now','CET')>
     login: <es_ES:word()>
     clave: <codificaClave('usuario')>
-    avatar: uploads/prueba.jpg
+    avatar: "https://pixel.nymag.com/imgs/daily/vulture/2018/11/02/02-avatar-2.w700.h700.jpg"
     urlWebSite: <url()>
     description: <es_ES:text(100)>
     publisher: false
@@ -30,16 +30,16 @@ AppBundle\Entity\User:
 AppBundle\Entity\Category:
   category_{1..5}:
     name: <en_EN:word()>
-    photo: php.png
+    photo: "https://blastcoding.com/wp-content/uploads/2018/10/php.png"
 
 AppBundle\Entity\Video:
   video_{1..10}:
-    route: uploads/video.flv
+    route: "https://www.youtube.com/embed/EILhlpY4Vg4"
     title: <sentence(15, true)>
     description: <text(200)>
     date: <dateTime('now','CET')>
     reproductions: <numberBetween( 0, 10000000)>
-    miniature: uploads/prueba.jpg
+    miniature: "https://programacion.net/files/article/20170221040221_youtube-banner.jpg"
     creator: '@user*'
     category: '@category*'
 

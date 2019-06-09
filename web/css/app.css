@@ -63,6 +63,7 @@ body{
 }
 .imagen_video img{
     width: 9em;
+
     max-width: 9em;
 }
 .enlace_categoria, .enlace_video, .enlace_usuario{
