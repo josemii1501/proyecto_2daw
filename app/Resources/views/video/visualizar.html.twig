@@ -6,11 +6,6 @@
     <h1 class="titulo_seccion">{{ video.title }}</h1>
 
     <iframe width="1920" height="1080" src="{{ video.route }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="pantalla_video"></iframe>
-
-    <div class="creador_video">
-        <img src="{{ video.creator.avatar }}" alt="Avatar" />
-        <span class="nombre_canal_video">{{ video.creator.login }}</span>
-    </div>
     <div class="informacion_video">
         <span class="descripcion_visualizar_video">{{ video.description }}</span>
         <div class="otra_informacion_visualizar">
@@ -19,4 +14,9 @@
         </div>
         <span class="categoria_visualizar_video"><span class="etiqueta_info">Categoria: </span> {{ video.category }}</span>
     </div>
+    <a href="" class="creador_video">
+        <img src="{{ video.creator.avatar }}" alt="Avatar" class="avatar_canal"/>
+        <span class="nombre_canal_video">{{ video.creator.login }}</span>
+    </a>
+
 {% endblock %}

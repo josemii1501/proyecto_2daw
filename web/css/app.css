@@ -47,8 +47,10 @@ body{
     width: 100%;
     border-bottom: 1px solid #efefef;
 }
-.panel_categoria:hover, .panel_video:hover,.panel_usuario:hover{
+.panel_categoria:hover, .panel_video:hover,.panel_usuario:hover, .creador_video:hover{
     background-color: #43474b;
+    color: #efefef;
+    text-decoration: underline;
     cursor: pointer;
 }
 .imagen_categoria, .imagen_video{
@@ -56,6 +58,10 @@ body{
     vertical-align: middle;
     display: table-cell;
     padding: 0.5em;
+}
+.avatar_canal{
+    max-width: 5em;
+    margin-right: 2em;
 }
 .imagen_categoria img{
     border-radius: 0.1em;
@@ -72,11 +78,6 @@ body{
     display: block;
     padding: 1em;
     padding-bottom: 2em;
-}
-
-.enlace_categoria:hover, .enlace_video:hover {
-    color: #efefef;
-    text-decoration: underline;
 }
 .enlace_video:hover{
     text-decoration: none;
@@ -131,4 +132,9 @@ body{
     padding: 1em;
     width: auto;
     display: block;
+    color:#efefef;
+    margin-bottom: 1em;
+}
+.nombre_canal_video{
+    font-size: 1.5em;
 }
