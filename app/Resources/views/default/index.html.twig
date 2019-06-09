@@ -1,5 +1,14 @@
 {% extends 'layout.html.twig' %}
 
+{% block title %} DevVideos {% endblock %}
+
 {% block content %}
-    !DEVVIDEOS!
+    <h2 class="titulo_seccion">Categorías</h2>
+    {% for categoria in categorias %}
+    <div class="panel_categoria_inicio">
+        <img src="{{ categoria.photo }}" alt="Imagen {{ categoria.name }}" />
+        <span class="nombre_categoria_inicio">{{ categoria.name }}</span>
+    </div>
+    {% endfor %}
+
 {% endblock %}
