@@ -88,7 +88,11 @@ class VideoController extends Controller
             try {
                 /** @var File $filename */
                 $file = $form->get('miniature')->getData();
-
+                $ruta = $form->get('route')->getData();
+                $divisiones = explode("v=",$ruta);
+                $sinParametros = explode("&", $divisiones[1]);
+                $rutaDefinitiva = "https://www.youtube.com/embed/".$sinParametros[0];
+                $video->setRoute($rutaDefinitiva);
                 if ($file) {
                     $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
 

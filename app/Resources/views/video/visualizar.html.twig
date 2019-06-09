@@ -1,0 +1,22 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %} {{ video.title }} - DevVideos{% endblock %}
+
+{% block content %}
+    <h1 class="titulo_seccion">{{ video.title }}</h1>
+
+    <iframe width="1920" height="1080" src="{{ video.route }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="pantalla_video"></iframe>
+
+    <div class="creador_video">
+        <img src="{{ video.creator.avatar }}" alt="Avatar" />
+        <span class="nombre_canal_video">{{ video.creator.login }}</span>
+    </div>
+    <div class="informacion_video">
+        <span class="descripcion_visualizar_video">{{ video.description }}</span>
+        <div class="otra_informacion_visualizar">
+            <span class="fecha_visualizar_video"><span class="etiqueta_info">Fecha: </span> {{ video.date | date('H:m:s - d/m/Y') }}</span>
+            <span class="visualizaciones_visualizar_video"><span class="etiqueta_info">Visualizaciones: </span> {{ video.reproductions }}</span>
+        </div>
+        <span class="categoria_visualizar_video"><span class="etiqueta_info">Categoria: </span> {{ video.category }}</span>
+    </div>
+{% endblock %}
