@@ -13,36 +13,39 @@ body{
 .avatar_lista, .miniatura_lista{
     max-width: 5em;
 }
-.panel_categoria{
+.panel_categoria, .panel_video{
     display: table;
     width: 100%;
     border-bottom: 1px solid #efefef;
 }
-.panel_categoria:hover{
+.panel_categoria:hover, .panel_video:hover{
     background-color: #43474b;
     cursor: pointer;
 }
-.imagen_categoria{
+.imagen_categoria, .imagen_video{
     width: 7em;
     vertical-align: middle;
     display: table-cell;
     padding: 0.5em;
 }
-.imagen_categoria img{
+.imagen_categoria img, .imagen_video img{
     border-radius: 0.1em;
     width: 6em;
 }
-.enlace_categoria{
+.enlace_categoria, .enlace_video{
     color: #efefef;
     width: 100%;
     display: block;
     padding: 1em;
 }
-.enlace_categoria:hover{
+.enlace_categoria:hover, .enlace_video:hover{
     color: #efefef;
     font-style: unset;
 }
-.descripcion_categoria{
+.enlace_video:hover{
+    text-decoration: none;
+}
+.descripcion_categoria, .descripcion_video{
     vertical-align: middle;
     display: table-cell;
 }
@@ -51,7 +54,7 @@ body{
     margin-top: auto;
     margin-bottom: auto;
 }
-.editar_categoria{
+.editar_categoria, .editar_video{
     padding: 0.5em;
     margin-right: 1em;
     display: table-cell;
@@ -63,4 +66,18 @@ body{
 }
 .pnlAccionNueva span{
     margin: 1em;
+}
+.descripcion_video .titulo_video, .descripcion_video .video_descripcion{
+    width: 100%;
+    display: block;
+}
+.descripcion_video .titulo_video{
+    font-size: 1.5em;
+    padding-bottom: 0.5em;
+    font-weight: bolder;
+}
+.info_video{
+    margin-top: 0.5em;
+    width: 33%;
+    display: inline-block;
 }

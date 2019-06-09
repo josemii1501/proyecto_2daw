@@ -20,18 +20,19 @@
                         <a href="{{ path('video_modificar', {'id': video.id}) }}" class="btn btn-warning"><i class="fas fa-tools"></i></a>
                     </div>
                 {% endif %}
+
+                <a href="{{ path('visualizar_video',{'id': video.id}) }}" class="enlace_video">
+                    <div class="imagen_video">
+                        <img src="{{ video.miniature }}" alt="Miniatura Video" class="miniatura_lista"/>
+                    </div>
+                    <div class="descripcion_video">
+                        <span class="titulo_video">{{ video.title }}</span>
+                        <span class="video_descripcion">{{ video.description }}</span>
+                        <span class="info_video fecha_video">Fecha: {{ video.date | date('H:m:s - d/m/Y') }}</span>
+                        <span class="info_video reproducciones_video">Visualizaciones: {{ video.reproductions }}</span>
+                        <span class="info_video categoria_video">Categoria: {{ video.category }}</span>
+                    </div>
+                </a>
             </div>
-            <a href="{{ path('visualizar_video',{'id': video.id}) }}" class="enlace_video">
-                <div class="imagen_categoria">
-                    <img src="{{ video.miniature }}" alt="Miniatura Video" class="miniatura_lista"/>
-                </div>
-                <div class="descripcion_video">
-                    <span class="titulo_video">{{ video.title }}</span>
-                    <span class="descripcion_video">{{ video.description }}</span>
-                    <span class="fecha_video">{{ video.date | date('H:m:s - d/m/Y') }}</span>
-                    <span class="reproducciones_video">{{ video.reproductions }}</span>
-                    <span class="categoria_video">{{ video.category }}</span>
-                </div>
-            </a>
         {% endfor %}
 {% endblock %}
