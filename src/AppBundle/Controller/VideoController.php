@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Category;
 use AppBundle\Entity\Video;
 use AppBundle\Form\Type\VideoType;
 use AppBundle\Repository\VideoRepository;
@@ -14,6 +15,18 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class VideoController extends Controller
 {
+    /**
+     * @Route("/videos/categoria/{id}", name="videos_categoria",
+     *     requirements={"id":"\d+"})
+     */
+    public function videosCategoriaAction(VideoRepository $videoRepository, Category $category)
+    {
+        $todosvideos = $videoRepository->findByCategory($category);
+
+        return $this->render('video/listar.html.twig', [
+            'videos' => $todosvideos
+        ]);
+    }
     /**
      * @Route("/videos", name="videos_listar")
      */

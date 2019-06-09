@@ -1,7 +1,64 @@
+*{
+    box-sizing: border-box;
+}
 body{
+    background-color: #23272b;
     min-height: 75rem;
     padding-top: 4.5rem;
+    color: #efefef;
+}
+.titulo_seccion{
+    font-weight: bold;
 }
 .avatar_lista, .miniatura_lista{
     max-width: 5em;
+}
+.panel_categoria{
+    display: table;
+    width: 100%;
+    border-bottom: 1px solid #efefef;
+    padding: 1em;
+}
+.panel_categoria:hover{
+    background-color: #43474b;
+    cursor: pointer;
+}
+.imagen_categoria{
+    width: 7em;
+    vertical-align: middle;
+    display: table-cell;
+    padding: 0.5em;
+}
+.imagen_categoria img{
+    border-radius: 0.1em;
+    width: 6em;
+}
+.enlace_categoria{
+    color: #efefef;
+}
+.enlace_categoria:hover{
+    color: #efefef;
+    font-style: unset;
+}
+.descripcion_categoria{
+    vertical-align: middle;
+    display: table-cell;
+}
+.nombre_categoria{
+    font-size: 1.2em;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+.editar_categoria{
+    padding: 0.5em;
+    margin-right: 1em;
+    display: table-cell;
+    vertical-align: middle;
+    width: 4em;
+}
+.pnlAccionNueva{
+    margin-bottom: 1em;
+}
+.pnlAccionNueva span{
+    margin: 1em;
 }
