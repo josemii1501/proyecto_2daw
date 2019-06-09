@@ -4,7 +4,7 @@
 
 {% block content %}
 
-    <h1>Listar Categorías </h1>
+    <h1 class="titulo_seccion">Listar Categorías </h1>
 
 
         {% if is_granted('ROLE_ADMIN') %}
@@ -17,18 +17,21 @@
 
 
     {% for categoria in categorias %}
-    <div class="panel_categoria">
-        {% if is_granted('ROLE_ADMIN') %}
-            <div class="id_categoria">
-                <a href="{{ path('categoria_modificar', {'id': categoria.id}) }}">{{ categoria.id }}</a>
-            </div>
-        {% endif %}
-        <div class="imagen_categoria">
-            <img src="{{ categoria.photo }}" alt="Foto {{ categoria.name }}" class="miniatura_lista"/>
+        <div class="panel_categoria">
+            {% if is_granted('ROLE_ADMIN') %}
+                <div class="editar_categoria">
+                    <a href="{{ path('categoria_modificar', {'id': categoria.id}) }}" class="btn btn-warning"><i class="fas fa-tools"></i></a>
+                </div>
+            {% endif %}
+            <a href="{{ path('videos_categoria',{'id': categoria.id}) }}" class="enlace_categoria">
+                <div class="imagen_categoria">
+                    <img src="{{ categoria.photo }}" alt="Foto {{ categoria.name }}" class="miniatura_lista"/>
+                </div>
+                <div class="descripcion_categoria">
+                    <span class="nombre_categoria">{{ categoria.name }}</span>
+                </div>
+            </a>
         </div>
-        <div class="descripcion_categoria">
-            <span class="nombre_categoria">{{ categoria.name }}</span>
-        </div>
-    </div>
     {% endfor %}
+
 {% endblock %}
