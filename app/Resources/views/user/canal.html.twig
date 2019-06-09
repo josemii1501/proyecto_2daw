@@ -3,7 +3,11 @@
 {% block title %} {{ usuario.login }} - DevVideos {% endblock %}
 
 {% block content %}
-
-
+    <div class="cabecera_canal">
+        <img src="{{ usuario.avatar }}" alt="Avatar {{ usuario.login }}" />
+        <h1>{{ usuario.login }}</h1>
+        <span class="canal_nombre">{{ usuario.name }}</span>
+        <span class="canal_apellidos">{{ usuario.lastname }}</span>
+    </div>
 
 {% endblock %}

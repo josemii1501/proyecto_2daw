@@ -46,6 +46,8 @@ class VideoController extends Controller
      */
     public function videoVisualizarAction(Video $video)
     {
+        $video->setReproductions($video->getReproductions()+1);
+        $this->getDoctrine()->getManager()->flush();
 
         return $this->render('video/visualizar.html.twig', [
             'video' => $video

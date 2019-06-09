@@ -109,6 +109,9 @@ class CategoryController extends Controller
     {
         if ($request->get('borrar') === '') {
             try {
+                if($category->getVideo() != null) {
+                    $category->getVideo()->setCategory(null);
+                }
                 $this->getDoctrine()->getManager()->remove($category);
                 $this->getDoctrine()->getManager()->flush();
                 $this->addFlash('exito', 'Categoría Borrada Con Éxito');

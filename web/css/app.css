@@ -47,6 +47,10 @@ body{
     width: 100%;
     border-bottom: 1px solid #efefef;
 }
+.descripcion_categoria, .titulo_video, .video_descripcion, .info_video{
+    color: #efefef;
+    text-decoration: none;
+}
 .panel_categoria:hover, .panel_video:hover,.panel_usuario:hover, .creador_video:hover{
     background-color: #43474b;
     color: #efefef;
@@ -86,6 +90,7 @@ body{
     vertical-align: middle;
     display: table-cell;
 }
+
 .nombre_categoria{
     font-size: 1.2em;
     margin-top: auto;
