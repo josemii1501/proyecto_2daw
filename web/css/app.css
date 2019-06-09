@@ -8,6 +8,34 @@ body{
     padding-top: 4.5rem;
     color: #efefef;
 }
+.enlace_usuario{
+    color:#efefef;
+}
+.panel_usuarios{
+    display: flex;
+    flex-wrap: wrap;
+}
+.panel_usuario{
+    text-align: center;
+    border: 1px solid #efefef;
+    flex-basis: 25%;
+    display: inline-block;
+    padding: 1em;
+    min-height: 15em;
+}
+.avatar_usuario{
+    margin-bottom: 1em;
+    max-width: 100%;
+    border-radius: 1em;
+    max-height: 5em;
+    min-height: 5em;
+}
+.descripcion_usuario{
+    margin: 0.5em;
+    text-decoration: underline;
+    font-size: 1.25em;
+
+}
 .titulo_seccion{
     font-weight: bold;
 }
@@ -19,7 +47,7 @@ body{
     width: 100%;
     border-bottom: 1px solid #efefef;
 }
-.panel_categoria:hover, .panel_video:hover{
+.panel_categoria:hover, .panel_video:hover,.panel_usuario:hover{
     background-color: #43474b;
     cursor: pointer;
 }
@@ -37,7 +65,7 @@ body{
     width: 9em;
     max-width: 9em;
 }
-.enlace_categoria, .enlace_video{
+.enlace_categoria, .enlace_video, .enlace_usuario{
     color: #efefef;
     width: 100%;
     display: block;
@@ -45,7 +73,7 @@ body{
     padding-bottom: 2em;
 }
 
-.enlace_categoria:hover, .enlace_video:hover{
+.enlace_categoria:hover, .enlace_video:hover {
     color: #efefef;
     text-decoration: underline;
 }

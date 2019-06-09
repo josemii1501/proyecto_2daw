@@ -1,45 +1,35 @@
 {% extends 'layout.html.twig' %}
 
+{%  block title %} Usuarios - DevVideos {% endblock %}
+
 {% block content %}
 
-<h1>Listar Usuarios <a href="{{ path('usuario_nuevo') }}" class="btn btn-success"><i class="fas fa-plus"></i> Añadir</a></h1></h1>
+<h1 class="titulo_seccion">Usuarios </h1>
 
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>NOMBRE</th>
-                    <th>APELLIDOS</th>
-                    <th>EMAIL</th>
-                    <th>TELEFONO</th>
-                    <th>FECHA NACIMIENTO</th>
-                    <th>LOGIN</th>
-                    <th>PASSWORD</th>
-                    <th>AVATAR</th>
-                    <th>URL</th>
-                    <th>DESCRIPCION</th>
-                    <th>PUBLICADOR</th>
-                    <th>ADMIN</th>
-                </tr>
-            </thead>
-            <tbody>
+    {% if is_granted('ROLE_ADMIN') %}
+        <div class="pnlAccionNueva">
+            <a href="{{ path('usuario_nuevo') }}" class="btn btn-success"><i class="fas fa-plus"></i> Añadir</a>
+            <span class="ayuda"> Cree un nuevo usuario con el que acceder a la aplicación.</span>
+        </div>
+    {% endif %}
+<div class="panel_usuarios">
             {% for usuario in usuarios %}
-                <tr>
-                    <td><a href="{{ path('usuario_modificar', {'id': usuario.id}) }}">{{ usuario.id }}</a></td>
-                    <td>{{ usuario.name }}</td>
-                    <td>{{ usuario.lastname }}</td>
-                    <td>{{ usuario.email }}</td>
-                    <td>{{ usuario.phone }}</td>
-                    <td>{{ usuario.birthday | date('d/m/Y') }}</td>
-                    <td>{{ usuario.login }}</td>
-                    <td>{{ usuario.password }}</td>
-                    <td><img src='{{ usuario.avatar  }}' alt="FOTO AVATAR" class="avatar_lista"></td>
-                    <td>{{ usuario.urlwebsite }}</td>
-                    <td>{{ usuario.description }}</td>
-                    <td>{{ usuario.publisher }}</td>
-                    <td>{{ usuario.admin }}</td>
-                </tr>
+
+                <div class="panel_usuario">
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <div class="editar_usuario">
+                            <a href="{{ path('usuario_modificar', {'id': usuario.id}) }}" class="btn btn-warning"><i class="fas fa-tools"></i></a>
+                        </div>
+                    {% endif %}
+                    <a href="{{ path('videos_usuario',{'id': usuario.id}) }}" class="enlace_usuario">
+                        <div class="avatar_usuario">
+                            <img src="{{ usuario.avatar }}" alt="Foto {{ usuario.login }}" class="avatar_usuario"/>
+                        </div>
+                        <div class="descripcion_usuario">
+                            <span class="nombre_usuario">{{ usuario.login }}</span>
+                        </div>
+                    </a>
+                </div>
             {% endfor %}
-            </tbody>
-        </table>
+</div>
 {% endblock %}
