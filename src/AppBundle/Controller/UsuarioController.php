@@ -27,7 +27,17 @@ class UsuarioController extends Controller
             'usuarios' => $todosUsuarios
         ]);
     }
+    /**
+     * @Route("/usuarios/canal/{id}", name="canal_usuario",
+     *     requirements={"id":"\d+"})
+     */
+    public function videosUsuarioAction(User $user)
+    {
 
+        return $this->render('user/canal.html.twig', [
+            'usuario' => $user
+        ]);
+    }
     /**
      * @Route("/clave", name="cambio_clave")
      * @Security("is_granted('ROLE_USER')")
