@@ -16,6 +16,9 @@
         <!-- FONTAWESOME -->
         <link rel="stylesheet" href="{{ asset('fontawesome-free-5.7.2-web/css/all.min.css') }}">
 
+        <!-- ESTILOS JQUERY UI -->
+        <link rel="stylesheet" href="{{ asset('jQuery-UI/jquery-ui.css/app.css') }}">
+
         <!-- ESTILOS APLICACION -->
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
@@ -30,6 +33,9 @@
         <script src="{{ asset('popper/popper.min.js') }}"></script>
         <script src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script>
 
+        <!--- JQuery UI js -->
+        <script src="{{ asset('jQuery-UI/jquery-ui.js') }}"></script>
+
         <!-- Select2 -->
         <script src="{{ asset('select2-4.0.6-rc.1/dist/js/select2.min.js') }}"></script>
         <script src="{{ asset('select2-4.0.6-rc.1/dist/js/i18n/es.js') }}"></script>
@@ -41,6 +47,9 @@
                     theme: "bootstrap"
                 });
             });
+
+                $( "#tabs" ).tabs();
         </script>
+
     </body>
 </html>
