@@ -47,13 +47,13 @@ class Video
 
     /**
      * @ORM\Column(type="integer")
-     * \var int
+     * @var int
      */
     private $reproductions;
 
     /**
      * @ORM\Column(type="string")
-     * \var string
+     * @var string
      */
     private $miniature;
 
@@ -158,7 +158,7 @@ class Video
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getReproductions()
     {
@@ -166,7 +166,7 @@ class Video
     }
 
     /**
-     * @param mixed $reproductions
+     * @param int $reproductions
      * @return Video
      */
     public function setReproductions($reproductions)
@@ -176,7 +176,7 @@ class Video
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getMiniature()
     {
@@ -184,7 +184,7 @@ class Video
     }
 
     /**
-     * @param mixed $miniature
+     * @param string $miniature
      * @return Video
      */
     public function setMiniature($miniature)
@@ -192,6 +192,7 @@ class Video
         $this->miniature = $miniature;
         return $this;
     }
+
 
     /**
      * @return User
