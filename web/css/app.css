@@ -8,6 +8,43 @@ body{
     padding-top: 4.5rem;
     color: #efefef;
 }
+.canal_informacion .info_canal{
+    display: block;
+    padding-top: 0.5em;
+    width: 100%;
+}
+.ui-widget-header{
+    background-color: inherit;
+    border: 0;
+}
+.canal_etiqueta{
+    text-decoration: underline;
+}
+#tabs{
+    background-color: #23272b;
+    border: 0;
+}
+.ui-widget-content{
+    color: #efefef;
+}
+.cabecera_canal{
+    margin-bottom: 1em;
+}
+.cabecera_canal img{
+    width: 19%;
+    border: 2px solid #efefef;
+    border-radius: 0.5em;
+    display: inline-block;
+}
+.cabecera_canal .informacion_general{
+    padding-left: 1em;
+    width: 80%;
+    display: inline-block;
+}
+.informacion_general span,.informacion_general h1{
+    width: 100%;
+    display: block;
+}
 .enlace_usuario{
     color:#efefef;
 }
@@ -47,11 +84,10 @@ body{
     width: 100%;
     border-bottom: 1px solid #efefef;
 }
-.descripcion_categoria, .titulo_video, .descripcion_video, .info_video, .titulo_video{
+.descripcion_categoria, .titulo_video, .video_descripcion, .info_video{
     color: #efefef;
     text-decoration: none;
 }
-
 .panel_categoria:hover, .panel_video:hover,.panel_usuario:hover, .creador_video:hover{
     background-color: #43474b;
     color: #efefef;
