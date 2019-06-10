@@ -32,7 +32,7 @@ class Saved
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Video")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Video",inversedBy="guardados")
      * @var Video
      */
     private $video;
@@ -97,6 +97,5 @@ class Saved
         $this->video = $video;
         return $this;
     }
-
 
 }

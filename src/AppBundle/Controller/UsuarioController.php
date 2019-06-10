@@ -182,7 +182,33 @@ class UsuarioController extends Controller
 
                 if($videos_propios != null) {
                     foreach ($videos_propios as $item){
-                        $this->getDoctrine()->getManager()->remove($item);
+                        $files_videos = $item->getFile();
+                        $historiales = $item->getHistoriales();
+                        $guardados = $item->getGuardados();
+
+                        $this->getDoctrine()->getManager()->flush();
+                        if($files_videos != null) {
+                            foreach ($files_videos as $item2){
+                                $this->getDoctrine()->getManager()->remove($item2);
+
+                            }
+                        }
+
+                        if($guardados != null) {
+                            foreach ($guardados as $item2){
+                                $this->getDoctrine()->getManager()->remove($item2);
+
+                            }
+                        }
+                        $this->getDoctrine()->getManager()->flush();
+                        if($historiales != null) {
+                            foreach ($historiales as $item2){
+                                $this->getDoctrine()->getManager()->remove($item2);
+
+                            }
+                        }
+                        $this->getDoctrine()->getManager()->flush();
+                        $this->getDoctrine()->getManager()->remove($item2);
                     }
                 }
                 $this->getDoctrine()->getManager()->flush();

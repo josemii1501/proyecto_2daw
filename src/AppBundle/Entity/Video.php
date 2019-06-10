@@ -78,6 +78,17 @@ class Video
     private $file;
 
     /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Saved", mappedBy="video")
+     * @var Saved[]
+     */
+    private $guardados;
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\History", mappedBy="video")
+     * @var History[]
+     */
+    private $historiales;
+
+    /**
      * @return int
      */
     public function getId()
@@ -245,6 +256,43 @@ class Video
     public function setFile($file)
     {
         $this->file = $file;
+        return $this;
+    }
+
+
+    /**
+     * @return Saved[]
+     */
+    public function getGuardados()
+    {
+        return $this->guardados;
+    }
+
+    /**
+     * @param Saved[] $guardados
+     * @return Video
+     */
+    public function setGuardados($guardados)
+    {
+        $this->guardados = $guardados;
+        return $this;
+    }
+
+    /**
+     * @return History[]
+     */
+    public function getHistoriales()
+    {
+        return $this->historiales;
+    }
+
+    /**
+     * @param History[] $historiales
+     * @return Video
+     */
+    public function setHistoriales($historiales)
+    {
+        $this->historiales = $historiales;
         return $this;
     }
 

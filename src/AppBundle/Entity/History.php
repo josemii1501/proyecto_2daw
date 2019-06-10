@@ -27,7 +27,7 @@ class History
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Video")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Video",inversedBy="historiales")
      * @var Video
      */
     private $video;

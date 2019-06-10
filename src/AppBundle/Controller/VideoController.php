@@ -158,13 +158,32 @@ class VideoController extends Controller
         if ($request->get('borrar') === '') {
             try {
                 $files_videos = $video->getFile();
+                $historiales = $video->getHistoriales();
+                $guardados = $video->getGuardados();
 
+                $this->getDoctrine()->getManager()->flush();
                 if($files_videos != null) {
                     foreach ($files_videos as $item){
                         $this->getDoctrine()->getManager()->remove($item);
+
+                    }
+                }
+
+                if($guardados != null) {
+                    foreach ($guardados as $item){
+                        $this->getDoctrine()->getManager()->remove($item);
+
                     }
                 }
                 $this->getDoctrine()->getManager()->flush();
+                if($historiales != null) {
+                    foreach ($historiales as $item){
+                        $this->getDoctrine()->getManager()->remove($item);
+
+                    }
+                }
+                $this->getDoctrine()->getManager()->flush();
+
 
                 $this->getDoctrine()->getManager()->remove($video);
                 $this->getDoctrine()->getManager()->flush();
