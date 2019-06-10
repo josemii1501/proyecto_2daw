@@ -5,7 +5,7 @@ AppBundle\Entity\User:
     email: admin@devvideos.es
     phone: 617928993
     birthday: <dateTime('now','CET')>
-    login: admin
+    login (unique): admin
     clave: <codificaClave('admin')>
     avatar: "https://pixel.nymag.com/imgs/daily/vulture/2018/11/02/02-avatar-2.w700.h700.jpg"
     urlWebSite: www.devvideos.com
@@ -16,10 +16,10 @@ AppBundle\Entity\User:
   user_{1..20}:
     name: <es_ES:firstName()>
     lastname: <es_ES:lastName()>
-    email: <email()>
+    email (unique): <email()>
     phone: <es_ES:phoneNumber()>
     birthday: <dateTime('now','CET')>
-    login: <es_ES:word()>
+    login (unique): <es_ES:word()>
     clave: <codificaClave('usuario')>
     avatar: "https://pixel.nymag.com/imgs/daily/vulture/2018/11/02/02-avatar-2.w700.h700.jpg"
     urlWebSite: <url()>
@@ -29,12 +29,12 @@ AppBundle\Entity\User:
 
 AppBundle\Entity\Category:
   category_{1..5}:
-    name: <en_EN:word()>
+    name (unique): <en_EN:word()>
     photo: "https://blastcoding.com/wp-content/uploads/2018/10/php.png"
 
 AppBundle\Entity\Video:
   video_{1..10}:
-    route: "https://www.youtube.com/embed/EILhlpY4Vg4"
+    route (unique): <es_ES:url()>
     title: <sentence(15, true)>
     description: <text(200)>
     date: <dateTime('now','CET')>

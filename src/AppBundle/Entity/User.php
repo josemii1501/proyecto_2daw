@@ -35,7 +35,7 @@ class User implements AdvancedUserInterface
     private $lastname;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", unique=true)
      * @var string
      */
     private $email;
@@ -53,7 +53,7 @@ class User implements AdvancedUserInterface
     private $birthday;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", unique=true)
      * @var string
      */
     private $login;
