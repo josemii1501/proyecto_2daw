@@ -157,12 +157,22 @@ class VideoController extends Controller
     {
         if ($request->get('borrar') === '') {
             try {
+                $files_videos = $video->getFile();
+
+                if($files_videos != null) {
+                    foreach ($files_videos as $item){
+                        $this->getDoctrine()->getManager()->remove($item);
+                    }
+                }
+                $this->getDoctrine()->getManager()->flush();
+
                 $this->getDoctrine()->getManager()->remove($video);
                 $this->getDoctrine()->getManager()->flush();
                 $this->addFlash('exito', 'Video Borrado Con Éxito');
                 return $this->redirectToRoute('videos_listar');
             } catch (\Exception $e) {
                 $this->addFlash('error', 'Ha ocurrido un error al guardar los cambios');
+                $this->addFlash('error', $e->getMessage());
             }
         }
         return $this->render('video/eliminar.html.twig', [

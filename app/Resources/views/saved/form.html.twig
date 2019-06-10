@@ -11,9 +11,9 @@
 
     {{ form_start(form) }}
     {{ form_widget(form) }}
-    <a href="{{ path('saved_listar') }}" class="btn btn-info"><i class="fas fa-arrow-left"></i> Volver</a>
+    <a href="{{ path('guardados_listar') }}" class="btn btn-info"><i class="fas fa-arrow-left"></i> Volver</a>
     <button type="submit" class="btn btn-primary"><i class="fas fa-check"></i> Guardar Cambios</button>
-    {% if not es_nueva %}<a href="{{ path('saved_eliminar', {'id': saved.id}) }}" class="btn btn-danger"><i class="fas fa-trash"></i> Eliminar Guardado</a>{% endif %}
+    {% if not es_nueva %}<a href="{{ path('guardado_eliminar', {'id': saved.id}) }}" class="btn btn-danger"><i class="fas fa-trash"></i> Eliminar Guardado</a>{% endif %}
     {{ form_end(form) }}
 
 {% endblock %}

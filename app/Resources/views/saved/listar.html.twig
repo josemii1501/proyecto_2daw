@@ -14,11 +14,14 @@
         </thead>
         <tbody>
         {% for item in guardados %}
-            <tr>
-                <td>{{ item.id }}</td>
-                <td>{{ item.user }}</td>
-                <td>{{ item.timestamp | date('H:m:s | d/m/Y')}}</td>
-                <td>{{ item.video }}</td>
+            <tr>{% if is_granted('ROLE_ADMIN') %}
+<td>                        <a href="{{ path('guardado_modificar', {'id': item.id}) }}">{{ item.id }}</a></td>
+
+                        <td>{{ item.user }}</td>
+                        <td>{{ item.timestamp | date('H:m:s | d/m/Y')}}</td>
+                        <td>{{ item.video }}</td>
+                {% endif %}
+
             </tr>
         {% endfor %}
         </tbody>

@@ -178,12 +178,22 @@ class UsuarioController extends Controller
     {
         if ($request->get('borrar') === '') {
             try {
+                $videos_propios = $user->getVideos();
+
+                if($videos_propios != null) {
+                    foreach ($videos_propios as $item){
+                        $this->getDoctrine()->getManager()->remove($item);
+                    }
+                }
+                $this->getDoctrine()->getManager()->flush();
+
                 $this->getDoctrine()->getManager()->remove($user);
                 $this->getDoctrine()->getManager()->flush();
                 $this->addFlash('exito', 'Usuario Borrado Con Éxito');
                 return $this->redirectToRoute('usuarios_listar');
             } catch (\Exception $e) {
                 $this->addFlash('error', 'Ha ocurrido un error al guardar los cambios');
+                $this->addFlash('error', $e->getMessage());
 
             }
         }

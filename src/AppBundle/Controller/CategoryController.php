@@ -109,8 +109,12 @@ class CategoryController extends Controller
     {
         if ($request->get('borrar') === '') {
             try {
-                if($category->getVideo() != null) {
-                    $category->getVideo()->setCategory(null);
+                $videos_categoria = $category->getVideo();
+
+                if($videos_categoria != null) {
+                    foreach ($videos_categoria as $item){
+                        $item->setCategory(null);
+                    }
                 }
                 $this->getDoctrine()->getManager()->remove($category);
                 $this->getDoctrine()->getManager()->flush();

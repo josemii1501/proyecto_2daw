@@ -16,7 +16,7 @@
         <tbody>
         {% for item in subscriptions %}
             <tr>
-                <td>{{ item.id }}</td>
+                <td><a href="{{ path('suscripcion_editar', {'id': item.id}) }}" >{{ item.id }}</a></td>
                 <td>{{ item.timestamp | date('H:m:s | d/m/Y')}}</td>
                 <td>{{ item.suscriptor }}</td>
                 <td>{{ item.chanel }}</td>
