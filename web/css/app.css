@@ -1,10 +1,12 @@
 *{
     box-sizing: border-box;
     -moz-box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 body{
     background-color: #23272b;
-    padding-top: 4.5rem;
+    padding-top: 7em;
     color: #efefef;
 }
 /* LOGIN */
@@ -83,6 +85,63 @@ body{
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff0a89', endColorstr='#1a1dff', GradientType=0 );
 }
 /* END LOGIN*/
+/* GLOBAL */
+.titulo_seccion{
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 1em;
+}
+.pnlAccionNueva{
+    margin-bottom: 1em;
+    margin-top: 1em;
+}
+a{
+    text-decoration: none;
+}
+a:hover{
+    text-decoration: none;
+}
+.avatar_lista, .miniatura_lista{
+    max-width: 5em;
+}
+/* FIN GLOBAL */
+/* JQUERY UI*/
+.ui-widget-header{
+    background-color: inherit;
+    border: 0;
+}
+#tabs{
+    background-color: #23272b;
+    border: 0;
+}
+.ui-widget-content{
+    color: #efefef;
+}
+/* FIN JQUERY UI*/
+/* CATEGORIAS */
+.panel_categoria{
+    display: table;
+    width: 100%;
+    border-bottom: 1px solid #efefef;
+    font-weight: bold;
+}
+.panel_categoria:hover{
+    background: rgba(255,93,177,1);
+    background: -moz-linear-gradient(top, rgba(255,93,177,1) 0%, rgba(118,120,255,1) 100%);
+    background: -webkit-linear-gradient(top, rgba(255,93,177,1) 0%, rgba(118,120,255,1) 100%);
+    background: -o-linear-gradient(top, rgba(255,93,177,1) 0%, rgba(118,120,255,1) 100%);
+    background: -ms-linear-gradient(top, rgba(255,93,177,1) 0%, rgba(118,120,255,1) 100%);
+    background: linear-gradient(to bottom, rgba(255,93,177,1) 0%, rgba(118,120,255,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff5db1', endColorstr='#7678ff', GradientType=0 );
+}
+.descripcion_categoria{
+    color: #efefef;
+    text-decoration: none;
+}
+.imagen_categoria img{
+    border-radius: 0.1em;
+}
+/* FIN CATEGORIAS */
 .boton_layout{
     margin-left: 0.5em;
     margin-right: 0.5em;
@@ -92,20 +151,11 @@ body{
     padding-top: 0.5em;
     width: 100%;
 }
-.ui-widget-header{
-    background-color: inherit;
-    border: 0;
-}
+
 .canal_etiqueta{
     text-decoration: underline;
 }
-#tabs{
-    background-color: #23272b;
-    border: 0;
-}
-.ui-widget-content{
-    color: #efefef;
-}
+
 .cabecera_canal{
     margin-bottom: 1em;
 }
@@ -152,22 +202,16 @@ body{
     font-size: 1.25em;
 
 }
-.titulo_seccion{
-    font-weight: bold;
-}
-.avatar_lista, .miniatura_lista{
-    max-width: 5em;
-}
-.panel_categoria, .panel_video{
+.panel_video{
     display: table;
     width: 100%;
     border-bottom: 1px solid #efefef;
 }
-.descripcion_categoria, .titulo_video, .video_descripcion, .info_video{
+.titulo_video, .video_descripcion, .info_video{
     color: #efefef;
     text-decoration: none;
 }
-.panel_categoria:hover, .panel_video:hover,.panel_usuario:hover, .creador_video:hover{
+ .panel_video:hover,.panel_usuario:hover, .creador_video:hover{
     background-color: #43474b;
     color: #efefef;
     text-decoration: underline;
@@ -183,10 +227,7 @@ body{
     max-width: 5em;
     margin-right: 2em;
 }
-.imagen_categoria img{
-    border-radius: 0.1em;
-    width: 9em;
-}
+
 .imagen_video img{
     width: 9em;
 
@@ -199,9 +240,7 @@ body{
     padding: 1em;
     padding-bottom: 2em;
 }
-.enlace_video:hover{
-    text-decoration: none;
-}
+
 .descripcion_categoria, .descripcion_video{
     vertical-align: middle;
     display: table-cell;
@@ -219,10 +258,7 @@ body{
     vertical-align: middle;
     width: 4em;
 }
-.pnlAccionNueva{
-    margin-bottom: 1em;
-    margin-top: 1em;
-}
+
 .pantalla_video{
     max-width: 100%;
     margin-top: 2em;
@@ -270,4 +306,29 @@ body{
         margin-bottom: 3em;
     }
     /*END LOGIN*/
+    /* CATEGORIAS */
+    .panel_categoria{
+        flex-basis: 30%;
+        border: 1px solid #efefef;
+        border-radius: 0.5em;
+        margin-bottom: 3em;
+        display: inline-block;
+    }
+    .panel_categorias{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+    .panel_categoria .imagen_categoria{
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+    .panel_categoria .descripcion_categoria{
+        display: block;
+        width: 100%;
+        margin-top: 2em;
+        text-align: center;
+    }
+    /* FIN CATEGORIAS */
 }
