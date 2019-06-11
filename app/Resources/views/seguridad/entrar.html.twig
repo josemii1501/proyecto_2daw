@@ -1,11 +1,33 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
-    <h1>Entrar en la aplicación</h1>
-
     <form action="{{ path('usuario_entrar') }}" method="post">
-        <input type="text" name="_username" placeholder="Nombre de usuario">
-        <input type="password" name="_password" placeholder="Contraseña">
-        <button type="submit">Entrar</button>
+        <div class="login">
+            <img src="{{ asset('/archivos_web/logo_w_300px.png') }}">
+            <div class="login-username">
+                <input type="text" name="_username" placeholder="Usuario" class="input-login input-username" autofocus>
+            </div>
+            <div class="login-password">
+                <input type="password" name="_password" placeholder="Contraseña" class="input-login input-username" id="txtpass">
+                <label id="show-pass" class="ver-pass"><input type="checkbox" id="cbox1" value="first_checkbox" style="display: none;"> <i class="fas fa-eye"></i></label>
+            </div>
+
+            <button type="submit" class="login-btn">Entrar</button>
+        </div>
     </form>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+    $('#cbox1').on('change', function(){
+        if($('#cbox1').is(':checked')) {
+            $('#txtpass').attr('type','text');
+            $(this).addClass('active');
+        }
+        else {
+            $('#txtpass').attr('type','password');
+            $(this).removeClass('active');
+        }
+    });
+</script>
 {% endblock %}
