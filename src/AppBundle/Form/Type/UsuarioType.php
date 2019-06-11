@@ -32,7 +32,7 @@ class UsuarioType extends AbstractType
             ->add('login',null,[
                 'label'=>'Usuario: '
             ])
-            ->add('password',null,[
+            ->add('clave',null,[
                 'label'=>'Contraseña: '
             ])
             ->add('avatar',FileType::class,[

@@ -148,7 +148,12 @@ class UsuarioController extends Controller
                     $user->setAvatar("uploads/avatar_photo/" . $fileName);
                 }
 
-
+                if($user->isPublisher() === null){
+                    $user->setPublisher(false);
+                }
+                if($user->isAdmin() === null){
+                    $user->setAdmin(false);
+                }
                 $this->getDoctrine()->getManager()->flush();
                 $this->addFlash('exito', 'Cambios guardados correctamente.');
                 return $this->redirectToRoute('usuarios_listar');

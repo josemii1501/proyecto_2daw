@@ -1,12 +1,17 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}Modificar Usuario{% endblock %}
+{% block title %}
+    {% if not es_nueva %}
+        <h1> Modificar Usuario - DevVideos </h1>
+    {% else %}
+        <h1> Nuevo Usuario - DevVideos </h1>
+{% endif %}{% endblock %}
 
 {% block content %}
     {% if not es_nueva %}
         <h1>Modificar Usuario</h1>
     {% else %}
-        <h1>Nuevo Usuario</h1>
+        <h1>Registrarse</h1>
     {% endif %}
 
     {{ form_start(form) }}
