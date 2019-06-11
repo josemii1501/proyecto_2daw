@@ -15,7 +15,7 @@
 <div class="panel_usuarios">
             {% for usuario in usuarios %}
 
-                <div class="panel_usuario">
+                <div class="panel_usuario {% if usuario.isPublisher %} publisher_panel_user {% endif %}">
                     {% if is_granted('ROLE_ADMIN') %}
                         <div class="editar_usuario">
                             <a href="{{ path('usuario_modificar', {'id': usuario.id}) }}" class="btn btn-warning"><i class="fas fa-tools"></i></a>

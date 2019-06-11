@@ -31,10 +31,12 @@
         <div id="tabs-2">
                 {% for video in usuario.videos %}
                     <div class="panel_video">
-                        {% if app.user.name == usuario.name %}
-                            <div class="editar_video">
-                                <a href="{{ path('video_modificar', {'id': video.id}) }}" class="btn btn-warning"><i class="fas fa-tools"></i></a>
-                            </div>
+                        {% if app.user %}
+                            {% if app.user.name == usuario.name %}
+                                <div class="editar_video">
+                                    <a href="{{ path('video_modificar', {'id': video.id}) }}" class="btn btn-warning"><i class="fas fa-tools"></i></a>
+                                </div>
+                            {% endif %}
                         {% endif %}
 
                         <a href="{{ path('visualizar_video',{'id': video.id}) }}" class="enlace_video">

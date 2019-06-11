@@ -8,7 +8,7 @@
     <h1 class="visualizar_titulo_video">{{ video.title }}</h1>
 
     <iframe id="videoframe" src="{{ video.route }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="pantalla_video"></iframe>
-
+    <a href="{{ path('guardado_nuevo') }}" class="btn btn-primary"><i class="fas fa-save"></i> Guardar</a>
     <a href="{{ path('canal_usuario', {'id': video.creator.id})}}" class="creador_video">
         <img src="{{ video.creator.avatar }}" alt="Avatar" class="avatar_canal"/>
         <span class="nombre_canal_video">{{ video.creator.login }}</span>
@@ -22,8 +22,8 @@
                 <div class="informacion_video">
                     <span class="descripcion_visualizar_video">{{ video.description }}</span>
                     <div class="otra_informacion_visualizar">
-                        <span class="fecha_visualizar_video"><span class="etiqueta_info_visualizar">Fecha: </span> {{ video.date | date('H:m:s - d/m/Y') }}</span>
-                        <span class="visualizaciones_visualizar_video"><span class="etiqueta_info_visualizar">Visualizaciones: </span> {{ video.reproductions }}</span>
+                        <span class="fecha_visualizar_video"><span class="etiqueta_info_visualizar"><i class="fas fa-calendar"></i> Fecha: </span> {{ video.date | date('H:m:s - d/m/Y') }}</span>
+                        <span class="visualizaciones_visualizar_video"><span class="etiqueta_info_visualizar"><i class="fas fa-eye"></i> Visualizaciones: </span> {{ video.reproductions }}</span>
                     </div>
                     <div class="panel_categoria_visualizar">
                         <a href="{{ path('videos_categoria',{'id': video.category.id}) }}" class="enlace_categoria">

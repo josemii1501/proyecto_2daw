@@ -45,17 +45,13 @@ class UsuarioType extends AbstractType
             ])
             ->add('description',null,[
                 'label'=>'Descripción: '
-            ]);
-        if($options['es_admin']){
-            $builder
-                ->add('publisher',null,[
+            ])
+            ->add('publisher',null,[
                     'label'=>'¿Publicador? '
                 ])
                 ->add('admin',null,[
                     'label'=>'¿Administrador? '
                 ]);
-        }
-
     }
 
     public function configureOptions(OptionsResolver $resolver)
