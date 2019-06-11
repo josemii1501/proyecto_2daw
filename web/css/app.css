@@ -121,27 +121,91 @@ a:hover{
 /* CATEGORIAS */
 .panel_categoria{
     display: table;
+    text-align: center;
     width: 100%;
     border-bottom: 1px solid #efefef;
     font-weight: bold;
 }
 .panel_categoria:hover{
-    background: rgba(255,93,177,1);
-    background: -moz-linear-gradient(top, rgba(255,93,177,1) 0%, rgba(118,120,255,1) 100%);
-    background: -webkit-linear-gradient(top, rgba(255,93,177,1) 0%, rgba(118,120,255,1) 100%);
-    background: -o-linear-gradient(top, rgba(255,93,177,1) 0%, rgba(118,120,255,1) 100%);
-    background: -ms-linear-gradient(top, rgba(255,93,177,1) 0%, rgba(118,120,255,1) 100%);
-    background: linear-gradient(to bottom, rgba(255,93,177,1) 0%, rgba(118,120,255,1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff5db1', endColorstr='#7678ff', GradientType=0 );
+    background-color: #43474b;
+    color: #efefef;
+    cursor: pointer;
 }
 .descripcion_categoria{
+    margin-top: 1em;
+    display: block;
+    width: 100%;
+    text-align: center;
     color: #efefef;
     text-decoration: none;
+}
+.nombre_categoria{
+    font-size: 1.2em;
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+.imagen_categoria{
+    border-radius: 0.1em;
 }
 .imagen_categoria img{
     border-radius: 0.1em;
 }
 /* FIN CATEGORIAS */
+/* VIDEOS */
+.panel_video{
+    display: table;
+    width: 100%;
+    border-bottom: 1px solid #efefef;
+    font-weight: normal;
+}
+.titulo_video, .descripcion_video, .info_video{
+    color: #efefef;
+    text-decoration: none;
+}
+.imagen_video{
+    display: block;
+    width: 100%;
+    vertical-align: middle;
+    margin-bottom: 0.5em;
+}
+.imagen_video img{
+    width: 100%;
+    max-width: 100%;
+}
+.video_descripcion{
+    display: none;
+}
+.info_video{
+    display: block;
+    width: 100%;
+    font-size: 0.8em;
+}
+.etiqueta_info_video{
+    font-weight: bold;
+    font-size: 1.1em;
+}
+.titulo_video{
+    display: block;
+    display: -webkit-box;
+    height: 3em;
+    font-size: 1.2em;
+    font-weight: bold;
+    line-height: 1.5em;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+
+}
+.enlace_video:hover{
+    text-decoration: none;
+    font-style: normal;
+}
+.descripcion_video {
+    font-size: 1.2em;
+    padding-bottom: 0.5em;
+}
+/* FIN VIDEOS */
 .boton_layout{
     margin-left: 0.5em;
     margin-right: 0.5em;
@@ -202,55 +266,36 @@ a:hover{
     font-size: 1.25em;
 
 }
-.panel_video{
-    display: table;
-    width: 100%;
-    border-bottom: 1px solid #efefef;
-}
-.titulo_video, .video_descripcion, .info_video{
-    color: #efefef;
-    text-decoration: none;
-}
+
+
  .panel_video:hover,.panel_usuario:hover, .creador_video:hover{
     background-color: #43474b;
     color: #efefef;
-    text-decoration: underline;
     cursor: pointer;
 }
-.imagen_categoria, .imagen_video{
-    width: 10em;
-    vertical-align: middle;
-    display: table-cell;
-    padding: 0.5em;
-}
+
 .avatar_canal{
     max-width: 5em;
     margin-right: 2em;
 }
 
-.imagen_video img{
-    width: 9em;
 
-    max-width: 9em;
-}
 .enlace_categoria, .enlace_video, .enlace_usuario{
     color: #efefef;
     width: 100%;
     display: block;
     padding: 1em;
     padding-bottom: 2em;
+    text-decoration: none;
+    font-style: normal;
 }
 
-.descripcion_categoria, .descripcion_video{
+.descripcion_video{
     vertical-align: middle;
     display: table-cell;
 }
 
-.nombre_categoria{
-    font-size: 1.2em;
-    margin-top: auto;
-    margin-bottom: auto;
-}
+
 .editar_categoria, .editar_video{
     padding: 0.5em;
     margin-right: 1em;
@@ -267,23 +312,12 @@ a:hover{
 .pnlAccionNueva span{
     margin: 1em;
 }
-.descripcion_video .titulo_video, .descripcion_video .video_descripcion{
+.descripcion_video .titulo_video, .descripcion_video {
     width: 100%;
     display: block;
 }
-.descripcion_video .titulo_video{
-    font-size: 1.5em;
-    padding-bottom: 0.5em;
-    font-weight: bolder;
-}
-.info_video{
-    margin-top: 0.5em;
-    width: 33%;
-    display: inline-block;
-}
-.etiqueta_info{
-    text-decoration: underline;
-}
+
+
 .creador_video{
     border: 2px solid #efefef;
     padding: 1em;
@@ -330,5 +364,25 @@ a:hover{
         margin-top: 2em;
         text-align: center;
     }
+
     /* FIN CATEGORIAS */
+    .imagen_categoria, .imagen_video{
+        width: 10em;
+        vertical-align: middle;
+        display: table-cell;
+        padding: 0.5em;
+    }
+    .panel_videos{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+    .panel_video{
+        flex-basis: 30%;
+        margin-bottom: 3em;
+        display: inline-block;
+    }
+    .imagen_video{
+        width: 100%;
+    }
 }

@@ -12,7 +12,7 @@
             <span class="ayuda"> Suba un video para que los usuarios lo vean.</span>
         </div>
     {% endif %}
-
+<div class="panel_videos">
         {% for video in videos %}
             <div class="panel_video">
                 {% if is_granted('ROLE_ADMIN') %}
@@ -28,11 +28,12 @@
                     <div class="descripcion_video">
                         <span class="titulo_video">{{ video.title }}</span>
                         <span class="video_descripcion">{{ video.description }}</span>
-                        <span class="info_video fecha_video"><span class="etiqueta_info">Fecha:</span> {{ video.date | date('H:m:s - d/m/Y') }}</span>
-                        <span class="info_video reproducciones_video"><span class="etiqueta_info">Visualizaciones:</span> {{ video.reproductions }}</span>
-                        <span class="info_video categoria_video"><span class="etiqueta_info">Catergoría:</span> {{ video.category }}</span>
+                        <span class="info_video fecha_video"><span class="etiqueta_info_video">Fecha:</span> {{ video.date | date('H:m:s - d/m/Y') }}</span>
+                        <span class="info_video reproducciones_video"><span class="etiqueta_info_video">Visualizaciones:</span> {{ video.reproductions }}</span>
+                        <span class="info_video categoria_video"><span class="etiqueta_info_video">Catergoría:</span> {{ video.category }}</span>
                     </div>
                 </a>
             </div>
         {% endfor %}
+</div>
 {% endblock %}
