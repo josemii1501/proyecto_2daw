@@ -9,23 +9,29 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             {% set ruta = app.request.get('_route') %}
             <ul class="navbar-nav mr-auto">
+
                 <li class="nav-item">
                     <a class="nav-link{% if ruta starts with "categoria" %} active{% endif %}" href="{{ path('categorias_listar') }}">Categorias</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link{% if ruta starts with "archivo" %} active{% endif %}" href="{{ path('archivos_listar') }}">Archivos</a>
-                </li>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <li class="nav-item">
+                        <a class="nav-link{% if ruta starts with "archivo" %} active{% endif %}" href="{{ path('archivos_listar') }}">Archivos</a>
+                    </li>
+
                 <li class="nav-item">
                     <a class="nav-link{% if ruta starts with "historial" %} active{% endif %}" href="{{ path('historiales_listar') }}">Historiales</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link{% if ruta starts with "guardado" %} active{% endif %}" href="{{ path('guardados_listar') }}">Guardados</a>
                 </li>
+
                 <li class="nav-item">
                     <a class="nav-link{% if ruta starts with "suscripcion" %} active{% endif %}" href="{{ path('suscripciones_listar') }}">Suscripciones</a>
                 </li>
+
+                {% endif %}
                 <li class="nav-item">
-                    <a class="nav-link{% if ruta starts with "usuario" %} active{% endif %}" href="{{ path('usuarios_listar') }}">Usuarios</a>
+                    <a class="nav-link{% if ruta starts with "usuario" %} active{% endif %}" href="{{ path('usuarios_listar') }}">Canales</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link{% if ruta starts with "video" %} active{% endif %}" href="{{ path('videos_listar') }}">Videos</a>
