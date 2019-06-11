@@ -3,20 +3,55 @@
 {% block title %} {{ video.title }} - DevVideos{% endblock %}
 
 {% block content %}
-    <h1 class="titulo_seccion">{{ video.title }}</h1>
+
+    <div class="panel-visualizar">
+    <h1 class="visualizar_titulo_video">{{ video.title }}</h1>
 
     <iframe id="videoframe" src="{{ video.route }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="pantalla_video"></iframe>
-    <div class="informacion_video">
-        <span class="descripcion_visualizar_video">{{ video.description }}</span>
-        <div class="otra_informacion_visualizar">
-            <span class="fecha_visualizar_video"><span class="etiqueta_info">Fecha: </span> {{ video.date | date('H:m:s - d/m/Y') }}</span>
-            <span class="visualizaciones_visualizar_video"><span class="etiqueta_info">Visualizaciones: </span> {{ video.reproductions }}</span>
-        </div>
-        <span class="categoria_visualizar_video"><span class="etiqueta_info">Categoria: </span> {{ video.category }}</span>
-    </div>
+
     <a href="{{ path('canal_usuario', {'id': video.creator.id})}}" class="creador_video">
         <img src="{{ video.creator.avatar }}" alt="Avatar" class="avatar_canal"/>
         <span class="nombre_canal_video">{{ video.creator.login }}</span>
     </a>
+        <div id="tabs">
+            <ul>
+                <li><a href="#tabs-1">Información</a></li>
+                <li><a href="#tabs-2">Archivos</a></li>
+            </ul>
+            <div id="tabs-1">
+                <div class="informacion_video">
+                    <span class="descripcion_visualizar_video">{{ video.description }}</span>
+                    <div class="otra_informacion_visualizar">
+                        <span class="fecha_visualizar_video"><span class="etiqueta_info_visualizar">Fecha: </span> {{ video.date | date('H:m:s - d/m/Y') }}</span>
+                        <span class="visualizaciones_visualizar_video"><span class="etiqueta_info_visualizar">Visualizaciones: </span> {{ video.reproductions }}</span>
+                    </div>
+                    <div class="panel_categoria_visualizar">
+                        <a href="{{ path('videos_categoria',{'id': video.category.id}) }}" class="enlace_categoria">
+                                <img src="{{ video.category.photo }}" alt="Foto {{ video.category.name }}" class="imagen_categoria_visualizar"/>
+                                <span class="nombre_categoria_visualizar">{{ video.category.name }}</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div id="tabs-2">
+                <!-- FICHEROS -->
+                {% if video.file == null %}
+                    <span>!No hay archivos disponibles!</span>
+                {% else %}
+                    {% for file in video.file %}
+                    <a href="{{ file.file }}">{{ file.file }}</a>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
 
+{% block javascripts %}
+    <script>
+        $video = $("#videoframe");
+        $alto = ($video.width() * 9  )/16;
+
+        $video.height($alto);
+    </script>
 {% endblock %}
