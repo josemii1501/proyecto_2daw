@@ -17,13 +17,16 @@ class CategoryRepository extends ServiceEntityRepository
     {
         $cat = $this->findIdCategoria();
 
-
         $categorias = array_rand($cat,3);
+        $categorias2 = [];
 
-
+        foreach( $categorias as $item){
+            $item = $item+1;
+            array_push($categorias2,$item);
+        }
         return $this->createQueryBuilder('f')
             ->where('f.id IN (:lista)')
-            ->setParameter('lista', $categorias)
+            ->setParameter('lista', $categorias2)
             ->getQuery()
             ->getResult();
     }
