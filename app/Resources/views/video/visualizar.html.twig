@@ -35,7 +35,7 @@
             </div>
             <div id="tabs-2">
                 <!-- FICHEROS -->
-                {% if video.file == null %}
+                {% if Empty(video.file) %}
                     <span>!No hay archivos disponibles!</span>
                 {% else %}
                     {% for file in video.file %}
