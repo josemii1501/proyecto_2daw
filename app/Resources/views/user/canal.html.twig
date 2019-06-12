@@ -19,16 +19,18 @@
         </ul>
         <div id="tabs-1">
             <div class="canal_informacion">
-                <span class="info_canal canal_nombre_apellidos"><span class="canal_etiqueta">Nombre y Apellidos: </span> {{ usuario.name }} {{ usuario.lastname }}</span>
-                <span class="info_canal canal_correo"><span class="canal_etiqueta">Correo: </span> {{ usuario.email }}</span>
-                {% if is_granted('ROLE_ADMIN') %}<span class="info_canal canal_telefono"><span class="canal_etiqueta">Teléfono: </span> {{ usuario.phone }}</span>{% endif %}
-                <span class="info_canal canal_correo"><span class="canal_etiqueta">Correo: </span> {{ usuario.email }}</span>
-                <span class="info_canal canal_fecha"><span class="canal_etiqueta">Fecha de Nacimiento: </span> {{ usuario.birthday | date('H:m:s - d/m/Y')  }}</span>
-                <span class="info_canal canal_website"><span class="canal_etiqueta">Sitio Web: </span> {{ usuario.urlWebSite }}</span>
+                <span class="info_canal canal_nombre_apellidos"><i class="fas fa-user"></i> <span class="canal_etiqueta">Nombre y Apellidos:</span> {{ usuario.name }} {{ usuario.lastname }}</span>
+                <span class="info_canal canal_correo"><i class="fas fa-envelope"></i> <span class="canal_etiqueta">Correo:</span> {{ usuario.email }}</span>
+                {% if is_granted('ROLE_ADMIN') %}<span class="info_canal canal_telefono"><i class="fas fa-phone"></i> <span class="canal_etiqueta">Teléfono:</span> {{ usuario.phone }}</span>{% endif %}
+                <span class="info_canal canal_fecha"><i class="fas fa-calendar"></i> <span class="canal_etiqueta">Fecha de Nacimiento:</span> {{ usuario.birthday | date('H:m:s - d/m/Y')  }}</span>
+                <span class="info_canal canal_website"><i class="fas fa-globe-europe"></i> <span class="canal_etiqueta">Sitio Web:</span> {{ usuario.urlWebSite }}</span>
                 <span class="info_canal canal_descripcion">{{ usuario.description }}</span>
             </div>
         </div>
         <div id="tabs-2">
+            {% if usuario.videos is empty %}
+                <span class="no_videos">!Este canal no dispone de videos!</span>
+            {% else %}
                 {% for video in usuario.videos %}
                     <div class="panel_video">
                         {% if app.user %}
@@ -53,8 +55,7 @@
                         </a>
                     </div>
                 {% endfor %}
-            <!--MOSTRAR EN EL CASO DE QUE NO TENGA -->
-                <span class="no_videos">!Este canal no dispone de videos!</span>
+            {% endif %}
         </div>
     </div>
 {% endblock %}
