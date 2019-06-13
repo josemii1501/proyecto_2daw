@@ -10,8 +10,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\File;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UsuarioController extends Controller
@@ -97,13 +97,13 @@ class UsuarioController extends Controller
     /**
      * @Route("/usuarios/nuevo", name="usuario_nuevo")
      */
-    public function formNuevoUsuario(Request $request)
+    public function formNuevoUsuario(UserPasswordEncoderInterface $passwordEncoder,Request $request)
     {
         $usuario = New User();
 
         $this->getDoctrine()->getManager()->persist($usuario);
 
-        return $this->formUsuarioAction($request, $usuario);
+        return $this->formUsuarioAction($passwordEncoder, $request, $usuario);
     }
 
     /**
@@ -111,7 +111,7 @@ class UsuarioController extends Controller
      *     requirements={"id":"\d+"})
      * @Security("is_granted('ROLE_USER')")
      */
-    public function formUsuarioAction(Request $request, User $user)
+    public function formUsuarioAction(UserPasswordEncoderInterface $passwordEncoder, Request $request, User $user)
     {
         if(null === $user) {
             $user = new $user();
@@ -125,7 +125,12 @@ class UsuarioController extends Controller
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             // $file stores the uploaded PDF file
-
+            $user->setClave(
+                $passwordEncoder->encodePassword(
+                    $user,
+                    $form->get('clave')->getData()
+                )
+            );
             try {
                 /** @var File $filename */
                 $file = $form->get('avatar')->getData();
