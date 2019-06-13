@@ -4,7 +4,7 @@
 
 {% block content %}
     <div class="cabecera_canal">
-        <img src="{{ usuario.avatar }}" alt="Avatar {{ usuario.login }}" />
+        <img href="{{ asset('uploads/avatar_photo/' ~ usuario.avatar)}}" alt="Avatar {{ usuario.login }}" />
         <div class="informacion_general">
             <h1>{{ usuario.login }}</h1>
             <span class="canal_nombre">{{ usuario.name }}</span>
