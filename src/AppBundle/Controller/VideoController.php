@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Category;
+use AppBundle\Entity\History;
 use AppBundle\Entity\User;
 use AppBundle\Entity\Video;
 use AppBundle\Form\Type\VideoType;
@@ -46,6 +47,13 @@ class VideoController extends Controller
      */
     public function videoVisualizarAction(Video $video)
     {
+
+        $historial = new History();
+
+        $historial->setVideo($video)
+                    ->setUser($this->getUser())
+                    ->setTimestamp(new \DateTime());
+
         $video->setReproductions($video->getReproductions()+1);
         $this->getDoctrine()->getManager()->flush();
 
