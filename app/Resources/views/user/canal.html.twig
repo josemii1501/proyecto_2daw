@@ -4,7 +4,9 @@
 
 {% block content %}
     <div class="cabecera_canal">
-        <img href="{{ asset('uploads/avatar_photo/' ~ usuario.avatar)}}" alt="Avatar {{ usuario.login }}" />
+        <div class="panel_avatar_canal {% if usuario.publisher %} avatar_publisher {% endif %}">
+            <img src="{{ usuario.avatar}}" alt="Avatar {{ usuario.login }}" class="avatar_canal_photo " />
+        </div>
         <div class="informacion_general">
             <h1>{{ usuario.login }}</h1>
             <span class="canal_nombre">{{ usuario.name }}</span>
@@ -29,7 +31,9 @@
         </div>
         <div id="tabs-2">
             {% if usuario.videos is empty %}
-                <span class="no_videos">!Este canal no dispone de videos!</span>
+                <div class="no_videos">
+                <span >!Este canal no dispone de videos!</span>
+                </div>
             {% else %}
                 {% for video in usuario.videos %}
                     <div class="panel_video">
