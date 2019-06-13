@@ -48,18 +48,24 @@ class VideoController extends Controller
     public function videoVisualizarAction(Video $video)
     {
         try{
-            $historial = new History();
+            if($this->getUser()){
+                $historial = new History();
 
-            $historial->setVideo($video);
-                $historial->setUsuario($this->getUser());
-                $historial->setTimestamp(new \DateTime());
+                $historial->setVideo($video)
+                    ->setUsuario($this->getUser())
+                    ->setTimestamp(new \DateTime());
+
+                $this->getDoctrine()->getManager()->persist($historial);
+                $this->getDoctrine()->getManager()->flush();
+            }
+            $video->setReproductions($video->getReproductions()+1);
             $this->getDoctrine()->getManager()->flush();
+
         } catch (\Exception $e) {
             $this->addFlash('error', $e->getMessage());
         }
 
-        $video->setReproductions($video->getReproductions()+1);
-        $this->getDoctrine()->getManager()->flush();
+
 
         return $this->render('video/visualizar.html.twig', [
             'video' => $video
