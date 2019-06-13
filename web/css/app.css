@@ -276,6 +276,10 @@ a:hover{
     width: 100%;
     max-width: 100%;
 }
+.navbar-toggler {
+    margin: auto;
+    width: 100%;
+}
 .video_descripcion{
     display: none;
 }

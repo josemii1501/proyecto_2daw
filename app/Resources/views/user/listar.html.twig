@@ -3,8 +3,12 @@
 {%  block title %} Usuarios - DevVideos {% endblock %}
 
 {% block content %}
+    {% if is_granted('ROLE_ADMIN') %}
+<h1 class="titulo_seccion">Usuarios</h1>
+        {% else %}
+            <h1 class="titulo_seccion">Creadores </h1>
 
-<h1 class="titulo_seccion">Usuarios </h1>
+    {% endif %}
 
     {% if is_granted('ROLE_ADMIN') %}
         <div class="pnlAccionNueva">
