@@ -1,4 +1,4 @@
-AppBundle\Entity\User:
+AppBundle\Entity\Usuario:
   admin:
     name: Administrador
     lastname: Administrador
@@ -51,13 +51,13 @@ AppBundle\Entity\File:
 
 AppBundle\Entity\History:
   history_{1..20}:
-    user: '@user*'
+    usuario: '@user*'
     video: '@video*'
     timestamp: <dateTime('now','CET')>
 
 AppBundle\Entity\Saved:
   saved_{1..20}:
-    user: '@user*'
+    usuario: '@user*'
     video: '@video*'
     timestamp: <dateTime('now','CET')>
 

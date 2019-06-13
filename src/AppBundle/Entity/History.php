@@ -21,10 +21,10 @@ class History
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
-     * @var User
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Usuario")
+     * @var Usuario
      */
-    private $user;
+    private $usuario;
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Video",inversedBy="historiales")
@@ -47,20 +47,20 @@ class History
     }
 
     /**
-     * @return User
+     * @return Usuario
      */
-    public function getUser()
+    public function getUsuario()
     {
-        return $this->user;
+        return $this->usuario;
     }
 
     /**
-     * @param User $user
+     * @param Usuario $usuario
      * @return History
      */
-    public function setUser($user)
+    public function setUsuario($usuario)
     {
-        $this->user = $user;
+        $this->usuario = $usuario;
         return $this;
     }
 
@@ -99,5 +99,6 @@ class History
         $this->timestamp = $timestamp;
         return $this;
     }
+
 
 }

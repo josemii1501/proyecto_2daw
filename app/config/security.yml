@@ -6,10 +6,10 @@ security:
     providers:
         base_de_datos:
             entity:
-                class: AppBundle\Entity\User
+                class: AppBundle\Entity\Usuario
                 property: login
     encoders:
-        AppBundle\Entity\User: bcrypt
+        AppBundle\Entity\Usuario: bcrypt
 
     role_hierarchy:
         ROLE_ADMIN: ['ROLE_USER', 'ROLE_PUBLISHER']

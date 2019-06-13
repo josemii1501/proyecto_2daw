@@ -10,9 +10,9 @@ use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UsuarioRepository")
- * @ORM\Table(name="user")
+ * @ORM\Table(name="usuario")
  */
-class User implements AdvancedUserInterface
+class Usuario implements AdvancedUserInterface
 {
     /**
      * @ORM\Id
@@ -117,7 +117,7 @@ class User implements AdvancedUserInterface
 
     /**
      * @param string $name
-     * @return User
+     * @return Usuario
      */
     public function setName($name)
     {
@@ -135,7 +135,7 @@ class User implements AdvancedUserInterface
 
     /**
      * @param string $lastname
-     * @return User
+     * @return Usuario
      */
     public function setLastname($lastname)
     {
@@ -153,7 +153,7 @@ class User implements AdvancedUserInterface
 
     /**
      * @param string $email
-     * @return User
+     * @return Usuario
      */
     public function setEmail($email)
     {
@@ -171,7 +171,7 @@ class User implements AdvancedUserInterface
 
     /**
      * @param string $phone
-     * @return User
+     * @return Usuario
      */
     public function setPhone($phone)
     {
@@ -189,7 +189,7 @@ class User implements AdvancedUserInterface
 
     /**
      * @param \DateTime $birthday
-     * @return User
+     * @return Usuario
      */
     public function setBirthday($birthday)
     {
@@ -207,7 +207,7 @@ class User implements AdvancedUserInterface
 
     /**
      * @param string $login
-     * @return User
+     * @return Usuario
      */
     public function setLogin($login)
     {
@@ -225,14 +225,13 @@ class User implements AdvancedUserInterface
 
     /**
      * @param string $clave
-     * @return User
+     * @return Usuario
      */
     public function setClave($clave)
     {
         $this->clave = $clave;
         return $this;
     }
-
 
     /**
      * @return string
@@ -244,7 +243,7 @@ class User implements AdvancedUserInterface
 
     /**
      * @param string $avatar
-     * @return User
+     * @return Usuario
      */
     public function setAvatar($avatar)
     {
@@ -262,7 +261,7 @@ class User implements AdvancedUserInterface
 
     /**
      * @param string $urlWebSite
-     * @return User
+     * @return Usuario
      */
     public function setUrlWebSite($urlWebSite)
     {
@@ -280,7 +279,7 @@ class User implements AdvancedUserInterface
 
     /**
      * @param string $description
-     * @return User
+     * @return Usuario
      */
     public function setDescription($description)
     {
@@ -298,7 +297,7 @@ class User implements AdvancedUserInterface
 
     /**
      * @param bool $publisher
-     * @return User
+     * @return Usuario
      */
     public function setPublisher($publisher)
     {
@@ -316,7 +315,7 @@ class User implements AdvancedUserInterface
 
     /**
      * @param bool $admin
-     * @return User
+     * @return Usuario
      */
     public function setAdmin($admin)
     {
@@ -334,7 +333,7 @@ class User implements AdvancedUserInterface
 
     /**
      * @param Video[] $videos
-     * @return User
+     * @return Usuario
      */
     public function setVideos($videos)
     {
@@ -350,67 +349,6 @@ class User implements AdvancedUserInterface
     public function __toString()
     {
         return $this->getLastname().', '.$this->getName();
-    }
-
-    /**
-     * Returns the roles granted to the user.
-     *
-     *     public function getRoles()
-     *     {
-     *         return ['ROLE_USER'];
-     *     }
-     *
-     * Alternatively, the roles might be stored on a ``roles`` property,
-     * and populated in any number of different ways when the user object
-     * is created.
-     *
-     * @return (Role|string)[] The user roles
-     */
-    public function getRoles()
-    {
-        $roles = [
-            'ROLE_USER'
-        ];
-        if ($this->isAdmin()) {
-            $roles[] = 'ROLE_ADMIN';
-        }
-        if ($this->isPublisher()) {
-            $roles[] = 'ROLE_PUBLISHER';
-        }
-        return $roles;
-    }
-
-    /**
-     * Returns the salt that was originally used to encode the password.
-     *
-     * This can return null if the password was not encoded using a salt.
-     *
-     * @return string|null The salt
-     */
-    public function getSalt()
-    {
-        return null;
-    }
-
-    /**
-     * Returns the username used to authenticate the user.
-     *
-     * @return string The username
-     */
-    public function getUsername()
-    {
-        return $this->getLogin();
-    }
-
-    /**
-     * Removes sensitive data from the user.
-     *
-     * This is important if, at any given point, sensitive information like
-     * the plain-text password is stored on this object.
-     */
-    public function eraseCredentials()
-    {
-        // TODO: Implement eraseCredentials() method.
     }
 
     /**
@@ -474,6 +412,34 @@ class User implements AdvancedUserInterface
     }
 
     /**
+     * Returns the roles granted to the user.
+     *
+     *     public function getRoles()
+     *     {
+     *         return ['ROLE_USER'];
+     *     }
+     *
+     * Alternatively, the roles might be stored on a ``roles`` property,
+     * and populated in any number of different ways when the user object
+     * is created.
+     *
+     * @return (Role|string)[] The user roles
+     */
+    public function getRoles()
+    {
+        $roles = [
+            'ROLE_USER'
+        ];
+        if ($this->isAdmin()) {
+            $roles[] = 'ROLE_ADMIN';
+        }
+        if ($this->isPublisher()) {
+            $roles[] = 'ROLE_PUBLISHER';
+        }
+        return $roles;
+    }
+
+    /**
      * Returns the password used to authenticate the user.
      *
      * This should be the encoded password. On authentication, a plain-text
@@ -484,5 +450,38 @@ class User implements AdvancedUserInterface
     public function getPassword()
     {
         return $this->getClave();
+    }
+
+    /**
+     * Returns the salt that was originally used to encode the password.
+     *
+     * This can return null if the password was not encoded using a salt.
+     *
+     * @return string|null The salt
+     */
+    public function getSalt()
+    {
+        return null;
+    }
+
+    /**
+     * Returns the username used to authenticate the user.
+     *
+     * @return string The username
+     */
+    public function getUsername()
+    {
+        return $this->getLogin();
+    }
+
+    /**
+     * Removes sensitive data from the user.
+     *
+     * This is important if, at any given point, sensitive information like
+     * the plain-text password is stored on this object.
+     */
+    public function eraseCredentials()
+    {
+        // TODO: Implement eraseCredentials() method.
     }
 }

@@ -2,7 +2,7 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\User;
+use AppBundle\Entity\Usuario;
 use AppBundle\Form\Type\CambioClaveType;
 use AppBundle\Form\Type\UsuarioType;
 use AppBundle\Repository\UsuarioRepository;
@@ -31,11 +31,11 @@ class UsuarioController extends Controller
      * @Route("/usuarios/canal/{id}", name="canal_usuario",
      *     requirements={"id":"\d+"})
      */
-    public function videosUsuarioAction(User $user)
+    public function videosUsuarioAction(Usuario $usuario)
     {
 
         return $this->render('user/canal.html.twig', [
-            'usuario' => $user
+            'usuario' => $usuario
         ]);
     }
     /**
@@ -99,7 +99,7 @@ class UsuarioController extends Controller
      */
     public function formNuevoUsuario(UserPasswordEncoderInterface $passwordEncoder,Request $request)
     {
-        $usuario = New User();
+        $usuario = New Usuario();
 
         $this->getDoctrine()->getManager()->persist($usuario);
 
@@ -111,23 +111,23 @@ class UsuarioController extends Controller
      *     requirements={"id":"\d+"})
      * @Security("is_granted('ROLE_USER')")
      */
-    public function formUsuarioAction(UserPasswordEncoderInterface $passwordEncoder, Request $request, User $user)
+    public function formUsuarioAction(UserPasswordEncoderInterface $passwordEncoder, Request $request, Usuario $usuario)
     {
-        if(null === $user) {
-            $user = new $user();
+        if(null === $usuario) {
+            $usuario = new Usuario();
             $new = true;
         } else {
             $new = false;
         }
-        $form = $this->createForm(UsuarioType::class, $user, [
+        $form = $this->createForm(UsuarioType::class, $usuario, [
             'new' => $new
         ]);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             // $file stores the uploaded PDF file
-            $user->setClave(
+            $usuario->setClave(
                 $passwordEncoder->encodePassword(
-                    $user,
+                    $usuario,
                     $form->get('clave')->getData()
                 )
             );
@@ -150,14 +150,14 @@ class UsuarioController extends Controller
 
                     // updates the 'brochure' property to store the PDF file name
                     // instead of its contents
-                    $user->setAvatar("uploads/avatar_photo/" . $fileName);
+                    $usuario->setAvatar("uploads/avatar_photo/" . $fileName);
                 }
 
-                if($user->isPublisher() === null){
-                    $user->setPublisher(false);
+                if($usuario->isPublisher() === null){
+                    $usuario->setPublisher(false);
                 }
-                if($user->isAdmin() === null){
-                    $user->setAdmin(false);
+                if($usuario->isAdmin() === null){
+                    $usuario->setAdmin(false);
                 }
                 $this->getDoctrine()->getManager()->flush();
                 $this->addFlash('exito', 'Cambios guardados correctamente.');
@@ -167,16 +167,16 @@ class UsuarioController extends Controller
             }
             return $this->render('user/form.html.twig', [
                 'form' => $form->createView(),
-                'usuario' => $user,
-                'es_nueva' => $user->getId() === null
+                'usuario' => $usuario,
+                'es_nueva' => $usuario->getId() === null
             ]);
         }
 
 
         return $this->render('user/form.html.twig', [
             'form' => $form->createView(),
-            'usuario' => $user,
-            'es_nueva' => $user->getId() === null
+            'usuario' => $usuario,
+            'es_nueva' => $usuario->getId() === null
         ]);
     }
 
@@ -184,11 +184,11 @@ class UsuarioController extends Controller
      * @Route("/usuarios/eliminar/{id}", name="usuario_eliminar")
      * @Security("is_granted('ROLE_USER')")
      */
-    public function eliminarAction(Request $request, User $user)
+    public function eliminarAction(Request $request, Usuario $usuario)
     {
         if ($request->get('borrar') === '') {
             try {
-                $videos_propios = $user->getVideos();
+                $videos_propios = $usuario->getVideos();
 
                 if($videos_propios != null) {
                     foreach ($videos_propios as $item){
@@ -223,18 +223,17 @@ class UsuarioController extends Controller
                 }
                 $this->getDoctrine()->getManager()->flush();
 
-                $this->getDoctrine()->getManager()->remove($user);
+                $this->getDoctrine()->getManager()->remove($usuario);
                 $this->getDoctrine()->getManager()->flush();
                 $this->addFlash('exito', 'Usuario Borrado Con Éxito');
                 return $this->redirectToRoute('usuarios_listar');
             } catch (\Exception $e) {
                 $this->addFlash('error', 'Ha ocurrido un error al guardar los cambios');
-                $this->addFlash('error', $e->getMessage());
 
             }
         }
         return $this->render('user/eliminar.html.twig', [
-            'usuario' => $user
+            'usuario' => $usuario
         ]);
     }
 

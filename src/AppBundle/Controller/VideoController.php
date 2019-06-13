@@ -4,7 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Category;
 use AppBundle\Entity\History;
-use AppBundle\Entity\User;
+use AppBundle\Entity\Usuario;
 use AppBundle\Entity\Video;
 use AppBundle\Form\Type\VideoType;
 use AppBundle\Repository\VideoRepository;
@@ -21,9 +21,9 @@ class VideoController extends Controller
      * @Route("/videos/usuario/{id}", name="videos_usuario",
      *     requirements={"id":"\d+"})
      */
-    public function videosUsuarioAction(VideoRepository $videoRepository, User $user)
+    public function videosUsuarioAction(VideoRepository $videoRepository, Usuario $usuario)
     {
-        $todosvideos = $videoRepository->findByUser($user);
+        $todosvideos = $videoRepository->findByUser($usuario);
 
         return $this->render('video/listar.html.twig', [
             'videos' => $todosvideos
@@ -47,12 +47,16 @@ class VideoController extends Controller
      */
     public function videoVisualizarAction(Video $video)
     {
+        try{
+            $historial = new History();
 
-        $historial = new History();
-
-        $historial->setVideo($video)
-                    ->setUser($this->getUser())
-                    ->setTimestamp(new \DateTime());
+            $historial->setVideo($video);
+                $historial->setUsuario($this->getUser());
+                $historial->setTimestamp(new \DateTime());
+            $this->getDoctrine()->getManager()->flush();
+        } catch (\Exception $e) {
+            $this->addFlash('error', $e->getMessage());
+        }
 
         $video->setReproductions($video->getReproductions()+1);
         $this->getDoctrine()->getManager()->flush();

@@ -3,6 +3,11 @@
 {% block title %} Login - DevVideos{% endblock %}
 
 {% block content %}
+    {% if error %}
+        <div class="alert alert-danger">
+            {{ error.message }}
+        </div>
+    {% endif %}
     <form action="{{ path('usuario_entrar') }}" method="post">
         <div class="login">
             <img src="{{ asset('/archivos_web/logo_w_300px.png') }}">

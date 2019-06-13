@@ -27,14 +27,14 @@ class Suscription
     private $timestamp;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
-     * @var User
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Usuario")
+     * @var Usuario
      */
     private $suscriptor;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
-     * @var User
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Usuario")
+     * @var Usuario
      */
     private $chanel;
     /**
@@ -64,7 +64,7 @@ class Suscription
     }
 
     /**
-     * @return User
+     * @return Usuario
      */
     public function getSuscriptor()
     {
@@ -72,7 +72,7 @@ class Suscription
     }
 
     /**
-     * @param User $suscriptor
+     * @param Usuario $suscriptor
      * @return Suscription
      */
     public function setSuscriptor($suscriptor)
@@ -82,7 +82,7 @@ class Suscription
     }
 
     /**
-     * @return User
+     * @return Usuario
      */
     public function getChanel()
     {
@@ -90,7 +90,7 @@ class Suscription
     }
 
     /**
-     * @param User $chanel
+     * @param Usuario $chanel
      * @return Suscription
      */
     public function setChanel($chanel)

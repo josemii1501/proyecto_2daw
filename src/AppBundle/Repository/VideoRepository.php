@@ -4,7 +4,7 @@
 namespace AppBundle\Repository;
 
 use AppBundle\Entity\Category;
-use AppBundle\Entity\User;
+use AppBundle\Entity\Usuario;
 use AppBundle\Entity\Video;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
@@ -26,13 +26,13 @@ class VideoRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
-    public function findByUser(User $user)
+    public function findByUser(Usuario $usuario)
     {
         return $this->createQueryBuilder('v')
             ->addSelect('u')
             ->addSelect('c')
             ->where('v.creator = :usuario')
-            ->setParameter('usuario', $user)
+            ->setParameter('usuario', $usuario)
             ->join('v.creator','u')
             ->leftJoin('v.category','c')
             ->orderBy('v.date','DESC')

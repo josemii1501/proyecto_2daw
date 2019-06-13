@@ -1,6 +1,6 @@
 <?php
 namespace AppBundle\DataFixtures\ORM;
-use AppBundle\Entity\User;
+use AppBundle\Entity\Usuario;
 use Faker\Generator;
 use Faker\Provider\Base as BaseProvider;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -19,6 +19,6 @@ final class ClaveProvider extends BaseProvider
 
     public function codificaClave($password)
     {
-        return $this->userPasswordEncoder->encodePassword(new User(), $password);
+        return $this->userPasswordEncoder->encodePassword(new Usuario(), $password);
     }
 }

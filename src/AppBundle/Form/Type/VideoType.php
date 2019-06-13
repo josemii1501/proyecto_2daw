@@ -3,7 +3,7 @@
 namespace AppBundle\Form\Type;
 
 use AppBundle\Entity\Category;
-use AppBundle\Entity\User;
+use AppBundle\Entity\Usuario;
 use AppBundle\Entity\Video;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -20,8 +20,8 @@ class VideoType extends AbstractType
             ])
             ->add('creator',null,[
                 'label'=>'Creador: ',
-                'choice_label'=> function(User $user) {
-                    return $user->getName() . " " . $user->getLastname();
+                'choice_label'=> function(Usuario $usuario) {
+                    return $usuario->getName() . " " . $usuario->getLastname();
                 },
                 'mapped'=> true
             ])

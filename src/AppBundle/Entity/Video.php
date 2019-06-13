@@ -58,9 +58,9 @@ class Video
     private $miniature;
 
     /**
-    * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="videos")
+    * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Usuario", inversedBy="videos")
     * @ORM\JoinColumn(nullable=false)
-    * @var User
+    * @var Usuario
     */
     private $creator;
 
@@ -204,9 +204,8 @@ class Video
         return $this;
     }
 
-
     /**
-     * @return User
+     * @return Usuario
      */
     public function getCreator()
     {
@@ -214,7 +213,7 @@ class Video
     }
 
     /**
-     * @param User $creator
+     * @param Usuario $creator
      * @return Video
      */
     public function setCreator($creator)
@@ -258,7 +257,6 @@ class Video
         $this->file = $file;
         return $this;
     }
-
 
     /**
      * @return Saved[]
