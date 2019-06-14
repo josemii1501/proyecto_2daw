@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Category;
 use AppBundle\Entity\History;
+use AppBundle\Entity\Saved;
 use AppBundle\Entity\Usuario;
 use AppBundle\Entity\Video;
 use AppBundle\Form\Type\VideoType;
@@ -40,6 +41,29 @@ class VideoController extends Controller
         return $this->render('video/listar.html.twig', [
             'videos' => $todosvideos
         ]);
+    }
+    /**
+     * @Route("guardar/video/{id}", name="guardar_video",
+     *     requirements={"id":"\d+"})
+     */
+    public function videGuardarAction(Video $video)
+    {
+        try {
+            if ($this->getUser()) {
+                $save = new Saved();
+
+                $save->setVideo($video)
+                    ->setUsuario($this->getUser())
+                    ->setTimestamp(new \DateTime());
+
+                $this->getDoctrine()->getManager()->persist($save);
+                $this->getDoctrine()->getManager()->flush();
+            }
+
+        } catch (\Exception $e) {
+            $this->addFlash('error', $e->getMessage());
+        }
+        return $this->videoVisualizarAction($video);
     }
     /**
      * @Route("/videos/{id}", name="visualizar_video",

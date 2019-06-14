@@ -9,7 +9,7 @@
 
     <iframe id="videoframe" src="{{ video.route }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="pantalla_video"></iframe>
         {% if app.user %}
-            <a href="{{ path('guardado_nuevo') }}" class="btn btn-primary boton_save_video"><i class="fas fa-save"></i> Guardar</a>
+            <a href="{{ path('guardar_video',{'id': video.id}) }}" class="btn btn-primary boton_save_video"><i class="fas fa-save"></i> Guardar</a>
         {% endif %}
     <a href="{{ path('canal_usuario', {'id': video.creator.id})}}" class="creador_video">
         <img src="{{ video.creator.avatar }}" alt="Avatar" class="avatar_canal"/>
