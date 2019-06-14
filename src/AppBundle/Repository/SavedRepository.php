@@ -21,7 +21,7 @@ class SavedRepository extends ServiceEntityRepository
             ->addSelect('u')
             ->addSelect('v')
             ->join('s.video','v')
-            ->leftJoin('s.user','u')
+            ->leftJoin('s.usuario','u')
             ->orderBy('s.timestamp')
             ->getQuery()
             ->getResult();

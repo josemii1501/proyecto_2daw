@@ -20,7 +20,7 @@ class HistoryRepository extends ServiceEntityRepository
             ->addSelect('u')
             ->addSelect('v')
             ->join('h.video','v')
-            ->leftJoin('h.user','u')
+            ->leftJoin('h.usuario','u')
             ->orderBy('h.timestamp')
             ->getQuery()
             ->getResult();
