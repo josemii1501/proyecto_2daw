@@ -12,6 +12,9 @@
             <span class="canal_nombre">{{ usuario.name }}</span>
             <span class="canal_apellidos">{{ usuario.lastname }}</span>
             <span class="canal_web">{{ usuario.urlWebSite }}</span>
+            {% if app.user.id == usuario.id %}
+                <a href="{{ path('datos_personales') }}" class="btn btn-warning"><i class="fas fa-cog"></i> Datos Personales</a>
+            {% endif %}
         </div>
     </div>
     <div id="tabs">

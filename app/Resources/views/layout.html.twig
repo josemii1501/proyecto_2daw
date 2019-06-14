@@ -38,7 +38,7 @@
                 </li>
             </ul>
             {% if app.user %}
-                <span class="navbar-text">¡Hola <a href="{{ path('datos_personales') }}">{{ app.user.name }}</a>!</span>
+                <span class="navbar-text">¡Hola <a href="{{ path('canal_usuario', {'id': app.user.id}) }}">{{ app.user.name }}</a>!</span>
                 <a href="{{ path('usuario_salir') }}" class="ml-3 btn btn-primary"><i class="fas fa-power-off"></i> Salir</a>
             {% else %}
                 <a href="{{ path('usuario_entrar') }}" class="boton_layout btn btn-primary"><i class="fas fa-door-open"></i> Entrar</a>

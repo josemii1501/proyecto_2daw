@@ -124,6 +124,9 @@ body{
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff0a89', endColorstr='#1a1dff', GradientType=0 );
     color: #efefef;
 }
+.informacion_general a{
+    margin-top: 1em;
+}
 .nombre_canal_video{
     font-size: 1.5em;
     font-weight: bold;
