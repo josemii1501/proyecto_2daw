@@ -24,7 +24,7 @@ AppBundle\Entity\Usuario:
     avatar: "https://pixel.nymag.com/imgs/daily/vulture/2018/11/02/02-avatar-2.w700.h700.jpg"
     urlWebSite: <url()>
     description: <es_ES:text(100)>
-    publisher: false
+    publisher: <boolean(30)>
     admin: false
 
 AppBundle\Entity\Category:

@@ -52,4 +52,25 @@ class VideoRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+    public function findAlgunosVideos()
+    {
+        $videos_id = $this->findIdVideos();
+        $videos = array_rand($videos_id,3);
+        $videos_2 = [];
+        foreach( $videos as $item){
+            array_push($videos_2,$videos_id[$item]);
+        }
+        return $this->createQueryBuilder('v')
+            ->where('v.id IN (:lista)')
+            ->setParameter('lista', $videos_2)
+            ->getQuery()
+            ->getResult();
+    }
+    public function findIdVideos()
+    {
+        return $this->createQueryBuilder('v')
+            ->select('v.id')
+            ->getQuery()
+            ->getResult();
+    }
 }

@@ -3,12 +3,56 @@
 {% block title %} DevVideos {% endblock %}
 
 {% block content %}
-    <h2 class="titulo_seccion">Categorías</h2>
-    {% for categoria in categorias %}
-    <div class="panel_categoria_inicio">
-        <img src="{{ categoria.photo }}" alt="Imagen {{ categoria.name }}" />
-        <span class="nombre_categoria_inicio">{{ categoria.name }}</span>
-    </div>
+    <h2 class="titulo_seccion">Videos Destacados</h2>
+    <div class="panel_videos">
+    {% for video in videos %}
+        <div class="panel_video inicio">
+            <a href="{{ path('visualizar_video',{'id': video.id}) }}" class="enlace_video">
+                <div class="imagen_video">
+                    <img src="{{ video.miniature }}" alt="Miniatura Video" class="miniatura_lista"/>
+                </div>
+                <div class="descripcion_video">
+                    <span class="titulo_video">{{ video.title }}</span>
+                    <span class="video_descripcion">{{ video.description }}</span>
+                    <span class="info_video fecha_video"><span class="etiqueta_info_video">Fecha:</span> {{ video.date | date('H:m:s - d/m/Y') }}</span>
+                    <span class="info_video reproducciones_video"><span class="etiqueta_info_video">Visualizaciones:</span> {{ video.reproductions }}</span>
+                    <span class="info_video categoria_video"><span class="etiqueta_info_video">Catergoría:</span> {{ video.category }}</span>
+                </div>
+            </a>
+        </div>
     {% endfor %}
+    </div>
+    <h2 class="titulo_seccion">Categorías Destacados</h2>
+    <div class="panel_categorias">
+    {% for categoria in categorias %}
+        <div class="panel_categoria">
+            <a href="{{ path('videos_categoria',{'id': categoria.id}) }}" class="enlace_categoria">
+                <div class="imagen_categoria">
+                    <img src="{{ categoria.photo }}" alt="Foto {{ categoria.name }}" class="miniatura_lista"/>
+                </div>
+                <div class="descripcion_categoria">
+                    <span class="nombre_categoria">{{ categoria.name }}</span>
+                </div>
+            </a>
+        </div>
+    {% endfor %}
+    </div>
+    <h2 class="titulo_seccion">Canales Destacados</h2>
+    <div class="panel_usuarios">
 
+            {% for usuario in usuarios %}
+                {% if usuario.isPublisher %}
+                    <div class="panel_usuario {% if usuario.isPublisher %} publisher_panel_user {% endif %}">
+                        <a href="{{ path('canal_usuario',{'id': usuario.id}) }}" class="enlace_usuario">
+                            <div class="avatar_usuario">
+                                <img src="{{ usuario.avatar }}" alt="Foto {{ usuario.login }}" class="avatar_usuario"/>
+                            </div>
+                            <div class="descripcion_usuario">
+                                <span class="nombre_usuario">{{ usuario.login }}</span>
+                            </div>
+                        </a>
+                    </div>
+                {% endif %}
+            {% endfor %}
+    </div>
 {% endblock %}

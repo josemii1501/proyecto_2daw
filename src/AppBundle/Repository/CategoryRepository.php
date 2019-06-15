@@ -15,34 +15,23 @@ class CategoryRepository extends ServiceEntityRepository
     }
     public function findAlgunasCategorias()
     {
-        $cat = $this->findIdCategoria();
 
+        $cat = $this->findIdCategoria();
         $categorias = array_rand($cat,3);
         $categorias2 = [];
-
         foreach( $categorias as $item){
-            $item = $item+1;
-            array_push($categorias2,$item);
+            array_push($categorias2,$cat[$item]);
         }
-        return $this->createQueryBuilder('f')
-            ->where('f.id IN (:lista)')
+        return $this->createQueryBuilder('c')
+            ->where('c.id IN (:lista)')
             ->setParameter('lista', $categorias2)
-            ->getQuery()
-            ->getResult();
-    }
-    public function findCategoryRand()
-    {
-        return $this->createQueryBuilder('f')
-            ->addSelect('v')
-            ->join('f.video','v')
-            ->orderBy('f.date')
             ->getQuery()
             ->getResult();
     }
     public function findIdCategoria()
     {
-        return $this->createQueryBuilder('f')
-            ->select('f.id')
+        return $this->createQueryBuilder('c')
+            ->select('c.id')
             ->getQuery()
             ->getResult();
     }
