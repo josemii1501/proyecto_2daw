@@ -3,7 +3,7 @@
 {% block title %} DevVideos {% endblock %}
 
 {% block content %}
-    <h2 class="titulo_seccion">Videos Destacados</h2>
+    <h2 class="titulo_seccion"><a href="{{ path('videos_listar') }}">Videos Destacados</a></h2>
     <div class="panel_videos">
     {% for video in videos %}
         <div class="panel_video inicio">
@@ -22,7 +22,7 @@
         </div>
     {% endfor %}
     </div>
-    <h2 class="titulo_seccion">Categorías Destacados</h2>
+    <h2 class="titulo_seccion"><a href="{{ path('categorias_listar') }}">Categorías Destacados</a></h2>
     <div class="panel_categorias">
     {% for categoria in categorias %}
         <div class="panel_categoria">
@@ -37,7 +37,7 @@
         </div>
     {% endfor %}
     </div>
-    <h2 class="titulo_seccion">Canales Destacados</h2>
+    <h2 class="titulo_seccion"><a href="{{ path('usuarios_listar') }}">Creadores Destacados</a></h2>
     <div class="panel_usuarios">
 
             {% for usuario in usuarios %}
