@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Suscription;
+use AppBundle\Entity\Usuario;
 use AppBundle\Form\Type\SuscriptionType;
 use AppBundle\Repository\SubscriptionRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -14,7 +15,7 @@ class SubscriptionController extends Controller
 {
     /**
      * @Route("/suscripciones", name="suscripciones_listar")
-     * @Security("is_granted('ROLE_USER')")
+     * @Security("is_granted('ROLE_ADMIN')")
      */
     public function subscriptionsListAction(SubscriptionRepository $subscriptionRepository)
     {
@@ -22,6 +23,19 @@ class SubscriptionController extends Controller
 
         return $this->render('subscription/listar.html.twig', [
             'subscriptions' => $allSubscriptions
+        ]);
+    }
+    /**
+     * @Route("/suscripciones/{id}", name="suscripciones_usuario",
+     *     requirements={"id":"\d+"})
+     * @Security("is_granted('ROLE_USER')")
+     */
+    public function suscripocionesUsuarioAction(SubscriptionRepository $subscriptionRepository,Usuario $usuario)
+    {
+        $misSuscripciones = $subscriptionRepository->findSuscripcionesUsuario($usuario);
+
+        return $this->render('subscription/listar.html.twig', [
+            'subscriptions' => $misSuscripciones
         ]);
     }
     /**

@@ -4,6 +4,7 @@
 namespace AppBundle\Repository;
 
 use AppBundle\Entity\Suscription;
+use AppBundle\Entity\Usuario;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
@@ -19,6 +20,19 @@ class SubscriptionRepository extends ServiceEntityRepository
             ->addSelect('u1')
             ->addSelect('u2')
             ->join('s.suscriptor','u1')
+            ->leftJoin('s.chanel','u2')
+            ->orderBy('s.timestamp')
+            ->getQuery()
+            ->getResult();
+    }
+    public function findSuscripcionesUsuario(Usuario $usuario)
+    {
+        return $this->createQueryBuilder('s')
+            ->addSelect('u1')
+            ->addSelect('u2')
+            ->join('s.suscriptor','u1')
+            ->where('s.suscriptor = :usuario')
+            ->setParameter('usuario', $usuario)
             ->leftJoin('s.chanel','u2')
             ->orderBy('s.timestamp')
             ->getQuery()

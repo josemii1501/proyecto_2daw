@@ -12,15 +12,17 @@
             <span class="canal_nombre">{{ usuario.name }}</span>
             <span class="canal_apellidos">{{ usuario.lastname }}</span>
             <span class="canal_web">{{ usuario.urlWebSite }}</span>
-            {% if app.user.id == usuario.id %}
-                <a href="{{ path('datos_personales') }}" class="btn btn-warning"><i class="fas fa-cog"></i> Datos Personales</a>
+            {% if not app.user is empty %}
+                {% if app.user.id == usuario.id %}
+                    <a href="{{ path('datos_personales') }}" class="btn btn-warning"><i class="fas fa-cog"></i> Datos Personales</a>
+                {% endif %}
             {% endif %}
         </div>
     </div>
     <div id="tabs">
         <ul>
             <li><a href="#tabs-1">Información</a></li>
-            <li><a href="#tabs-2">Videos</a></li>
+            {% if usuario.publisher %}<li><a href="#tabs-2">Videos</a></li>{% endif %}
         </ul>
         <div id="tabs-1">
             <div class="canal_informacion">
@@ -32,38 +34,40 @@
                 <span class="info_canal canal_descripcion">{{ usuario.description }}</span>
             </div>
         </div>
-        <div id="tabs-2">
-            {% if usuario.videos is empty %}
-                <div class="no_videos">
-                <span >!Este canal no dispone de videos!</span>
-                </div>
-            {% else %}
-                {% for video in usuario.videos %}
-                    <div class="panel_video">
-                        {% if app.user %}
-                            {% if app.user.name == usuario.name %}
-                                <div class="editar_video">
-                                    <a href="{{ path('video_modificar', {'id': video.id}) }}" class="btn btn-warning"><i class="fas fa-tools"></i></a>
-                                </div>
-                            {% endif %}
-                        {% endif %}
-
-                        <a href="{{ path('visualizar_video',{'id': video.id}) }}" class="enlace_video">
-                            <div class="imagen_video">
-                                <img src="{{ video.miniature }}" alt="Miniatura Video" class="miniatura_lista"/>
-                            </div>
-                            <div class="descripcion_video">
-                                <span class="titulo_video">{{ video.title }}</span>
-                                <span class="video_descripcion">{{ video.description }}</span>
-                                <span class="info_video fecha_video"><span class="etiqueta_info">Fecha:</span> {{ video.date | date('H:m:s - d/m/Y') }}</span>
-                                <span class="info_video reproducciones_video"><span class="etiqueta_info">Visualizaciones:</span> {{ video.reproductions }}</span>
-                                <span class="info_video categoria_video"><span class="etiqueta_info">Catergoría:</span> {{ video.category }}</span>
-                            </div>
-                        </a>
+        {% if usuario.publisher %}
+            <div id="tabs-2">
+                {% if usuario.videos is empty %}
+                    <div class="no_videos">
+                    <span >!Este canal no dispone de videos!</span>
                     </div>
-                {% endfor %}
-            {% endif %}
-        </div>
+                {% else %}
+                    {% for video in usuario.videos %}
+                        <div class="panel_video">
+                            {% if app.user %}
+                                {% if app.user.name == usuario.name %}
+                                    <div class="editar_video">
+                                        <a href="{{ path('video_modificar', {'id': video.id}) }}" class="btn btn-warning"><i class="fas fa-tools"></i></a>
+                                    </div>
+                                {% endif %}
+                            {% endif %}
+
+                            <a href="{{ path('visualizar_video',{'id': video.id}) }}" class="enlace_video">
+                                <div class="imagen_video">
+                                    <img src="{{ video.miniature }}" alt="Miniatura Video" class="miniatura_lista"/>
+                                </div>
+                                <div class="descripcion_video">
+                                    <span class="titulo_video">{{ video.title }}</span>
+                                    <span class="video_descripcion">{{ video.description }}</span>
+                                    <span class="info_video fecha_video"><span class="etiqueta_info">Fecha:</span> {{ video.date | date('H:m:s - d/m/Y') }}</span>
+                                    <span class="info_video reproducciones_video"><span class="etiqueta_info">Visualizaciones:</span> {{ video.reproductions }}</span>
+                                    <span class="info_video categoria_video"><span class="etiqueta_info">Catergoría:</span> {{ video.category }}</span>
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        {% endif %}
     </div>
 {% endblock %}
 
