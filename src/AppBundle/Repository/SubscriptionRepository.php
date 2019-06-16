@@ -38,4 +38,13 @@ class SubscriptionRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+    public function findSuscritoUsuario(Usuario $canal,Usuario $suscriptor)
+    {
+        return $this->createQueryBuilder('s')
+            ->where('s.suscriptor = '.$suscriptor->getId())
+            ->where('s.chanel = '.$canal->getId())
+            ->orderBy('s.timestamp')
+            ->getQuery()
+            ->getResult();
+    }
 }

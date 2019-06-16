@@ -2,10 +2,14 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\History;
+use AppBundle\Entity\Suscription;
 use AppBundle\Entity\Usuario;
 use AppBundle\Form\Type\CambioClaveType;
 use AppBundle\Form\Type\UsuarioType;
+use AppBundle\Repository\HistoryRepository;
 use AppBundle\Repository\SavedRepository;
+use AppBundle\Repository\SubscriptionRepository;
 use AppBundle\Repository\UsuarioRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -32,13 +36,68 @@ class UsuarioController extends Controller
      * @Route("/usuarios/canal/{id}", name="canal_usuario",
      *     requirements={"id":"\d+"})
      */
-    public function videosUsuarioAction(Usuario $usuario,SavedRepository $savedRepository)
+    public function videosUsuarioAction(Usuario $usuario, SubscriptionRepository $subscriptionRepository ,SavedRepository $savedRepository)
     {
         $videosGuardados = $savedRepository->findGuardados($usuario);
+        $estaSuscrito = $subscriptionRepository->findSuscritoUsuario($usuario,$this->getUser());
+        if(empty($estaGuardado)){
+            $guaradado = false;
+        } else {
+            $guaradado = true;
+        }
+        if(empty($estaSuscrito)){
+            $suscrito = false;
+        } else {
+            $suscrito = true;
+        }
         return $this->render('user/canal.html.twig', [
             'usuario' => $usuario,
-            'guardados' => $videosGuardados
+            'guardados' => $videosGuardados,
+            'suscrito' => $suscrito
         ]);
+    }
+    /**
+     * @Route("canal/suscribirse/{id}", name="suscribirse_canal",
+     *     requirements={"id":"\d+"})
+     */
+    public function usuarioSuscritoAction(Usuario $usuario, SubscriptionRepository $subscriptionRepository,SavedRepository $savedRepository)
+    {
+        try {
+            if ($this->getUser()) {
+                $suscripcion = new Suscription();
+
+                $suscripcion->setChanel($usuario)
+                    ->setSuscriptor($this->getUser())
+                    ->setTimestamp(new \DateTime());
+
+                $this->getDoctrine()->getManager()->persist($suscripcion);
+                $this->getDoctrine()->getManager()->flush();
+            }
+
+        } catch (\Exception $e) {
+            $this->addFlash('error', $e->getMessage());
+        }
+        return $this->videosUsuarioAction( $usuario,$subscriptionRepository, $savedRepository);
+    }
+    /**
+     * @Route("suscripocion/eliminar/{id}", name="eliminar_suscripcion_canal",
+     *     requirements={"id":"\d+"})
+     */
+    public function eliminarSuscripcionAction(Usuario $usuario,SubscriptionRepository $subscriptionRepository, SavedRepository $savedRepository)
+    {
+        try {
+            if ($this->getUser()) {
+                $suscripcion = $subscriptionRepository->findSuscritoUsuario($usuario,$this->getUser());
+                foreach($suscripcion as $item){
+                    $this->getDoctrine()->getManager()->remove($item);
+                    $this->getDoctrine()->getManager()->flush();
+                }
+            }
+
+        } catch (\Exception $e) {
+            $this->addFlash('error', $e->getMessage());
+        }
+        return $this->videosUsuarioAction($usuario,$subscriptionRepository,$savedRepository);
     }
     /**
      * @Route("/clave", name="cambio_clave")
