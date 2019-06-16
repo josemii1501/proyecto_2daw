@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Usuario;
 use AppBundle\Form\Type\CambioClaveType;
 use AppBundle\Form\Type\UsuarioType;
+use AppBundle\Repository\SavedRepository;
 use AppBundle\Repository\UsuarioRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -31,11 +32,12 @@ class UsuarioController extends Controller
      * @Route("/usuarios/canal/{id}", name="canal_usuario",
      *     requirements={"id":"\d+"})
      */
-    public function videosUsuarioAction(Usuario $usuario)
+    public function videosUsuarioAction(Usuario $usuario,SavedRepository $savedRepository)
     {
-
+        $videosGuardados = $savedRepository->findGuardados($usuario);
         return $this->render('user/canal.html.twig', [
-            'usuario' => $usuario
+            'usuario' => $usuario,
+            'guardados' => $videosGuardados
         ]);
     }
     /**

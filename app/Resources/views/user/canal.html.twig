@@ -22,6 +22,7 @@
         <ul>
             <li><a href="#tabs-1">Información</a></li>
             {% if usuario.publisher %}<li><a href="#tabs-2">Videos</a></li>{% endif %}
+            <li><a href="#tabs-3">Guardados</a></li>
         </ul>
         <div id="tabs-1">
             <div class="canal_informacion">
@@ -67,6 +68,26 @@
                 {% endif %}
             </div>
         {% endif %}
+        <div id="tabs-3">
+            <div class="panel_guardados">
+            {% for guardado in guardados %}
+                <div class="panel_video">
+                    <a href="{{ path('visualizar_video',{'id': guardado.video.id}) }}" class="enlace_video">
+                        <div class="imagen_video">
+                            <img src="{{ guardado.video.miniature }}" alt="Miniatura Video" class="miniatura_lista"/>
+                        </div>
+                        <div class="descripcion_video">
+                            <span class="titulo_video">{{ guardado.video.title }}</span>
+                            <span class="video_descripcion">{{ guardado.video.description }}</span>
+                            <span class="info_video fecha_video"><span class="etiqueta_info">Fecha:</span> {{ guardado.video.date | date('H:m:s - d/m/Y') }}</span>
+                            <span class="info_video reproducciones_video"><span class="etiqueta_info">Visualizaciones:</span> {{ guardado.video.reproductions }}</span>
+                            <span class="info_video categoria_video"><span class="etiqueta_info">Catergoría:</span> {{ guardado.video.category }}</span>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
     </div>
 {% endblock %}
 
