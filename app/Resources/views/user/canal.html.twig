@@ -78,6 +78,11 @@
         {% endif %}
         {% if usuario.id == app.user.id %}
         <div id="tabs-3">
+            {% if guardados is empty %}
+            <div class="no_videos">
+                <span >!No tienes videos guardados!</span>
+            </div>
+            {% else %}
             <div class="panel_videos">
             {% for guardado in guardados %}
                 <div class="panel_video">
@@ -97,6 +102,7 @@
             {% endfor %}
             </div>
         </div>
+        {% endif %}
         {% endif %}
     </div>
 {% endblock %}
