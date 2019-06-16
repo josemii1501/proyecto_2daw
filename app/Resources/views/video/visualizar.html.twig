@@ -9,7 +9,11 @@
 
     <iframe id="videoframe" src="{{ video.route }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="pantalla_video"></iframe>
         {% if app.user %}
-            <a href="{{ path('guardar_video',{'id': video.id}) }}" class="btn btn-primary boton_save_video"><i class="fas fa-save"></i> Guardar</a>
+            {% if guardado %}
+                <a href="{{ path('eliminar_guardado_video',{'id': video.id}) }}" class="btn btn-danger boton_save_video"><i class="fas fa-save"></i> Guardado</a>
+            {% else %}
+                <a href="{{ path('guardar_video',{'id': video.id}) }}" class="btn btn-primary boton_save_video"><i class="fas fa-save"></i> Guardar</a>
+            {% endif %}
         {% endif %}
     <a href="{{ path('canal_usuario', {'id': video.creator.id})}}" class="creador_video">
         <img src="{{ video.creator.avatar }}" alt="Avatar" class="avatar_canal"/>

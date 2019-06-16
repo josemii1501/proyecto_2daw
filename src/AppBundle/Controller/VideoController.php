@@ -8,6 +8,7 @@ use AppBundle\Entity\Saved;
 use AppBundle\Entity\Usuario;
 use AppBundle\Entity\Video;
 use AppBundle\Form\Type\VideoType;
+use AppBundle\Repository\SavedRepository;
 use AppBundle\Repository\VideoRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -43,10 +44,30 @@ class VideoController extends Controller
         ]);
     }
     /**
+     * @Route("guardar/eliminar/video/{id}", name="eliminar_guardado_video",
+     *     requirements={"id":"\d+"})
+     */
+    public function videoEliminarGuardarAction(Video $video,SavedRepository $savedRepository)
+    {
+        try {
+            if ($this->getUser()) {
+                $guardado = $savedRepository->findVideoUsuario($this->getUser(),$video);
+                foreach($guardado as $item){
+                    $this->getDoctrine()->getManager()->remove($item);
+                    $this->getDoctrine()->getManager()->flush();
+                }
+            }
+
+        } catch (\Exception $e) {
+            $this->addFlash('error', $e->getMessage());
+        }
+        return $this->videoVisualizarAction($video,$savedRepository);
+    }
+    /**
      * @Route("guardar/video/{id}", name="guardar_video",
      *     requirements={"id":"\d+"})
      */
-    public function videGuardarAction(Video $video)
+    public function videoGuardarAction(Video $video,SavedRepository $savedRepository)
     {
         try {
             if ($this->getUser()) {
@@ -63,16 +84,18 @@ class VideoController extends Controller
         } catch (\Exception $e) {
             $this->addFlash('error', $e->getMessage());
         }
-        return $this->videoVisualizarAction($video);
+        return $this->videoVisualizarAction($video,$savedRepository);
     }
     /**
      * @Route("/videos/{id}", name="visualizar_video",
      *     requirements={"id":"\d+"})
      */
-    public function videoVisualizarAction(Video $video)
+    public function videoVisualizarAction(Video $video,SavedRepository $savedRepository)
     {
         try{
             if($this->getUser()){
+                $guaradado = true;
+
                 $historial = new History();
 
                 $historial->setVideo($video)
@@ -81,6 +104,13 @@ class VideoController extends Controller
 
                 $this->getDoctrine()->getManager()->persist($historial);
                 $this->getDoctrine()->getManager()->flush();
+
+                $estaGuardado = $savedRepository->findVideoUsuario($this->getUser(),$video);
+                if(empty($estaGuardado)){
+                    $guaradado = false;
+                } else {
+                    $guaradado = true;
+                }
             }
             $video->setReproductions($video->getReproductions()+1);
             $this->getDoctrine()->getManager()->flush();
@@ -92,7 +122,8 @@ class VideoController extends Controller
 
 
         return $this->render('video/visualizar.html.twig', [
-            'video' => $video
+            'video' => $video,
+            'guardado' => $guaradado
         ]);
     }
     /**
