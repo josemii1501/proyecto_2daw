@@ -19,9 +19,10 @@
             {% endif %}
     {% endfor %}
     </div>
-        {% for suscripcion in subscriptions %}
+    <div class="panel_videos">
+
+    {% for suscripcion in subscriptions %}
             {% if suscripcion.suscriptor.id == app.user.id %}
-                <div class="panel_videos">
                 {% for video in suscripcion.chanel.videos %}
                     <div class="panel_video">
                         <a href="{{ path('visualizar_video',{'id': video.id}) }}" class="enlace_video">
