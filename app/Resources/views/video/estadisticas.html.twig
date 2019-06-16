@@ -1,0 +1,14 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %} Estadísticas Video - DevVideos {% endblock %}
+
+{% block content %}
+        <h1 class="titulo_seccion">{{ video.title }}</h1>
+        <div class="panel_estadisticas_video">
+            <img class="estadisticas_video_miniatura" src="{{ video.miniature }}" alt="Miniatura Video">
+            <span class="estadisticas_video_fecha">{{ video.date | date('H:m:s - d/m/Y') }}</span>
+            <span class="estadisticas_video_categoria">{{ video.category.name }}</span>
+            <span class="estadisticas_video_reproducciones">{{ video.reproductions }}</span>
+            <span class="estadisticas_video_guardados">{{ video_guardados }}</span>
+        </div>
+{% endblock %}

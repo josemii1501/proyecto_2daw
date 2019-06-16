@@ -64,6 +64,20 @@ class VideoController extends Controller
         return $this->videoVisualizarAction($video,$savedRepository);
     }
     /**
+     * @Route("video/{id}/estadisticas", name="estadisticas_video",
+     *     requirements={"id":"\d+"})
+     */
+    public function videoEstadisticasAction(Video $video,SavedRepository $savedRepository)
+    {
+        $guardados = $savedRepository->findTotalSaves($video);
+        $total_guardados = $guardados[0];
+
+        return $this->render('video/estadisticas.html.twig', [
+            'video' => $video,
+            'video_guardados' => $total_guardados[1]
+        ]);
+    }
+    /**
      * @Route("guardar/video/{id}", name="guardar_video",
      *     requirements={"id":"\d+"})
      */

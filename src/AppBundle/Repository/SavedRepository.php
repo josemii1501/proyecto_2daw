@@ -52,4 +52,13 @@ class SavedRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+    public function findTotalSaves(Video $video)
+    {
+        return $this->createQueryBuilder('s')
+            ->select('count(s.id)')
+            ->join('s.video','v')
+            ->where('v.id = '.$video->getId())
+            ->getQuery()
+            ->getScalarResult();
+    }
 }
