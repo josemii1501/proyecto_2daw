@@ -14,17 +14,22 @@ class VideoType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        if ($options['es_admin']) {
+            $builder
+                ->add('creator',null,[
+                    'label'=>'Creador: ',
+                    'choice_label'=> function(Usuario $usuario) {
+                        return $usuario->getName() . " " . $usuario->getLastname();
+                    },
+                    'mapped'=> true
+                ]);
+        }
+
         $builder
             ->add('title',null,[
                 'label'=>'Titulo: '
             ])
-            ->add('creator',null,[
-                'label'=>'Creador: ',
-                'choice_label'=> function(Usuario $usuario) {
-                    return $usuario->getName() . " " . $usuario->getLastname();
-                },
-                'mapped'=> true
-            ])
+
             ->add('category',null,[
                 'label'=>'Categoria: ',
                 'choice_label'=> function(Category $category) {
@@ -52,6 +57,7 @@ class VideoType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Video::class,
             'new' => false,
+            'es_admin' => false
         ]);
     }
 

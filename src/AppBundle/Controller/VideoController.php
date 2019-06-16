@@ -164,10 +164,15 @@ class VideoController extends Controller
         } else {
             $new = false;
         }
-        $form = $this->createForm(VideoType::class, $video, [
-            'new' => $new
-        ]);
 
+        $form = $this->createForm(VideoType::class, $video, [
+            'new' => $new,
+            'es_admin' => $this->isGranted('ROLE_ADMIN')
+            ]);
+
+        if(!$this->isGranted('ROLE_ADMIN')){
+            $video->setCreator($this->getUser());
+        }
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -176,11 +181,14 @@ class VideoController extends Controller
             try {
                 /** @var File $filename */
                 $file = $form->get('miniature')->getData();
-                $ruta = $form->get('route')->getData();
-                $divisiones = explode("v=",$ruta);
-                $sinParametros = explode("&", $divisiones[1]);
-                $rutaDefinitiva = "https://www.youtube.com/embed/".$sinParametros[0];
-                $video->setRoute($rutaDefinitiva);
+                    $ruta = $form->get('route')->getData();
+                    if( strpos($ruta, "v=") ){
+                        $divisiones = explode("v=",$ruta);
+                        $sinParametros = explode("&", $divisiones[1]);
+                        $rutaDefinitiva = "https://www.youtube.com/embed/".$sinParametros[0];
+                        $video->setRoute($rutaDefinitiva);
+                    }
+
                 if ($file) {
                     $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
 

@@ -45,6 +45,9 @@
                 </li>
             </ul>
             {% if app.user %}
+                {% if is_granted('ROLE_PUBLISHER') %}
+                    <a href="{{ path('video_nuevo') }}" class="ml-3 btn btn-success"><i class="fas fa-upload"></i> Nuevo Video</a>
+                {% endif %}
                 <span class="navbar-text">¡Hola <a href="{{ path('canal_usuario', {'id': app.user.id}) }}">{{ app.user.name }}</a>!</span>
                 <a href="{{ path('usuario_salir') }}" class="ml-3 btn btn-primary"><i class="fas fa-power-off"></i> Salir</a>
             {% else %}
