@@ -8,7 +8,7 @@
     <h1 class="visualizar_titulo_video">{{ video.title }}</h1>
 
     <iframe id="videoframe" src="{{ video.route }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="pantalla_video"></iframe>
-        {% if app.user %}
+        {% if app.user and app.user.id != video.creator.id %}
             {% if guardado %}
                 <a href="{{ path('eliminar_guardado_video',{'id': video.id}) }}" class="btn btn-danger boton_save_video"><i class="fas fa-save"></i> Guardado</a>
             {% else %}
