@@ -30,11 +30,11 @@ class SubscriptionController extends Controller
      *     requirements={"id":"\d+"})
      * @Security("is_granted('ROLE_USER')")
      */
-    public function suscripocionesUsuarioAction(SubscriptionRepository $subscriptionRepository,Usuario $usuario)
+    public function suscripocionesUsuarioAction(SubscriptionRepository $subscriptionRepository, Usuario $usuario)
     {
         $misSuscripciones = $subscriptionRepository->findSuscripcionesUsuario($usuario);
 
-        return $this->render('subscription/listar.html.twig', [
+        return $this->render('subscription/listar_usuario.html.twig', [
             'subscriptions' => $misSuscripciones
         ]);
     }

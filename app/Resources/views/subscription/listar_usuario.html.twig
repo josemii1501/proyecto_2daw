@@ -1,0 +1,27 @@
+{% extends 'layout.html.twig' %}
+{% block title %} Suscripciones - DevVideos {% endblock %}
+{% block content %}
+
+    <h1 class="titulo_seccion">Suscripciones</h1>
+
+    <div class="panel_videos">
+        {% for suscripcion in subscriptions %}
+            {% for video in suscripcion.chanel.videos %}
+                <div class="panel_video">
+                    <a href="{{ path('visualizar_video',{'id': video.id}) }}" class="enlace_video">
+                        <div class="imagen_video">
+                            <img src="{{ video.miniature }}" alt="Miniatura Video" class="miniatura_lista"/>
+                        </div>
+                        <div class="descripcion_video">
+                            <span class="titulo_video">{{ video.title }}</span>
+                            <span class="video_descripcion">{{ video.description }}</span>
+                            <span class="info_video fecha_video"><span class="etiqueta_info_video">Fecha:</span> {{ video.date | date('H:m:s - d/m/Y') }}</span>
+                            <span class="info_video reproducciones_video"><span class="etiqueta_info_video">Visualizaciones:</span> {{ video.reproductions }}</span>
+                            <span class="info_video categoria_video"><span class="etiqueta_info_video">Catergoría:</span> {{ video.category }}</span>
+                        </div>
+                    </a>
+                </div>
+        {% endfor %}
+        {% endfor %}
+    </div>
+{% endblock %}
