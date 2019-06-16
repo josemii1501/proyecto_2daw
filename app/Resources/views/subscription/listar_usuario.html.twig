@@ -3,10 +3,38 @@
 {% block content %}
 
     <h1 class="titulo_seccion">Suscripciones</h1>
-
-    <div class="panel_videos">
+    <div class="panel_usuarios">
         {% for suscripcion in subscriptions %}
             {% if suscripcion.suscriptor.id == app.user.id %}
+                <div class="panel_usuario {% if suscripcion.chanel.isPublisher %} publisher_panel_user {% endif %}">
+                    <a href="{{ path('canal_usuario',{'id': suscripcion.chanel.id}) }}" class="enlace_usuario">
+                        <div class="avatar_usuario">
+                            <img src="{{ suscripcion.chanel.avatar }}" alt="Foto {{ suscripcion.chanel.login }}" class="avatar_usuario"/>
+                        </div>
+                        <div class="descripcion_usuario">
+                            <span class="nombre_usuario">{{ suscripcion.chanel.login }}</span>
+                        </div>
+                    </a>
+                </div>
+            {% endif %}
+    {% endfor %}
+    </div>
+        {% for suscripcion in subscriptions %}
+            {% if suscripcion.suscriptor.id == app.user.id %}
+                {% for usuario in suscripcion.chanel %}
+                        <div class="panel_usuario {% if usuario.isPublisher %} publisher_panel_user {% endif %}">
+                            <a href="{{ path('canal_usuario',{'id': usuario.id}) }}" class="enlace_usuario">
+                                <div class="avatar_usuario">
+                                    <img src="{{ usuario.avatar }}" alt="Foto {{ usuario.login }}" class="avatar_usuario"/>
+                                </div>
+                                <div class="descripcion_usuario">
+                                    <span class="nombre_usuario">{{ usuario.login }}</span>
+                                </div>
+                            </a>
+                        </div>
+                {% endfor %}
+                <div class="panel_videos">
+
                 {% for video in suscripcion.chanel.videos %}
                     <div class="panel_video">
                         <a href="{{ path('visualizar_video',{'id': video.id}) }}" class="enlace_video">
