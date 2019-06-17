@@ -220,6 +220,10 @@ class UsuarioController extends Controller
                     // updates the 'brochure' property to store the PDF file name
                     // instead of its contents
                     $usuario->setAvatar("uploads/avatar_photo/" . $fileName);
+                } else {
+                    if($new == true){
+                        $usuario->setAvatar("archivos_web/avatar_predeterminado.png");
+                    }
                 }
 
                 if($usuario->isPublisher() === null){
