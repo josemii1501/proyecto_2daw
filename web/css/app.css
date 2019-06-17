@@ -9,6 +9,12 @@ body{
     padding-top: 7em;
     color: #efefef;
 }
+.avatar_navegacion{
+    max-height: 3em;
+    border-radius: 1em ;
+    margin-left: 1em;
+    margin-right: 1em;
+}
 /* ADMINISTRACION */
 .panel_admin{
     width: 100%;

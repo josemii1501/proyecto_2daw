@@ -33,10 +33,10 @@
             </ul>
             {% if app.user %}
                 {% if is_granted('ROLE_PUBLISHER') %}
-                    <a href="{{ path('video_nuevo') }}" class="ml-3 btn btn-success"><i class="fas fa-upload"></i> Nuevo Video</a>
+                    <a href="{{ path('video_nuevo') }}" class="ml-3 btn btn-success"><i class="fas fa-upload"></i></a>
                 {% endif %}
-                <span class="navbar-text">¡Hola <a href="{{ path('canal_usuario', {'id': app.user.id}) }}">{{ app.user.name }}</a>!</span>
-                <a href="{{ path('usuario_salir') }}" class="ml-3 btn btn-danger"><i class="fas fa-power-off"></i> Salir</a>
+                <a href="{{ path('canal_usuario', {'id': app.user.id}) }}"><img src="{{ asset(app.user.avatar) }}" alt="{{ app.user.name }}" class="avatar_navegacion"></a>
+                <a href="{{ path('usuario_salir') }}" class="ml-3 btn btn-danger"><i class="fas fa-power-off"></i></a>
             {% else %}
                 <a href="{{ path('usuario_entrar') }}" class="boton_layout btn btn-primary"><i class="fas fa-door-open"></i> Entrar</a>
                 <a href="{{ path('usuario_nuevo') }}" class="boton_layout btn btn-success"><i class="fas fa-pen"></i> Registrarse</a>
