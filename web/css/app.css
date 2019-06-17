@@ -9,6 +9,24 @@ body{
     padding-top: 7em;
     color: #efefef;
 }
+/* ADMINISTRACION */
+.panel_admin{
+    width: 100%;
+    border: 1px solid #efefef;
+    margin-bottom: 1em;
+}
+.panel_admin:hover{
+    background-color: #43474b;
+    color: #efefef;
+}
+.enlace_admin{
+    width: 100%;
+    padding: 1em;
+    display: block;
+    text-align: center;
+    color: #efefef;
+}
+/* FIN ADMINISTRACION */
 /* ESTADISTICAS */
 .estadisticas_titulo_seccion{
     text-align: center;
@@ -589,5 +607,22 @@ a:hover{
         width: 19%;
         background-color: #efefef;
     }
-
+    .panel_admin{
+        width: 24%;
+        border: 1px solid #efefef;
+        margin-bottom: 1em;
+        display: inline-block;
+    }
+    .panel_admin:hover{
+        background-color: #43474b;
+        color: #efefef;
+    }
+    .enlace_admin{
+        display: block;
+        text-align: center;
+        color: #efefef;
+    }
+    .enlace_admin:hover{
+        color: #efefef;
+    }
 }
