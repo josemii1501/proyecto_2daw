@@ -253,7 +253,7 @@ class UsuarioController extends Controller
      * @Route("/usuarios/eliminar/{id}", name="usuario_eliminar")
      * @Security("is_granted('ROLE_USER')")
      */
-    public function eliminarAction(Request $request, Usuario $usuario)
+    public function eliminarAction(Request $request, Usuario $usuario, HistoryRepository $historyRepository, SavedRepository $savedRepository, SubscriptionRepository $subscriptionRepository)
     {
         if ($request->get('borrar') === '') {
             try {
@@ -287,7 +287,41 @@ class UsuarioController extends Controller
                             }
                         }
                         $this->getDoctrine()->getManager()->flush();
+                        $this->getDoctrine()->getManager()->remove($item);
+                    }
+                }
+                $mis_historiales = $historyRepository->findVistos($usuario);
+                if($mis_historiales != null) {
+                    foreach ($mis_historiales as $item2){
                         $this->getDoctrine()->getManager()->remove($item2);
+
+                    }
+                }
+                $this->getDoctrine()->getManager()->flush();
+
+                $mis_guardados = $savedRepository->findGuardados($usuario);
+                if($mis_guardados != null) {
+                    foreach ($mis_guardados as $item2){
+                        $this->getDoctrine()->getManager()->remove($item2);
+
+                    }
+                }
+                $this->getDoctrine()->getManager()->flush();
+
+                $mis_suscripciones = $subscriptionRepository->findSuscripcionesUsuario($usuario);
+                if($mis_suscripciones != null) {
+                    foreach ($mis_suscripciones as $item2){
+                        $this->getDoctrine()->getManager()->remove($item2);
+
+                    }
+                }
+                $this->getDoctrine()->getManager()->flush();
+
+                $mis_suscriptores = $subscriptionRepository->findSuscripcionesCanal($usuario);
+                if($mis_suscriptores != null) {
+                    foreach ($mis_suscriptores as $item2){
+                        $this->getDoctrine()->getManager()->remove($item2);
+
                     }
                 }
                 $this->getDoctrine()->getManager()->flush();
@@ -298,6 +332,7 @@ class UsuarioController extends Controller
                 return $this->redirectToRoute('usuarios_listar');
             } catch (\Exception $e) {
                 $this->addFlash('error', 'Ha ocurrido un error al guardar los cambios');
+                $this->addFlash('error', $e->getMessage());
 
             }
         }
