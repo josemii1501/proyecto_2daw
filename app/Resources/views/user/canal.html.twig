@@ -49,7 +49,8 @@
                     <span >!Este canal no dispone de videos!</span>
                     </div>
                 {% else %}
-                    {% for video in usuario.videos %}
+                <div class="panel_videos">
+                {% for video in usuario.videos %}
                         <div class="panel_video">
                             {% if not app.user is empty %}
                                 {% if app.user.name == usuario.name %}
@@ -73,6 +74,7 @@
                             </a>
                         </div>
                     {% endfor %}
+                </div>
                 {% endif %}
             </div>
         {% endif %}
