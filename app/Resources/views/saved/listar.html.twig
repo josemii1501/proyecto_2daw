@@ -3,23 +3,28 @@
 {% block content %}
 
     <h1>Listar Guardados</h1>
-
+    {% if is_granted('ROLE_ADMIN') %}
+        <div class="pnlAccionNueva">
+            <a href="{{ path('guardado_nuevo') }}" class="btn btn-success"><i class="fas fa-plus"></i> Añadir</a>
+            <span class="ayuda"> Cree un nuevo guardado para que el usuario tenga un acceso más rápido a un determinado video.</span>
+        </div>
+    {% endif %}
     <table class="table">
         <thead>
         <tr>
-            <th>ID</th>
+            {% if is_granted('ROLE_ADMIN') %}<th><i class="fas fa-tools"></i></th>{% endif %}
             <th>USUARIO</th>
+            <th>FECHA</th>
             <th>VIDEO</th>
         </tr>
         </thead>
         <tbody>
         {% for item in guardados %}
             <tr>{% if is_granted('ROLE_ADMIN') %}
-<td>                        <a href="{{ path('guardado_modificar', {'id': item.id}) }}">{{ item.id }}</a></td>
-
-                        <td>{{ item.usuario }}</td>
-                        <td>{{ item.timestamp | date('H:m:s | d/m/Y')}}</td>
-                        <td>{{ item.video }}</td>
+                    {% if is_granted('ROLE_ADMIN') %}<td><a href="{{ path('guardado_modificar', {'id': item.id}) }}" class="btn btn-warning" ><i class="fas fa-tools"></i></a></td>{% endif %}
+                    <td>{{ item.usuario }}</td>
+                    <td>{{ item.timestamp | date('H:m:s | d/m/Y')}}</td>
+                    <td>{{ item.video }}</td>
                 {% endif %}
 
             </tr>

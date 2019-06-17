@@ -11,27 +11,25 @@
         </div>
     {% endif %}
 
-    {% for historial in historiales %}
-        <div class="panel_historial">
-            {% if is_granted('ROLE_ADMIN') %}
-                <div class="id_historial">
-                    <a href="{{ path('historial_modificar', {'id': historial.id}) }}">{{ historial.id }}</a>
-                </div>
-
-            <div class="usuario_historial">
-                <img src="{{ historial.usuario.avatar }}" alt="Foto {{ historial.usuario.login }}" class="miniatura_lista"/>
-                <span class="nombre_usuario_historial">{{ historial.usuario.login }}</span>
-
-            </div>
-            {% endif %}
-            <div class="panel_fecha_historial">
-                <span class="fecha_historial">{{ historial.timestamp | date('H:m:s | d/m/Y') }}</span>
-            </div>
-            <div class="video_historial">
-                <img src="{{ historial.video.miniature }}" alt="Foto {{ historial.video.title }}" class="miniatura_lista"/>
-                <span class="titulo_video_historial">{{ historial.video.title }}</span>
-            </div>
-        </div>
-    {% endfor %}
+    <table class="table">
+        <thead>
+        <tr>
+            {% if is_granted('ROLE_ADMIN') %}<th><i class="fas fa-tools"></i></th>{% endif %}
+            <th>USUARIO</th>
+            <th>FECHA</th>
+            <th>VIDEO</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in historiales %}
+            <tr>
+                {% if is_granted('ROLE_ADMIN') %}<td><a href="{{ path('historial_modificar', {'id': item.id}) }}" class="btn btn-warning" ><i class="fas fa-tools"></i></a></td>{% endif %}
+                <td>{{ item.usuario }}</td>
+                <td>{{ item.timestamp | date('H:m:s | d/m/Y')}}</td>
+                <td>{{ item.video }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 
 {% endblock %}

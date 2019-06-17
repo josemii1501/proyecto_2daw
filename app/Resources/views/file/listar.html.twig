@@ -6,25 +6,28 @@
 
     <h1>Listar archivos</h1>
 
-    {% if is_granted('ROLE_PUBLISHER') %}
-        <a href="{{ path('archivo_nuevo') }}" class="btn btn-success"><i class="fas fa-plus"></i> Añadir</a>
+    {% if is_granted('ROLE_ADMIN') %}
+        <div class="pnlAccionNueva">
+            <a href="{{ path('archivo_nuevo') }}" class="btn btn-success"><i class="fas fa-plus"></i> Añadir</a>
+            <span class="ayuda"> Cree un nuevo archivo para asociar a un video.</span>
+        </div>
     {% endif %}
     <table class="table">
         <thead>
         <tr>
-            {% if is_granted('ROLE_PUBLISHER') %}<th>ID</th>{% endif %}
-            <th>FECHA</th>
+            {% if is_granted('ROLE_ADMIN') %}<th><i class="fas fa-tools"></i></th>{% endif %}
             <th>ARCHIVO</th>
+            <th>FECHA</th>
             <th>VIDEO</th>
         </tr>
         </thead>
         <tbody>
         {% for archivo in archivos %}
             <tr>
-                {% if is_granted('ROLE_PUBLISHER') %}<td><a href="{{ path('archivo_modificar', {'id': archivo.id}) }}">{{ archivo.id }}</a></td>{% endif %}
-                <td>{{ archivo.date | date('d/m/Y | H:m:s') }}</td>
+                {% if is_granted('ROLE_ADMIN') %}<td><a href="{{ path('archivo_modificar', {'id': archivo.id}) }}" class="btn btn-warning"><i class="fas fa-tools"></i></a></td>{% endif %}
                 <td>{{ archivo.file }}</td>
-                <td><img src="{{ archivo.video.miniature }}" alt="Miniatura {{ archivo.video }}" class="miniatura_lista" /> <span class="titulo">{{ archivo.video }}</span></td>
+                <td>{{ archivo.date | date('d/m/Y | H:m:s') }}</td>
+                <td><span class="titulo">{{ archivo.video }}</span></td>
             </tr>
         {% endfor %}
         </tbody>

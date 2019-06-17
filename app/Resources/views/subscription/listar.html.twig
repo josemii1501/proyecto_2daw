@@ -4,10 +4,17 @@
 
     <h1>Listar Suscripciones</h1>
 
+    {% if is_granted('ROLE_ADMIN') %}
+        <div class="pnlAccionNueva">
+            <a href="{{ path('suscripcion_nueva') }}" class="btn btn-success"><i class="fas fa-plus"></i> Añadir</a>
+            <span class="ayuda"> Cree una nueva suscripcion para que el suscriptor tenga mejor acceso a los videos de un determinado canal.</span>
+        </div>
+    {% endif %}
+
     <table class="table">
         <thead>
         <tr>
-            <th>ID</th>
+            {% if is_granted('ROLE_ADMIN') %}<th><i class="fas fa-tools"></i></th>{% endif %}
             <th>FECHA</th>
             <th>SUSCRIPTOR</th>
             <th>CANAL</th>
@@ -16,7 +23,7 @@
         <tbody>
         {% for item in subscriptions %}
             <tr>
-                <td><a href="{{ path('suscripcion_editar', {'id': item.id}) }}" >{{ item.id }}</a></td>
+                {% if is_granted('ROLE_ADMIN') %}<td><a href="{{ path('suscripcion_editar', {'id': item.id}) }}" class="btn btn-warning" ><i class="fas fa-tools"></i></a></td>{% endif %}
                 <td>{{ item.timestamp | date('H:m:s | d/m/Y')}}</td>
                 <td>{{ item.suscriptor }}</td>
                 <td>{{ item.chanel }}</td>
