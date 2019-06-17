@@ -26,5 +26,14 @@ class DefaultController extends Controller
             'usuarios' => $algunosUsuarios
         ]);
     }
+    /**
+     * @Route("/administrador", name="admin_panel")
+     */
+    public function adminAction()
+    {
+
+
+        return $this->render('default/admin.html.twig');
+    }
 
 }

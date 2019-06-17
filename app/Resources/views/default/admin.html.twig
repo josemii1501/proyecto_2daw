@@ -1,0 +1,22 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %} Administrar - DevVideos {% endblock %}
+
+{% block content %}
+    <h1 class="titulo_seccion">Panel Administración</h1>
+
+    <div class="panel_admin">
+        <a class="enlace_admin" href="{{ path('archivos_listar') }}">Archivos</a>
+    </div>
+
+    <div class="panel_admin">
+        <a class="enlace_admin" href="{{ path('historiales_listar') }}">Historiales</a>
+    </div>
+    <div class="panel_admin">
+        <a class="enlace_admin" href="{{ path('guardados_listar') }}">Guardados</a>
+    </div>
+
+    <div class="panel_admin">
+        <a class="enlace_admin" href="{{ path('suscripciones_listar') }}">Suscripciones</a>
+    </div>
+{% endblock %}

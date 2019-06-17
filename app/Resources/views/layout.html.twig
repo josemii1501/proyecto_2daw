@@ -19,37 +19,24 @@
                 <li class="nav-item">
                     <a class="nav-link{% if ruta starts with "categoria" %} active{% endif %}" href="{{ path('categorias_listar') }}">Categorias</a>
                 </li>
-
-                {% if is_granted('ROLE_ADMIN') %}
-                    <li class="nav-item">
-                        <a class="nav-link{% if ruta starts with "archivo" %} active{% endif %}" href="{{ path('archivos_listar') }}">Archivos</a>
-                    </li>
-
-                <li class="nav-item">
-                    <a class="nav-link{% if ruta starts with "historial" %} active{% endif %}" href="{{ path('historiales_listar') }}">Historiales</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link{% if ruta starts with "guardado" %} active{% endif %}" href="{{ path('guardados_listar') }}">Guardados</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link{% if ruta starts with "suscripcion" %} active{% endif %}" href="{{ path('suscripciones_listar') }}">Suscripciones</a>
-                </li>
-
-                {% endif %}
                 <li class="nav-item">
                     <a class="nav-link{% if ruta starts with "usuario" %} active{% endif %}" href="{{ path('usuarios_listar') }}">Creadores</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link{% if ruta starts with "video" %} active{% endif %}" href="{{ path('videos_listar') }}">Videos</a>
                 </li>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <li class="nav-item">
+                        <a class="nav-link{% if ruta starts with "admin" %} active{% endif %}" href="{{ path('admin_panel') }}">Administración</a>
+                    </li>
+                {% endif %}
             </ul>
             {% if app.user %}
                 {% if is_granted('ROLE_PUBLISHER') %}
                     <a href="{{ path('video_nuevo') }}" class="ml-3 btn btn-success"><i class="fas fa-upload"></i> Nuevo Video</a>
                 {% endif %}
                 <span class="navbar-text">¡Hola <a href="{{ path('canal_usuario', {'id': app.user.id}) }}">{{ app.user.name }}</a>!</span>
-                <a href="{{ path('usuario_salir') }}" class="ml-3 btn btn-primary"><i class="fas fa-power-off"></i> Salir</a>
+                <a href="{{ path('usuario_salir') }}" class="ml-3 btn btn-danger"><i class="fas fa-power-off"></i> Salir</a>
             {% else %}
                 <a href="{{ path('usuario_entrar') }}" class="boton_layout btn btn-primary"><i class="fas fa-door-open"></i> Entrar</a>
                 <a href="{{ path('usuario_nuevo') }}" class="boton_layout btn btn-success"><i class="fas fa-pen"></i> Registrarse</a>
