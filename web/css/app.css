@@ -9,6 +9,22 @@ body{
     padding-top: 7em;
     color: #efefef;
 }
+/* ESTADISTICAS */
+.estadisticas_titulo_seccion{
+    text-align: center;
+    width: 100%;
+}
+.panel_estadisticas img{
+    width: 100%;
+}
+.panel_estadisticas_video, .estadisticas_video_miniatura, .estadisticas_video_categoria, .estadisticas_video_fecha, .estadisticas_video_guardados, .estadisticas_video_reproducciones{
+    display: block;
+    padding: 0.5em;
+}
+.estadisticas_video_etiqueta{
+    text-decoration: underline;
+}
+/* FIN ESTADISTICAS */
 /* LOGIN */
 .login{
     border-radius: 0.2em;
@@ -573,4 +589,5 @@ a:hover{
         width: 19%;
         background-color: #efefef;
     }
+
 }

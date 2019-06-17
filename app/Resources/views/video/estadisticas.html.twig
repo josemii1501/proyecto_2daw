@@ -3,12 +3,16 @@
 {% block title %} Estadísticas Video - DevVideos {% endblock %}
 
 {% block content %}
-        <h1 class="titulo_seccion">{{ video.title }}</h1>
+    <div class="panel_estadisticas">
+        <h1 class="estadisticas_titulo_seccion">{{ video.title }}</h1>
         <div class="panel_estadisticas_video">
-            <img class="estadisticas_video_miniatura" src="{{ video.miniature }}" alt="Miniatura Video">
-            <span class="estadisticas_video_fecha">{{ video.date | date('H:m:s - d/m/Y') }}</span>
-            <span class="estadisticas_video_categoria">{{ video.category.name }}</span>
-            <span class="estadisticas_video_reproducciones">{{ video.reproductions }}</span>
-            <span class="estadisticas_video_guardados">{{ video_guardados }}</span>
+            <a href="{{ path('visualizar_video',{'id': video.id}) }}"><img class="estadisticas_video_miniatura" src="{{ video.miniature }}" alt="Miniatura Video"></a>
+            <div class="estadisticas_video">
+                <span class="estadisticas_video_fecha"><span class="estadisticas_video_etiqueta">Fecha Subida:</span> {{ video.date | date('H:m:s - d/m/Y') }}</span>
+                <span class="estadisticas_video_categoria"><span class="estadisticas_video_etiqueta">Categoria:</span> {{ video.category.name }}</span>
+                <span class="estadisticas_video_reproducciones"><span class="estadisticas_video_etiqueta">Reproducciones:</span> {{ video.reproductions }}</span>
+                <span class="estadisticas_video_guardados"><span class="estadisticas_video_etiqueta">Total Guardados:</span> {{ video_guardados }}</span>
+            </div>
         </div>
+    </div>
 {% endblock %}
