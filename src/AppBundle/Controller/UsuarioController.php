@@ -2,12 +2,10 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\History;
 use AppBundle\Entity\Suscription;
 use AppBundle\Entity\Usuario;
 use AppBundle\Form\Type\CambioClaveType;
 use AppBundle\Form\Type\UsuarioType;
-use AppBundle\Repository\HistoryRepository;
 use AppBundle\Repository\SavedRepository;
 use AppBundle\Repository\SubscriptionRepository;
 use AppBundle\Repository\UsuarioRepository;
@@ -38,18 +36,24 @@ class UsuarioController extends Controller
      */
     public function videosUsuarioAction(Usuario $usuario, SubscriptionRepository $subscriptionRepository ,SavedRepository $savedRepository)
     {
-        $videosGuardados = $savedRepository->findGuardados($usuario);
-        $estaSuscrito = $subscriptionRepository->findSuscritoUsuario($usuario,$this->getUser());
-        if(empty($estaGuardado)){
-            $guaradado = false;
-        } else {
-            $guaradado = true;
+        $guaradado = false;
+        $suscrito = false;
+        $videosGuardados = null;
+        if($this->getUser()){
+            $videosGuardados = $savedRepository->findGuardados($usuario);
+            $estaSuscrito = $subscriptionRepository->findSuscritoUsuario($usuario,$this->getUser());
+            if(empty($estaGuardado)){
+                $guaradado = false;
+            } else {
+                $guaradado = true;
+            }
+            if(empty($estaSuscrito)){
+                $suscrito = false;
+            } else {
+                $suscrito = true;
+            }
         }
-        if(empty($estaSuscrito)){
-            $suscrito = false;
-        } else {
-            $suscrito = true;
-        }
+
         return $this->render('user/canal.html.twig', [
             'usuario' => $usuario,
             'guardados' => $videosGuardados,

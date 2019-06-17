@@ -107,8 +107,9 @@ class VideoController extends Controller
     public function videoVisualizarAction(Video $video,SavedRepository $savedRepository)
     {
         try{
+            $guardado = false;
+
             if($this->getUser()){
-                $guaradado = true;
 
                 $historial = new History();
 
@@ -120,10 +121,11 @@ class VideoController extends Controller
                 $this->getDoctrine()->getManager()->flush();
 
                 $estaGuardado = $savedRepository->findVideoUsuario($this->getUser(),$video);
+
                 if(empty($estaGuardado)){
-                    $guaradado = false;
+                    $guardado = false;
                 } else {
-                    $guaradado = true;
+                    $guardado = true;
                 }
             }
             $video->setReproductions($video->getReproductions()+1);
@@ -137,7 +139,7 @@ class VideoController extends Controller
 
         return $this->render('video/visualizar.html.twig', [
             'video' => $video,
-            'guardado' => $guaradado
+            'guardado' => $guardado
         ]);
     }
     /**

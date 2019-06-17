@@ -30,7 +30,7 @@
         <ul>
             <li><a href="#tabs-1">Información</a></li>
             {% if usuario.publisher %}<li><a href="#tabs-2">Videos</a></li>{% endif %}
-            {% if usuario.id == app.user.id %}<li><a href="#tabs-3">Guardados</a></li>{% endif %}
+            {% if not app.user is empty %}{% if usuario.id == app.user.id %}<li><a href="#tabs-3">Guardados</a></li>{% endif %}{% endif %}
         </ul>
         <div id="tabs-1">
             <div class="canal_informacion">
@@ -51,7 +51,7 @@
                 {% else %}
                     {% for video in usuario.videos %}
                         <div class="panel_video">
-                            {% if app.user %}
+                            {% if not app.user is empty %}
                                 {% if app.user.name == usuario.name %}
                                     <div class="editar_video">
                                         <a href="{{ path('video_modificar', {'id': video.id}) }}" class="btn btn-warning"><i class="fas fa-tools"></i></a>
@@ -76,6 +76,7 @@
                 {% endif %}
             </div>
         {% endif %}
+        {% if not app.user is empty %}
         {% if usuario.id == app.user.id %}
         <div id="tabs-3">
             {% if guardados is empty %}
@@ -102,6 +103,7 @@
             {% endfor %}
             </div>
         </div>
+        {% endif %}
         {% endif %}
         {% endif %}
     </div>
