@@ -11,8 +11,7 @@
             <h1>{{ usuario.login }}</h1>
             <span class="canal_nombre"><i class="fas fa-user"></i> {{ usuario.name }} {{ usuario.lastname }}</span>
             <span class="canal_web"><i class="fas fa-globe-europe"></i> <a href="{{ usuario.urlWebSite }}">{{ usuario.urlWebSite }}</a></span>
-            {% if not app.user is empty %}
-                {% if app.user.id == usuario.id %}
+            {% if not app.user is empty and app.user.id == usuario.id%}
                     <a href="{{ path('datos_personales') }}" class="btn btn-warning"><i class="fas fa-cog"></i> Datos Personales</a>
                     {% else %}
                         {% if usuario.publisher %}
@@ -22,7 +21,6 @@
                                 <a href="{{ path('suscribirse_canal',{'id': usuario.id}) }}" class="btn btn-info boton_save_video"><i class="fas fa-plus"></i> Suscribirse</a>
                             {% endif %}
                         {% endif %}
-                {% endif %}
             {% endif %}
         </div>
     </div>
@@ -30,7 +28,10 @@
         <ul>
             <li><a href="#tabs-1">Información</a></li>
             {% if usuario.publisher %}<li><a href="#tabs-2">Videos</a></li>{% endif %}
-            {% if not app.user is empty %}{% if usuario.id == app.user.id %}<li><a href="#tabs-3">Guardados</a></li>{% endif %}{% endif %}
+            {% if not app.user is empty and usuario.id == app.user.id %}
+                <li><a href="#tabs-3">Guardados</a></li>
+                <li><a href="#tabs-4">Historial</a></li>
+            {% endif %}
         </ul>
         <div id="tabs-1">
             <div class="canal_informacion">
@@ -52,13 +53,11 @@
                 <div class="panel_videos">
                 {% for video in usuario.videos %}
                         <div class="panel_video">
-                            {% if not app.user is empty %}
-                                {% if app.user.name == usuario.name %}
+                            {% if not app.user is empty and app.user.name == usuario.name %}
                                     <div class="editar_video">
                                         <a href="{{ path('video_modificar', {'id': video.id}) }}" class="btn btn-warning"><i class="fas fa-tools"></i></a>
                                         <a href="{{ path('estadisticas_video', {'id': video.id}) }}" class="btn btn-info"><i class="fas fa-info"></i></a>
                                     </div>
-                                {% endif %}
                             {% endif %}
 
                             <a href="{{ path('visualizar_video',{'id': video.id}) }}" class="enlace_video">
@@ -79,8 +78,7 @@
                 {% endif %}
             </div>
         {% endif %}
-        {% if not app.user is empty %}
-        {% if usuario.id == app.user.id %}
+        {% if not app.user is empty and usuario.id == app.user.id %}
         <div id="tabs-3">
             {% if guardados is empty %}
             <div class="no_videos">
@@ -106,6 +104,31 @@
             {% endfor %}
             </div>
         </div>
+                <div id="tabs-4">
+                {% if vistos is empty %}
+                    <div class="no_videos">
+                        <span >!No tienes videos vistos!</span>
+                    </div>
+                {% else %}
+                    <div class="panel_videos">
+                        {% for historila in vistos %}
+                            <div class="panel_video">
+                                <a href="{{ path('visualizar_video',{'id': historila.video.id}) }}" class="enlace_video">
+                                    <div class="imagen_video">
+                                        <img src="{{ historila.video.miniature }}" alt="Miniatura Video" class="miniatura_lista"/>
+                                    </div>
+                                    <div class="descripcion_video">
+                                        <span class="titulo_video">{{ historila.video.title }}</span>
+                                        <span class="video_descripcion">{{ historila.video.description }}</span>
+                                        <span class="info_video fecha_video"><span class="etiqueta_info">Fecha:</span> {{ historila.video.date | date('H:m:s - d/m/Y') }}</span>
+                                        <span class="info_video reproducciones_video"><span class="etiqueta_info">Visualizaciones:</span> {{ historila.video.reproductions }}</span>
+                                        <span class="info_video categoria_video"><span class="etiqueta_info">Catergoría:</span> {{ historila.video.category }}</span>
+                                    </div>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
         {% endif %}
         {% endif %}
         {% endif %}

@@ -6,6 +6,7 @@ use AppBundle\Entity\Suscription;
 use AppBundle\Entity\Usuario;
 use AppBundle\Form\Type\CambioClaveType;
 use AppBundle\Form\Type\UsuarioType;
+use AppBundle\Repository\HistoryRepository;
 use AppBundle\Repository\SavedRepository;
 use AppBundle\Repository\SubscriptionRepository;
 use AppBundle\Repository\UsuarioRepository;
@@ -34,13 +35,15 @@ class UsuarioController extends Controller
      * @Route("/usuarios/canal/{id}", name="canal_usuario",
      *     requirements={"id":"\d+"})
      */
-    public function videosUsuarioAction(Usuario $usuario, SubscriptionRepository $subscriptionRepository ,SavedRepository $savedRepository)
+    public function videosUsuarioAction(Usuario $usuario, SubscriptionRepository $subscriptionRepository ,HistoryRepository $historyRepository,SavedRepository $savedRepository)
     {
         $guaradado = false;
         $suscrito = false;
         $videosGuardados = null;
+        $videosVistos = null;
         if($this->getUser()){
             $videosGuardados = $savedRepository->findGuardados($usuario);
+            $videosVistos = $historyRepository->findVistos($usuario);
             $estaSuscrito = $subscriptionRepository->findSuscritoUsuario($usuario,$this->getUser());
             if(empty($estaGuardado)){
                 $guaradado = false;
@@ -57,6 +60,7 @@ class UsuarioController extends Controller
         return $this->render('user/canal.html.twig', [
             'usuario' => $usuario,
             'guardados' => $videosGuardados,
+            'vistos' => $videosVistos,
             'suscrito' => $suscrito
         ]);
     }
@@ -64,7 +68,7 @@ class UsuarioController extends Controller
      * @Route("canal/suscribirse/{id}", name="suscribirse_canal",
      *     requirements={"id":"\d+"})
      */
-    public function usuarioSuscritoAction(Usuario $usuario, SubscriptionRepository $subscriptionRepository,SavedRepository $savedRepository)
+    public function usuarioSuscritoAction(Usuario $usuario, SubscriptionRepository $subscriptionRepository,HistoryRepository $historyRepository,SavedRepository $savedRepository)
     {
         try {
             if ($this->getUser()) {
@@ -81,13 +85,13 @@ class UsuarioController extends Controller
         } catch (\Exception $e) {
             $this->addFlash('error', $e->getMessage());
         }
-        return $this->videosUsuarioAction( $usuario,$subscriptionRepository, $savedRepository);
+        return $this->videosUsuarioAction( $usuario,$subscriptionRepository,$historyRepository, $savedRepository);
     }
     /**
      * @Route("suscripocion/eliminar/{id}", name="eliminar_suscripcion_canal",
      *     requirements={"id":"\d+"})
      */
-    public function eliminarSuscripcionAction(Usuario $usuario,SubscriptionRepository $subscriptionRepository, SavedRepository $savedRepository)
+    public function eliminarSuscripcionAction(Usuario $usuario,SubscriptionRepository $subscriptionRepository,HistoryRepository $historyRepository, SavedRepository $savedRepository)
     {
         try {
             if ($this->getUser()) {
@@ -101,7 +105,7 @@ class UsuarioController extends Controller
         } catch (\Exception $e) {
             $this->addFlash('error', $e->getMessage());
         }
-        return $this->videosUsuarioAction($usuario,$subscriptionRepository,$savedRepository);
+        return $this->videosUsuarioAction($usuario,$subscriptionRepository, $historyRepository, $savedRepository);
     }
     /**
      * @Route("/clave", name="cambio_clave")

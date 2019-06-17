@@ -5,6 +5,7 @@ namespace AppBundle\Repository;
 
 
 use AppBundle\Entity\History;
+use AppBundle\Entity\Usuario;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
@@ -21,6 +22,18 @@ class HistoryRepository extends ServiceEntityRepository
             ->addSelect('v')
             ->join('h.video','v')
             ->leftJoin('h.usuario','u')
+            ->orderBy('h.timestamp')
+            ->getQuery()
+            ->getResult();
+    }
+    public function findVistos(Usuario $usuario)
+    {
+        return $this->createQueryBuilder('h')
+            ->addSelect('u')
+            ->addSelect('v')
+            ->join('h.video','v')
+            ->leftJoin('h.usuario','u')
+            ->where('u.id = '.$usuario->getId())
             ->orderBy('h.timestamp')
             ->getQuery()
             ->getResult();
