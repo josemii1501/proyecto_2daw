@@ -15,7 +15,7 @@ class SavedType extends AbstractType
             ->add('video', null, [
                 'label'=> 'Video: '
             ])
-            ->add('user', null,[
+            ->add('usuario', null,[
                 'label'=>'Usuario: '
             ]);
     }
