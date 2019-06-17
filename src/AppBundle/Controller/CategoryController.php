@@ -79,7 +79,9 @@ class CategoryController extends Controller
                     // instead of its contents
                     $category->setPhoto("uploads/fotos_categoria/" . $fileName);
                 } else {
-                    $category->setPhoto("archivos_web/categoria_predeterminada.png");
+                    if($new == true) {
+                        $category->setPhoto("archivos_web/categoria_predeterminada.png");
+                    }
                 }
 
 

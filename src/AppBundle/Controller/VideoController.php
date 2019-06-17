@@ -223,7 +223,9 @@ class VideoController extends Controller
                     // instead of its contents
                     $video->setMiniature("uploads/video_photo/" . $fileName);
                 } else {
-                    $video->setMiniature("archivos_web/miniatura_predeterminada.png");
+                    if($new == true) {
+                        $video->setMiniature("archivos_web/miniatura_predeterminada.png");
+                    }
                 }
 
 
