@@ -39,7 +39,6 @@ class UsuarioController extends Controller
      */
     public function videosUsuarioAction(Usuario $usuario, SubscriptionRepository $subscriptionRepository ,HistoryRepository $historyRepository,SavedRepository $savedRepository)
     {
-        $guaradado = false;
         $suscrito = false;
         $videosGuardados = null;
         $videosVistos = null;
@@ -47,11 +46,6 @@ class UsuarioController extends Controller
             $videosGuardados = $savedRepository->findGuardados($usuario);
             $videosVistos = $historyRepository->findVistos($usuario);
             $estaSuscrito = $subscriptionRepository->findSuscritoUsuario($usuario,$this->getUser());
-            if(empty($estaGuardado)){
-                $guaradado = false;
-            } else {
-                $guaradado = true;
-            }
             if(empty($estaSuscrito)){
                 $suscrito = false;
             } else {
