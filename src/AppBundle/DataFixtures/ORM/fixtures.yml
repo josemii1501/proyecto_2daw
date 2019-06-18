@@ -39,7 +39,7 @@ AppBundle\Entity\Video:
     description: <text(200)>
     date: <dateTime('now','CET')>
     reproductions: <numberBetween( 0, 10000000)>
-    miniature: "https://programacion.net/files/article/20170221040221_youtube-banner.jpg"
+    miniature: "miniatura_predeterminada.png"
     creator: '@user*'
     category: '@category*'
 

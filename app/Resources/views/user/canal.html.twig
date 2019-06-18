@@ -62,7 +62,7 @@
 
                             <a href="{{ path('visualizar_video',{'id': video.id}) }}" class="enlace_video">
                                 <div class="imagen_video">
-                                    <img src="{{ video.miniature }}" alt="Miniatura Video" class="miniatura_lista"/>
+                                    <img src="{{ asset(ruta_miniatura ~ video.miniature )}}" alt="Miniatura Video" class="miniatura_lista"/>
                                 </div>
                                 <div class="descripcion_video">
                                     <span class="titulo_video">{{ video.title }}</span>
@@ -90,7 +90,7 @@
                 <div class="panel_video">
                     <a href="{{ path('visualizar_video',{'id': guardado.video.id}) }}" class="enlace_video">
                         <div class="imagen_video">
-                            <img src="{{ guardado.video.miniature }}" alt="Miniatura Video" class="miniatura_lista"/>
+                            <img src="{{ asset(ruta_miniatura ~ guardado.video.miniature) }}" alt="Miniatura Video" class="miniatura_lista"/>
                         </div>
                         <div class="descripcion_video">
                             <span class="titulo_video">{{ guardado.video.title }}</span>
@@ -115,7 +115,7 @@
                             <div class="panel_video">
                                 <a href="{{ path('visualizar_video',{'id': historial.video.id}) }}" class="enlace_video">
                                     <div class="imagen_video">
-                                        <img src="{{ historial.video.miniature }}" alt="Miniatura Video" class="miniatura_lista"/>
+                                        <img src="{{ asset(ruta_miniatura ~ historial.video.miniature) }}" alt="Miniatura Video" class="miniatura_lista"/>
                                     </div>
                                     <div class="descripcion_video">
                                         <span class="titulo_video">{{ historial.video.title }}</span>

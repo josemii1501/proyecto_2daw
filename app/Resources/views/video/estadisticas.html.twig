@@ -6,7 +6,7 @@
     <div class="panel_estadisticas">
         <h1 class="estadisticas_titulo_seccion">{{ video.title }}</h1>
         <div class="panel_estadisticas_video">
-            <a href="{{ path('visualizar_video',{'id': video.id}) }}"><img class="estadisticas_video_miniatura" src="{{ video.miniature }}" alt="Miniatura Video"></a>
+            <a href="{{ path('visualizar_video',{'id': video.id}) }}"><img class="estadisticas_video_miniatura" src="{{ asset(ruta_miniatura ~ video.miniature) }}" alt="Miniatura Video"></a>
             <div class="estadisticas_video">
                 <span class="estadisticas_video_fecha"><span class="estadisticas_video_etiqueta">Fecha Subida:</span> {{ video.date | date('H:m:s - d/m/Y') }}</span>
                 <span class="estadisticas_video_categoria"><span class="estadisticas_video_etiqueta">Categoria:</span> {{ video.category.name }}</span>

@@ -221,7 +221,7 @@ class VideoController extends Controller
                     // Move the file to the directory where brochures are stored
                     try {
                         $file->move(
-                            "uploads/video_photo",
+                            "uploads/miniature",
                             $fileName
                         );
                     } catch (FileException $e) {
@@ -230,10 +230,10 @@ class VideoController extends Controller
 
                     // updates the 'brochure' property to store the PDF file name
                     // instead of its contents
-                    $video->setMiniature("uploads/video_photo/" . $fileName);
+                    $video->setMiniature($fileName);
                 } else {
                     if($new == true) {
-                        $video->setMiniature("archivos_web/miniatura_predeterminada.png");
+                        $video->setMiniature("miniatura_predeterminada.png");
                     }
                 }
 

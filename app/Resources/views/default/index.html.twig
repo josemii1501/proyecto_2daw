@@ -9,7 +9,7 @@
         <div class="panel_video inicio">
             <a href="{{ path('visualizar_video',{'id': video.id}) }}" class="enlace_video">
                 <div class="imagen_video">
-                    <img src="{{ video.miniature }}" alt="Miniatura Video" class="miniatura_lista"/>
+                    <img src="{{ asset(ruta_miniatura ~ video.miniature) }}" alt="Miniatura Video" class="miniatura_lista"/>
                 </div>
                 <div class="descripcion_video">
                     <span class="titulo_video">{{ video.title }}</span>
