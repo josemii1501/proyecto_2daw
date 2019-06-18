@@ -111,18 +111,18 @@
                     </div>
                 {% else %}
                     <div class="panel_videos">
-                        {% for historila in vistos %}
+                        {% for historial in vistos %}
                             <div class="panel_video">
-                                <a href="{{ path('visualizar_video',{'id': historila.video.id}) }}" class="enlace_video">
+                                <a href="{{ path('visualizar_video',{'id': historial.video.id}) }}" class="enlace_video">
                                     <div class="imagen_video">
-                                        <img src="{{ historila.video.miniature }}" alt="Miniatura Video" class="miniatura_lista"/>
+                                        <img src="{{ historial.video.miniature }}" alt="Miniatura Video" class="miniatura_lista"/>
                                     </div>
                                     <div class="descripcion_video">
-                                        <span class="titulo_video">{{ historila.video.title }}</span>
-                                        <span class="video_descripcion">{{ historila.video.description }}</span>
-                                        <span class="info_video fecha_video"><span class="etiqueta_info">Fecha:</span> {{ historila.video.date | date('H:m:s - d/m/Y') }}</span>
-                                        <span class="info_video reproducciones_video"><span class="etiqueta_info">Visualizaciones:</span> {{ historila.video.reproductions }}</span>
-                                        <span class="info_video categoria_video"><span class="etiqueta_info">Catergoría:</span> {{ historila.video.category }}</span>
+                                        <span class="titulo_video">{{ historial.video.title }}</span>
+                                        <span class="video_descripcion">{{ historial.video.description }}</span>
+                                        <span class="info_video fecha_video"><span class="etiqueta_info">Fecha:</span> {{ historial.timestamp | date('H:m:s - d/m/Y') }}</span>
+                                        <span class="info_video reproducciones_video"><span class="etiqueta_info">Visualizaciones:</span> {{ historial.video.reproductions }}</span>
+                                        <span class="info_video categoria_video"><span class="etiqueta_info">Catergoría:</span> {{ historial.video.category }}</span>
                                     </div>
                                 </a>
                             </div>

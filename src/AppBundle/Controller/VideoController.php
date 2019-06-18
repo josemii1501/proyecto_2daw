@@ -8,6 +8,7 @@ use AppBundle\Entity\Saved;
 use AppBundle\Entity\Usuario;
 use AppBundle\Entity\Video;
 use AppBundle\Form\Type\VideoType;
+use AppBundle\Repository\HistoryRepository;
 use AppBundle\Repository\SavedRepository;
 use AppBundle\Repository\VideoRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -47,7 +48,7 @@ class VideoController extends Controller
      * @Route("guardar/eliminar/video/{id}", name="eliminar_guardado_video",
      *     requirements={"id":"\d+"})
      */
-    public function videoEliminarGuardarAction(Video $video,SavedRepository $savedRepository)
+    public function videoEliminarGuardarAction(Video $video,SavedRepository $savedRepository, HistoryRepository $historyRepository)
     {
         try {
             if ($this->getUser()) {
@@ -61,7 +62,7 @@ class VideoController extends Controller
         } catch (\Exception $e) {
             $this->addFlash('error', $e->getMessage());
         }
-        return $this->videoVisualizarAction($video,$savedRepository);
+        return $this->videoVisualizarAction($video,$savedRepository, $historyRepository);
     }
     /**
      * @Route("video/{id}/estadisticas", name="estadisticas_video",
@@ -81,7 +82,7 @@ class VideoController extends Controller
      * @Route("guardar/video/{id}", name="guardar_video",
      *     requirements={"id":"\d+"})
      */
-    public function videoGuardarAction(Video $video,SavedRepository $savedRepository)
+    public function videoGuardarAction(Video $video,SavedRepository $savedRepository, HistoryRepository $historyRepository)
     {
         try {
             if ($this->getUser()) {
@@ -98,27 +99,36 @@ class VideoController extends Controller
         } catch (\Exception $e) {
             $this->addFlash('error', $e->getMessage());
         }
-        return $this->videoVisualizarAction($video,$savedRepository);
+        return $this->videoVisualizarAction($video,$savedRepository, $historyRepository);
     }
     /**
      * @Route("/videos/{id}", name="visualizar_video",
      *     requirements={"id":"\d+"})
      */
-    public function videoVisualizarAction(Video $video,SavedRepository $savedRepository)
+    public function videoVisualizarAction(Video $video,SavedRepository $savedRepository, HistoryRepository $historyRepository)
     {
         try{
             $guardado = false;
 
             if($this->getUser()){
 
-                $historial = new History();
+                $historialEsta = $historyRepository->findHistorial($video, $this->getUser());
+                if(empty($historialEsta)){
+                    $historial = new History();
 
-                $historial->setVideo($video)
-                    ->setUsuario($this->getUser())
-                    ->setTimestamp(new \DateTime());
+                    $historial->setVideo($video)
+                        ->setUsuario($this->getUser())
+                        ->setTimestamp(new \DateTime());
 
-                $this->getDoctrine()->getManager()->persist($historial);
-                $this->getDoctrine()->getManager()->flush();
+                    $this->getDoctrine()->getManager()->persist($historial);
+                    $this->getDoctrine()->getManager()->flush();
+                }else {
+                    foreach($historialEsta as $item){
+                        $item->setTimestamp(new \DateTime());
+                        $this->getDoctrine()->getManager()->flush();
+                    }
+                }
+
 
                 $estaGuardado = $savedRepository->findVideoUsuario($this->getUser(),$video);
 
