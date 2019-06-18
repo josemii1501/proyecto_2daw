@@ -30,7 +30,7 @@ AppBundle\Entity\Usuario:
 AppBundle\Entity\Category:
   category_{1..5}:
     name (unique): <en_EN:word()>
-    photo: "https://blastcoding.com/wp-content/uploads/2018/10/php.png"
+    photo: "categoria_predeterminada.png"
 
 AppBundle\Entity\Video:
   video_{1..10}:

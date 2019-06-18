@@ -68,7 +68,7 @@ class CategoryController extends Controller
                     // Move the file to the directory where brochures are stored
                     try {
                         $file->move(
-                            "uploads/fotos_categoria",
+                            "uploads/category",
                             $fileName
                         );
                     } catch (FileException $e) {
@@ -77,10 +77,10 @@ class CategoryController extends Controller
 
                     // updates the 'brochure' property to store the PDF file name
                     // instead of its contents
-                    $category->setPhoto("uploads/fotos_categoria/" . $fileName);
+                    $category->setPhoto($fileName);
                 } else {
                     if($new == true) {
-                        $category->setPhoto("archivos_web/categoria_predeterminada.png");
+                        $category->setPhoto("categoria_predeterminada.png");
                     }
                 }
 
