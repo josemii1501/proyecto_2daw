@@ -68,7 +68,7 @@ class FileController extends Controller
                     // Move the file to the directory where brochures are stored
                     try {
                         $file->move(
-                            "uploads/archivos_videos",
+                            "uploads/archivo",
                             $fileName
                         );
                     } catch (FileException $e) {
@@ -77,7 +77,7 @@ class FileController extends Controller
 
                     // updates the 'brochure' property to store the PDF file name
                     // instead of its contents
-                    $archivo->setFile("uploads/archivos_videos/" . $fileName);
+                    $archivo->setFile($fileName);
                 }
 
 

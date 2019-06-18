@@ -45,7 +45,7 @@
                     <span>!No hay archivos disponibles!</span>
                 {% else %}
                     {% for file in video.file %}
-                    <a href="{{ file.file }}">{{ file.file }}</a>
+                    <a href="{{ asset(ruta_archivo ~ file.file ) }}">{{ file.file }}</a>
                     {% endfor %}
                 {% endif %}
             </div>
