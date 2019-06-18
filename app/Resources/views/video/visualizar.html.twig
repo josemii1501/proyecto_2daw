@@ -16,7 +16,7 @@
             {% endif %}
         {% endif %}
     <a href="{{ path('canal_usuario', {'id': video.creator.id})}}" class="creador_video">
-        <img src="{{ video.creator.avatar }}" alt="Avatar" class="avatar_canal"/>
+        <img src="{{ asset(ruta_avatar ~ video.creator.avatar ) }}" alt="Avatar" class="avatar_canal"/>
         <span class="nombre_canal_video">{{ video.creator.login }}</span>
     </a>
         <div id="tabs">

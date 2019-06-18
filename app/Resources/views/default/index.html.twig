@@ -45,7 +45,7 @@
                     <div class="panel_usuario {% if usuario.isPublisher %} publisher_panel_user {% endif %}">
                         <a href="{{ path('canal_usuario',{'id': usuario.id}) }}" class="enlace_usuario">
                             <div class="avatar_usuario">
-                                <img src="{{ usuario.avatar }}" alt="Foto {{ usuario.login }}" class="avatar_usuario"/>
+                                <img src="{{ asset(ruta_avatar ~ usuario.avatar) }}" alt="Foto {{ usuario.login }}" class="avatar_usuario"/>
                             </div>
                             <div class="descripcion_usuario">
                                 <span class="nombre_usuario">{{ usuario.login }}</span>

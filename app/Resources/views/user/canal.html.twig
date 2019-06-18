@@ -5,7 +5,7 @@
 {% block content %}
     <div class="cabecera_canal">
         <div class="panel_avatar_canal {% if usuario.publisher %} avatar_publisher {% endif %}">
-            <img src="{{ usuario.avatar}}" alt="Avatar {{ usuario.login }}" class="avatar_canal_photo " />
+            <img src="{{ asset(ruta_avatar ~ usuario.avatar)}}" alt="Avatar {{ usuario.login }}" class="avatar_canal_photo " />
         </div>
         <div class="informacion_general">
             <h1>{{ usuario.login }}</h1>

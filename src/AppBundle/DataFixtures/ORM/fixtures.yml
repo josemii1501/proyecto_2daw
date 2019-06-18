@@ -7,7 +7,7 @@ AppBundle\Entity\Usuario:
     birthday: <dateTime('now','CET')>
     login (unique): admin
     clave: <codificaClave('admin')>
-    avatar: "https://pixel.nymag.com/imgs/daily/vulture/2018/11/02/02-avatar-2.w700.h700.jpg"
+    avatar: "avatar_predeterminado.png"
     urlWebSite: www.devvideos.com
     description: Este es el administrador del sitio web devvideos
     publisher: true
@@ -21,7 +21,7 @@ AppBundle\Entity\Usuario:
     birthday: <dateTime('now','CET')>
     login (unique): <es_ES:word()>
     clave: <codificaClave('usuario')>
-    avatar: "https://pixel.nymag.com/imgs/daily/vulture/2018/11/02/02-avatar-2.w700.h700.jpg"
+    avatar: "avatar_predeterminado.png"
     urlWebSite: <url()>
     description: <es_ES:text(100)>
     publisher: <boolean(30)>

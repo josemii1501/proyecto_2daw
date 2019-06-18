@@ -144,7 +144,7 @@ class UsuarioController extends Controller
      * @Route("/usuarios/datos_personales", name="datos_personales")
      * @Security("is_granted('ROLE_USER')")
      */
-    public function datosPersonales(Request $request)
+    public function datosPersonales(Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
         $usuario = $this->getUser();
         $form = $this->createForm(UsuarioType::class, $usuario, [
@@ -152,13 +152,52 @@ class UsuarioController extends Controller
         ]);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $usuario->setClave(
+                $passwordEncoder->encodePassword(
+                    $usuario,
+                    $form->get('clave')->getData()
+                )
+            );
             try {
+                /** @var File $filename */
+                $file = $form->get('avatar')->getData();
+
+                if ($file) {
+
+                    $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
+
+                    // Move the file to the directory where brochures are stored
+                    try {
+                        $file->move(
+                            "uploads/avatar",
+                            $fileName
+                        );
+                    } catch (FileException $e) {
+
+                    }
+
+                    // updates the 'brochure' property to store the PDF file name
+                    // instead of its contents
+                    $usuario->setAvatar($fileName);
+                }
+
+                if($usuario->isPublisher() === null){
+                    $usuario->setPublisher(false);
+                }
+                if($usuario->isAdmin() === null){
+                    $usuario->setAdmin(false);
+                }
                 $this->getDoctrine()->getManager()->flush();
-                $this->addFlash('exito', 'Datos personales guardados con éxito');
-                return $this->redirectToRoute('portada');
+                $this->addFlash('exito', 'Cambios guardados correctamente.');
+                return $this->redirectToRoute('usuarios_listar');
             } catch (\Exception $e) {
-                $this->addFlash('error', 'Ha ocurrido un error al guardar los datos personales');
+                $this->addFlash('error', 'Ha ocurrido un error al guardar los cambios');
             }
+            return $this->render('user/form.html.twig', [
+                'form' => $form->createView(),
+                'usuario' => $usuario,
+                'es_nueva' => $usuario->getId() === null
+            ]);
         }
         return $this->render('user/personal.html.twig', [
             'form' => $form->createView(),
@@ -207,12 +246,13 @@ class UsuarioController extends Controller
                 $file = $form->get('avatar')->getData();
 
                 if ($file) {
+
                     $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
 
                     // Move the file to the directory where brochures are stored
                     try {
                         $file->move(
-                            "uploads/avatar_photo",
+                            "uploads/avatar",
                             $fileName
                         );
                     } catch (FileException $e) {
@@ -221,10 +261,10 @@ class UsuarioController extends Controller
 
                     // updates the 'brochure' property to store the PDF file name
                     // instead of its contents
-                    $usuario->setAvatar("uploads/avatar_photo/" . $fileName);
+                    $usuario->setAvatar($fileName);
                 } else {
                     if($new == true){
-                        $usuario->setAvatar("archivos_web/avatar_predeterminado.png");
+                        $usuario->setAvatar("avatar_predeterminado.png");
                     }
                 }
 
