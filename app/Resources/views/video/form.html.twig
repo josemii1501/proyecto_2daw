@@ -18,6 +18,7 @@
     {{ form_widget(form) }}
     <a href="{{ path('videos_listar') }}" class="btn btn-info"><i class="fas fa-arrow-left"></i> Volver</a>
     <button type="submit" class="btn btn-primary"><i class="fas fa-check"></i> Guardar Cambios</button>
+    {% if not es_nueva %}<a href="{{ path('subir_archivo', {'id': video.id}) }}" class="btn btn-success"><i class="fas fa-file"></i> Subir Archivo</a>{% endif %}
     {% if not es_nueva %}<a href="{{ path('video_eliminar', {'id': video.id}) }}" class="btn btn-danger"><i class="fas fa-trash"></i> Eliminar Video</a>{% endif %}
     {{ form_end(form) }}
 

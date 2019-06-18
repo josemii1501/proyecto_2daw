@@ -13,20 +13,23 @@ class ArchivoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('video', null, [
-                'label'=> 'Video: '
-            ])
             ->add('file', FileType::class, [
                 'label'=>'Archivo: ',
                 'mapped'=>false,
                 'required' => $options['new']
             ]);
+        if ($options['es_admin']) {
+            $builder->add('video', null, [
+                'label'=> 'Video: '
+            ]);
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => File::class,
+            'es_admin'=>false,
             'new' => false
         ]);
     }

@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\File;
+use AppBundle\Entity\Video;
 use AppBundle\Form\Type\ArchivoType;
 use AppBundle\Repository\FileRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -37,6 +38,24 @@ class FileController extends Controller
 
         return $this->formFileAction($request, $archivo);
     }
+    /**
+     * @Route("/archivos/nuevo/{id}", name="subir_archivo"),
+     *     requirements={"id":"\d+"})
+     * @Security("is_granted('ROLE_PUBLISHER')")
+     */
+    public function formSubirFile(Request $request, Video $video)
+    {
+        if($video->getCreator() != $this->getUser()){
+            $this->addFlash('error', 'Solo puedes subir archivos a tus videos');
+            return $this->redirect('/');
+        }
+        $archivo = New File();
+        $archivo->setDate(new \DateTime());
+        $archivo->setVideo($video);
+        $this->getDoctrine()->getManager()->persist($archivo);
+
+        return $this->formFileAction($request, $archivo);
+    }
 
     /**
      * @Route("/archivos/modificar/{id}", name="archivo_modificar",
@@ -52,7 +71,8 @@ class FileController extends Controller
             $new = false;
         }
         $form = $this->createForm(ArchivoType::class, $archivo, [
-            'new' => $new
+            'new' => $new,
+            'es_admin'=>$this->isGranted('ROLE_ADMIN')
         ]);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
