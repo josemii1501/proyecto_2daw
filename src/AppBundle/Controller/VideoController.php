@@ -45,7 +45,7 @@ class VideoController extends Controller
         ]);
     }
     /**
-     * @Route("guardar/eliminar/video/{id}", name="eliminar_guardado_video",
+     * @Route("guardar/eliminar/{id}", name="eliminar_guardado_video",
      *     requirements={"id":"\d+"})
      */
     public function videoEliminarGuardarAction(Video $video,SavedRepository $savedRepository, HistoryRepository $historyRepository)
@@ -65,7 +65,7 @@ class VideoController extends Controller
         return $this->videoVisualizarAction($video,$savedRepository, $historyRepository);
     }
     /**
-     * @Route("video/{id}/estadisticas", name="estadisticas_video",
+     * @Route("videos/{id}/estadisticas", name="estadisticas_video",
      *     requirements={"id":"\d+"})
      */
     public function videoEstadisticasAction(Video $video,SavedRepository $savedRepository)

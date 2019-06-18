@@ -34,7 +34,7 @@ class UsuarioController extends Controller
         ]);
     }
     /**
-     * @Route("/usuarios/canal/{id}", name="canal_usuario",
+     * @Route("/canal/{id}", name="canal_usuario",
      *     requirements={"id":"\d+"})
      */
     public function videosUsuarioAction(Usuario $usuario, SubscriptionRepository $subscriptionRepository ,HistoryRepository $historyRepository,SavedRepository $savedRepository)
@@ -104,7 +104,7 @@ class UsuarioController extends Controller
         return $this->videosUsuarioAction($usuario,$subscriptionRepository, $historyRepository, $savedRepository);
     }
     /**
-     * @Route("/clave", name="cambio_clave")
+     * @Route("/cambio_clave", name="cambio_clave")
      * @Security("is_granted('ROLE_USER')")
      */
     public function cambioClaveAction(Request $request, UserPasswordEncoderInterface $passwordEncoder)
