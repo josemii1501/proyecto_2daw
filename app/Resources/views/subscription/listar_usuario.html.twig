@@ -9,7 +9,7 @@
                 <div class="panel_usuario {% if suscripcion.chanel.isPublisher %} publisher_panel_user {% endif %}">
                     <a href="{{ path('canal_usuario',{'id': suscripcion.chanel.id}) }}" class="enlace_usuario">
                         <div class="avatar_usuario">
-                            <img src="{{ asset(ruta_avatar ~ suscripcion.chanel.avatar) }}" alt="Foto {{ suscripcion.chanel.login }}" class="avatar_usuario"/>
+                            <img src="{{ asset(ruta_avatar ~ suscripcion.chanel.avatar) }}" alt="Foto {{ suscripcion.chanel.login }}" class="avatar_imagen"/>
                         </div>
                         <div class="descripcion_usuario">
                             <span class="nombre_usuario">{{ suscripcion.chanel.login }}</span>

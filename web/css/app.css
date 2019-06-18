@@ -10,10 +10,13 @@ body{
     color: #efefef;
 }
 .avatar_navegacion{
-    max-height: 3em;
-    border-radius: 1em ;
+    border-radius: 10em;
     margin-left: 1em;
     margin-right: 1em;
+    width: 45px;
+    height: 45px;
+    object-fit: cover;
+    background-color: black;
 }
 /* ADMINISTRACION */
 .panel_admin{
@@ -237,8 +240,28 @@ a{
 a:hover{
     text-decoration: none;
 }
-.avatar_lista, .miniatura_lista{
-    max-width: 5em;
+.categoria_imagen{
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    background-color: white;
+    border-radius: 0.5em;
+}
+.imagen_menor{
+    width: 75px ;
+    height: 75px ;
+}
+.avatar_imagen{
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    background-color: white;
+}
+.miniatura_imagen{
+    max-height: 112px;
+    height: 112px;
+    object-fit: cover;
+    background-color: white;
 }
 .pnlAccionNueva span{
     margin: 1em;
@@ -292,9 +315,6 @@ a:hover{
     text-align: center;
 }
 .imagen_categoria{
-    border-radius: 0.1em;
-}
-.imagen_categoria img{
     border-radius: 0.1em;
 }
 /* FIN CATEGORIAS */
@@ -362,6 +382,7 @@ a:hover{
     padding: 4px;
     border-radius: 1em;
     width: 90%;
+    object-fit: cover;
     margin-right: auto;
     margin-left: auto;
     background-color: #efefef;
@@ -446,6 +467,7 @@ a:hover{
 }
 .avatar_canal_photo{
     width: 100%;
+    height: 100%;
     border-radius: 1em;
     display: block;
 }
@@ -600,6 +622,8 @@ a:hover{
     }
     .panel_avatar_canal{
         display: inline-block;
+        width: 10em;
+        height: 10em;
     }
     .cabecera_canal .informacion_general{
         padding-left: 1em;

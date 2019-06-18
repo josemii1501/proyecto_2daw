@@ -33,7 +33,7 @@
                     </div>
                     <div class="panel_categoria_visualizar">
                         <a href="{{ path('videos_categoria',{'id': video.category.id}) }}" class="enlace_categoria_visualizar">
-                                <img src="{{ asset(ruta_categoria ~ video.category.photo) }}" alt="Foto {{ video.category.name }}" class="imagen_categoria_visualizar"/>
+                                <img src="{{ asset(ruta_categoria ~ video.category.photo) }}" alt="Foto {{ video.category.name }}" class="imagen_menor categoria_imagen"/>
                                 <span class="nombre_categoria_visualizar">{{ video.category.name }}</span>
                         </a>
                     </div>
