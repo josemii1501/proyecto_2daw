@@ -113,7 +113,7 @@ class VideoController extends Controller
             if($this->getUser()){
 
                 $historialEsta = $historyRepository->findHistorial($video, $this->getUser());
-                if(empty($historialEsta)){
+                if($historialEsta == null){
                     $historial = new History();
 
                     $historial->setVideo($video)
@@ -123,10 +123,9 @@ class VideoController extends Controller
                     $this->getDoctrine()->getManager()->persist($historial);
                     $this->getDoctrine()->getManager()->flush();
                 }else {
-                    foreach($historialEsta as $item){
-                        $item->setTimestamp(new \DateTime());
-                        $this->getDoctrine()->getManager()->flush();
-                    }
+                    $historialEsta = $historyRepository->findHistorial($video, $this->getUser());
+                    $historialEsta->setTimestamp(new \DateTime());
+                    $this->getDoctrine()->getManager()->flush();
                 }
 
 

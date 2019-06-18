@@ -34,11 +34,9 @@ class HistoryRepository extends ServiceEntityRepository
             ->addSelect('v')
             ->join('h.video','v')
             ->leftJoin('h.usuario','u')
-            ->where('u.id = '.$usuario->getId())
-            ->where('v.id = '.$video->getId())
-            ->orderBy('h.timestamp')
+            ->where('v.id = '.$video->getId().' and u.id = '.$usuario->getId())
             ->getQuery()
-            ->getResult();
+            ->getOneOrNullResult();
     }
     public function findVistos(Usuario $usuario)
     {
