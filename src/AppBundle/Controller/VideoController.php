@@ -33,7 +33,7 @@ class VideoController extends Controller
         ]);
     }
     /**
-     * @Route("/videos/categoria/{id}", name="videos_categoria",
+     * @Route("/categorias/videos/{id}", name="videos_categoria",
      *     requirements={"id":"\d+"})
      */
     public function videosCategoriaAction(VideoRepository $videoRepository, Category $category)
