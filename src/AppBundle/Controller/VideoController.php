@@ -47,6 +47,7 @@ class VideoController extends Controller
     /**
      * @Route("guardar/eliminar/{id}", name="eliminar_guardado_video",
      *     requirements={"id":"\d+"})
+     * @Security("is_granted('ROLE_USER')")
      */
     public function videoEliminarGuardarAction(Video $video,SavedRepository $savedRepository, HistoryRepository $historyRepository)
     {
@@ -67,6 +68,7 @@ class VideoController extends Controller
     /**
      * @Route("videos/{id}/estadisticas", name="estadisticas_video",
      *     requirements={"id":"\d+"})
+     * @Security("is_granted('ROLE_PUBLISHER')")
      */
     public function videoEstadisticasAction(Video $video,SavedRepository $savedRepository)
     {
@@ -81,6 +83,7 @@ class VideoController extends Controller
     /**
      * @Route("guardar/video/{id}", name="guardar_video",
      *     requirements={"id":"\d+"})
+     * @Security("is_granted('ROLE_USER')")
      */
     public function videoGuardarAction(Video $video,SavedRepository $savedRepository, HistoryRepository $historyRepository)
     {

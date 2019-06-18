@@ -14,7 +14,7 @@ class SavedController extends Controller
 {
     /**
      * @Route("/guardados", name="guardados_listar")
-     * @Security("is_granted('ROLE_USER')")
+     * @Security("is_granted('ROLE_ADMIN')")
      */
     public function SavedListarAction(SavedRepository $savedRepository)
     {

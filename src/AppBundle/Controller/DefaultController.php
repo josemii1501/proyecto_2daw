@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Repository\CategoryRepository;
 use AppBundle\Repository\UsuarioRepository;
 use AppBundle\Repository\VideoRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -28,6 +29,7 @@ class DefaultController extends Controller
     }
     /**
      * @Route("/administrador", name="admin_panel")
+     * @Security("is_granted('ROLE_ADMIN')")
      */
     public function adminAction()
     {

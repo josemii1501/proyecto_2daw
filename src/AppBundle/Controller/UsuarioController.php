@@ -63,6 +63,7 @@ class UsuarioController extends Controller
     /**
      * @Route("canal/suscribirse/{id}", name="suscribirse_canal",
      *     requirements={"id":"\d+"})
+     * @Security("is_granted('ROLE_USER')")
      */
     public function usuarioSuscritoAction(Usuario $usuario, SubscriptionRepository $subscriptionRepository,HistoryRepository $historyRepository,SavedRepository $savedRepository)
     {
@@ -86,6 +87,7 @@ class UsuarioController extends Controller
     /**
      * @Route("suscripocion/eliminar/{id}", name="eliminar_suscripcion_canal",
      *     requirements={"id":"\d+"})
+     * @Security("is_granted('ROLE_USER')")
      */
     public function eliminarSuscripcionAction(Usuario $usuario,SubscriptionRepository $subscriptionRepository,HistoryRepository $historyRepository, SavedRepository $savedRepository)
     {
@@ -213,7 +215,7 @@ class UsuarioController extends Controller
     /**
      * @Route("/usuarios/modificar/{id}", name="usuario_modificar",
      *     requirements={"id":"\d+"})
-     * @Security("is_granted('ROLE_USER')")
+     * @Security("is_granted('ROLE_ADMIN')")
      */
     public function formUsuarioAction(UserPasswordEncoderInterface $passwordEncoder, Request $request, Usuario $usuario)
     {
