@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
@@ -39,7 +40,16 @@ class UsuarioType extends AbstractType
             ->add('avatar',FileType::class,[
                 'label'=>'Avatar: ',
                 'mapped'=>false,
-                'required' => $options['new']
+                'required' => $options['new'],
+                'constraints' => [
+                    new Image([
+                        'allowPortrait' => false,
+                        'allowSquare' => true,
+                        'maxSize' => '2M',
+                        'minHeight' => 100,
+                        'minWidth' => 100
+                    ])
+                ],
             ])
             ->add('url_web_site',null,[
                 'label'=>'URL: '

@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Image;
 
 class CategoryType extends AbstractType
 {
@@ -19,7 +20,16 @@ class CategoryType extends AbstractType
             ->add('photo', FileType::class, [
                 'label'=>'Imagen: ',
                 'mapped'=>false,
-                'required' => $options['new']
+                'required' => $options['new'],
+                'constraints' => [
+                    new Image([
+                        'allowPortrait' => false,
+                        'allowSquare' => true,
+                        'maxSize' => '2M',
+                        'minHeight' => 100,
+                        'minWidth' => 100
+                    ])
+                ],
             ]);
     }
 

@@ -9,6 +9,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Validator\Constraints\Image;
 
 class VideoType extends AbstractType
 {
@@ -46,7 +47,16 @@ class VideoType extends AbstractType
             ->add('miniature',FileType::class,[
                 'label'=>'Miniatura: ',
                 'mapped'=>false,
-                'required' => $options['new']
+                'required' => $options['new'],
+                'constraints' => [
+                    new Image([
+                        'allowPortrait' => false,
+                        'allowSquare' => true,
+                        'maxSize' => '2M',
+                        'minHeight' => 100,
+                        'minWidth' => 100
+                    ])
+                ],
             ]);
 
 
