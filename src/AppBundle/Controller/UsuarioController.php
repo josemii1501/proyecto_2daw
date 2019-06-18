@@ -144,16 +144,11 @@ class UsuarioController extends Controller
     {
         $usuario = $this->getUser();
         $form = $this->createForm(UsuarioType::class, $usuario, [
-            'es_admin' => $this->isGranted('ROLE_USER')
+            'es_admin' => $this->isGranted('ROLE_ADMIN')
         ]);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $usuario->setClave(
-                $passwordEncoder->encodePassword(
-                    $usuario,
-                    $form->get('clave')->getData()
-                )
-            );
+
             try {
                 /** @var File $filename */
                 $file = $form->get('avatar')->getData();
@@ -225,24 +220,27 @@ class UsuarioController extends Controller
      */
     public function formUsuarioAction(UserPasswordEncoderInterface $passwordEncoder, Request $request, Usuario $usuario)
     {
-        if(null === $usuario) {
+        if(null === $usuario->getId()) {
             $usuario = new Usuario();
             $new = true;
         } else {
             $new = false;
         }
         $form = $this->createForm(UsuarioType::class, $usuario, [
-            'new' => $new
+            'new' => $new,
+            'es_admin'=>$this->isGranted('ROLE_ADMIN')
         ]);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             // $file stores the uploaded PDF file
-            $usuario->setClave(
-                $passwordEncoder->encodePassword(
-                    $usuario,
-                    $form->get('clave')->getData()
-                )
-            );
+            if($new == true){
+                $usuario->setClave(
+                    $passwordEncoder->encodePassword(
+                        $usuario,
+                        $form->get('nuevaClave')->getData()
+                    )
+                );
+            }
             try {
                 /** @var File $filename */
                 $file = $form->get('avatar')->getData();

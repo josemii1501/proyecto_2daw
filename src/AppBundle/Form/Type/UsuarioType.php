@@ -5,8 +5,12 @@ namespace AppBundle\Form\Type;
 use AppBundle\Entity\Usuario;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class UsuarioType extends AbstractType
 {
@@ -32,9 +36,6 @@ class UsuarioType extends AbstractType
             ->add('login',null,[
                 'label'=>'Usuario: '
             ])
-            ->add('clave',null,[
-                'label'=>'Contraseña: '
-            ])
             ->add('avatar',FileType::class,[
                 'label'=>'Avatar: ',
                 'mapped'=>false,
@@ -45,13 +46,35 @@ class UsuarioType extends AbstractType
             ])
             ->add('description',null,[
                 'label'=>'Descripción: '
-            ])
-            ->add('publisher',null,[
+            ]);
+            if ($options['es_admin']) {
+                $builder            ->add('publisher',null,[
                     'label'=>'¿Publicador? '
                 ])
-                ->add('admin',null,[
-                    'label'=>'¿Administrador? '
-                ]);
+                    ->add('admin',null,[
+                        'label'=>'¿Administrador? '
+                    ]);
+            }
+            if($options['new']){
+                $builder
+                    ->add('nuevaClave', RepeatedType::class, [
+                        'type' => PasswordType::class,
+                        'mapped' => false,
+                        'first_options' => [
+                            'label' => 'Nueva contraseña: ',
+                            'constraints' => [
+                                new Length([
+                                    'min' => 6,
+                                ]),
+                                new NotBlank()
+                            ]
+                        ],
+                        'second_options' => [
+                            'label' => 'Repita contraseña',
+                        ]
+                    ]);
+            }
+
     }
 
     public function configureOptions(OptionsResolver $resolver)
