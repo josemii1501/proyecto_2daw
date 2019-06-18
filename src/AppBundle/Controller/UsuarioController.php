@@ -15,7 +15,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UsuarioController extends Controller
@@ -257,7 +259,7 @@ class UsuarioController extends Controller
      * @Route("/usuarios/eliminar/{id}", name="usuario_eliminar")
      * @Security("is_granted('ROLE_USER')")
      */
-    public function eliminarAction(Request $request, Usuario $usuario, HistoryRepository $historyRepository, SavedRepository $savedRepository, SubscriptionRepository $subscriptionRepository)
+    public function eliminarAction(Request $request, Usuario $usuario, HistoryRepository $historyRepository, SavedRepository $savedRepository, SubscriptionRepository $subscriptionRepository, TokenStorageInterface $tokenStorage, Session $session)
     {
         if ($request->get('borrar') === '') {
             try {
@@ -329,7 +331,8 @@ class UsuarioController extends Controller
                     }
                 }
                 $this->getDoctrine()->getManager()->flush();
-
+                $tokenStorage->setToken(null);
+                $session->invalidate();
                 $this->getDoctrine()->getManager()->remove($usuario);
                 $this->getDoctrine()->getManager()->flush();
                 $this->addFlash('exito', 'Usuario Borrado Con Éxito');
