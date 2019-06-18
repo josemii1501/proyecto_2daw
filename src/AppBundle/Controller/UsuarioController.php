@@ -331,8 +331,10 @@ class UsuarioController extends Controller
                     }
                 }
                 $this->getDoctrine()->getManager()->flush();
-                $tokenStorage->setToken(null);
-                $session->invalidate();
+                if(!$this->isGranted('ROLE_ADMIN')){
+                    $tokenStorage->setToken(null);
+                    $session->invalidate();
+                }
                 $this->getDoctrine()->getManager()->remove($usuario);
                 $this->getDoctrine()->getManager()->flush();
                 $this->addFlash('exito', 'Usuario Borrado Con Éxito');
