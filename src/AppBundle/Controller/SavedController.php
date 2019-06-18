@@ -83,7 +83,7 @@ class SavedController extends Controller
     }
     /**
      * @Route("/guardados/eliminar/{id}", name="guardado_eliminar")
-     * @Security("is_granted('ROLE_USER')")
+     * @Security("is_granted('ROLE_ADMIN')")
      */
     public function eliminarAction(Request $request, Saved $saved)
     {

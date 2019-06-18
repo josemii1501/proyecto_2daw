@@ -85,7 +85,7 @@ class UsuarioController extends Controller
         return $this->videosUsuarioAction( $usuario,$subscriptionRepository,$historyRepository, $savedRepository);
     }
     /**
-     * @Route("suscripocion/eliminar/{id}", name="eliminar_suscripcion_canal",
+     * @Route("suscripcion/eliminar/{id}", name="eliminar_suscripcion_canal",
      *     requirements={"id":"\d+"})
      * @Security("is_granted('ROLE_USER')")
      */
@@ -205,11 +205,17 @@ class UsuarioController extends Controller
      */
     public function formNuevoUsuario(UserPasswordEncoderInterface $passwordEncoder,Request $request)
     {
-        $usuario = New Usuario();
+        if($this->getUser()){
+            $this->addFlash('error', 'Parece que ya tienes una cuenta');
+            return $this->redirect('/');
+        } else {
+            $usuario = New Usuario();
 
-        $this->getDoctrine()->getManager()->persist($usuario);
+            $this->getDoctrine()->getManager()->persist($usuario);
 
-        return $this->formUsuarioAction($passwordEncoder, $request, $usuario);
+            return $this->formUsuarioAction($passwordEncoder, $request, $usuario);
+        }
+
     }
 
     /**
@@ -297,89 +303,97 @@ class UsuarioController extends Controller
      */
     public function eliminarAction(Request $request, Usuario $usuario, HistoryRepository $historyRepository, SavedRepository $savedRepository, SubscriptionRepository $subscriptionRepository, TokenStorageInterface $tokenStorage, Session $session)
     {
+        if($usuario != $this->getUser()) {
+            $this->addFlash('error', 'Sólo puedes borrarte tu mismo');
+            return $this->redirect('/');
+        }
+
         if ($request->get('borrar') === '') {
-            try {
-                $videos_propios = $usuario->getVideos();
 
-                if($videos_propios != null) {
-                    foreach ($videos_propios as $item){
-                        $files_videos = $item->getFile();
-                        $historiales = $item->getHistoriales();
-                        $guardados = $item->getGuardados();
 
-                        $this->getDoctrine()->getManager()->flush();
-                        if($files_videos != null) {
-                            foreach ($files_videos as $item2){
-                                $this->getDoctrine()->getManager()->remove($item2);
+                try {
+                    $videos_propios = $usuario->getVideos();
 
+                    if ($videos_propios != null) {
+                        foreach ($videos_propios as $item) {
+                            $files_videos = $item->getFile();
+                            $historiales = $item->getHistoriales();
+                            $guardados = $item->getGuardados();
+
+                            $this->getDoctrine()->getManager()->flush();
+                            if ($files_videos != null) {
+                                foreach ($files_videos as $item2) {
+                                    $this->getDoctrine()->getManager()->remove($item2);
+
+                                }
                             }
-                        }
 
-                        if($guardados != null) {
-                            foreach ($guardados as $item2){
-                                $this->getDoctrine()->getManager()->remove($item2);
+                            if ($guardados != null) {
+                                foreach ($guardados as $item2) {
+                                    $this->getDoctrine()->getManager()->remove($item2);
 
+                                }
                             }
-                        }
-                        $this->getDoctrine()->getManager()->flush();
-                        if($historiales != null) {
-                            foreach ($historiales as $item2){
-                                $this->getDoctrine()->getManager()->remove($item2);
+                            $this->getDoctrine()->getManager()->flush();
+                            if ($historiales != null) {
+                                foreach ($historiales as $item2) {
+                                    $this->getDoctrine()->getManager()->remove($item2);
 
+                                }
                             }
+                            $this->getDoctrine()->getManager()->flush();
+                            $this->getDoctrine()->getManager()->remove($item);
                         }
-                        $this->getDoctrine()->getManager()->flush();
-                        $this->getDoctrine()->getManager()->remove($item);
                     }
-                }
-                $mis_historiales = $historyRepository->findVistos($usuario);
-                if($mis_historiales != null) {
-                    foreach ($mis_historiales as $item2){
-                        $this->getDoctrine()->getManager()->remove($item2);
+                    $mis_historiales = $historyRepository->findVistos($usuario);
+                    if ($mis_historiales != null) {
+                        foreach ($mis_historiales as $item2) {
+                            $this->getDoctrine()->getManager()->remove($item2);
 
+                        }
                     }
-                }
-                $this->getDoctrine()->getManager()->flush();
+                    $this->getDoctrine()->getManager()->flush();
 
-                $mis_guardados = $savedRepository->findGuardados($usuario);
-                if($mis_guardados != null) {
-                    foreach ($mis_guardados as $item2){
-                        $this->getDoctrine()->getManager()->remove($item2);
+                    $mis_guardados = $savedRepository->findGuardados($usuario);
+                    if ($mis_guardados != null) {
+                        foreach ($mis_guardados as $item2) {
+                            $this->getDoctrine()->getManager()->remove($item2);
 
+                        }
                     }
-                }
-                $this->getDoctrine()->getManager()->flush();
+                    $this->getDoctrine()->getManager()->flush();
 
-                $mis_suscripciones = $subscriptionRepository->findSuscripcionesUsuario($usuario);
-                if($mis_suscripciones != null) {
-                    foreach ($mis_suscripciones as $item2){
-                        $this->getDoctrine()->getManager()->remove($item2);
+                    $mis_suscripciones = $subscriptionRepository->findSuscripcionesUsuario($usuario);
+                    if ($mis_suscripciones != null) {
+                        foreach ($mis_suscripciones as $item2) {
+                            $this->getDoctrine()->getManager()->remove($item2);
 
+                        }
                     }
-                }
-                $this->getDoctrine()->getManager()->flush();
+                    $this->getDoctrine()->getManager()->flush();
 
-                $mis_suscriptores = $subscriptionRepository->findSuscripcionesCanal($usuario);
-                if($mis_suscriptores != null) {
-                    foreach ($mis_suscriptores as $item2){
-                        $this->getDoctrine()->getManager()->remove($item2);
+                    $mis_suscriptores = $subscriptionRepository->findSuscripcionesCanal($usuario);
+                    if ($mis_suscriptores != null) {
+                        foreach ($mis_suscriptores as $item2) {
+                            $this->getDoctrine()->getManager()->remove($item2);
 
+                        }
                     }
-                }
-                $this->getDoctrine()->getManager()->flush();
-                if(!$this->isGranted('ROLE_ADMIN')){
-                    $tokenStorage->setToken(null);
-                    $session->invalidate();
-                }
-                $this->getDoctrine()->getManager()->remove($usuario);
-                $this->getDoctrine()->getManager()->flush();
-                $this->addFlash('exito', 'Usuario Borrado Con Éxito');
-                return $this->redirectToRoute('usuarios_listar');
-            } catch (\Exception $e) {
-                $this->addFlash('error', 'Ha ocurrido un error al guardar los cambios');
-                $this->addFlash('error', $e->getMessage());
+                    $this->getDoctrine()->getManager()->flush();
+                    if (!$this->isGranted('ROLE_ADMIN')) {
+                        $tokenStorage->setToken(null);
+                        $session->invalidate();
+                    }
+                    $this->getDoctrine()->getManager()->remove($usuario);
+                    $this->getDoctrine()->getManager()->flush();
+                    $this->addFlash('exito', 'Usuario Borrado Con Éxito');
+                    return $this->redirectToRoute('usuarios_listar');
+                } catch (\Exception $e) {
+                    $this->addFlash('error', 'Ha ocurrido un error al guardar los cambios');
+                    $this->addFlash('error', $e->getMessage());
 
-            }
+                }
+
         }
         return $this->render('user/eliminar.html.twig', [
             'usuario' => $usuario

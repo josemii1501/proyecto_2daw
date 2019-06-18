@@ -32,7 +32,12 @@ class SubscriptionController extends Controller
      */
     public function suscripocionesUsuarioAction(SubscriptionRepository $subscriptionRepository, Usuario $usuario)
     {
-        $misSuscripciones = $subscriptionRepository->findSuscripcionesUsuario($usuario);
+        if($usuario == $this->getUser()){
+            $misSuscripciones = $subscriptionRepository->findSuscripcionesUsuario($usuario);
+        } else {
+            $this->addFlash('error', 'Sólo puedes ver tus suscripciones');
+            return $this->redirect('/');
+        }
 
         return $this->render('subscription/listar_usuario.html.twig', [
             'subscriptions' => $misSuscripciones
@@ -96,7 +101,7 @@ class SubscriptionController extends Controller
     }
     /**
      * @Route("/suscripciones/eliminar/{id}", name="suscripcion_eliminar")
-     * @Security("is_granted('ROLE_USER')")
+     * @Security("is_granted('ROLE_ADMIN')")
      */
     public function eliminarAction(Request $request, Suscription $suscription)
     {

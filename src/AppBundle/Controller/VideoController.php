@@ -72,6 +72,12 @@ class VideoController extends Controller
      */
     public function videoEstadisticasAction(Video $video,SavedRepository $savedRepository)
     {
+        if($this->isGranted('ROLE_ADMIN') == false){
+            if($this->getUser() != $video->getCreator()){
+                $this->addFlash('error', 'Sólo puedes ver las estadísticas tus videos');
+                return $this->redirect('/');
+            }
+        }
         $guardados = $savedRepository->findTotalSaves($video);
         $total_guardados = $guardados[0];
 
@@ -192,76 +198,83 @@ class VideoController extends Controller
         } else {
             $new = false;
         }
-
-        $form = $this->createForm(VideoType::class, $video, [
-            'new' => $new,
-            'es_admin' => $this->isGranted('ROLE_ADMIN')
+        if($video->getId() != null){
+            if($this->isGranted('ROLE_ADMIN') == false){
+                if($video->getCreator() != $this->getUser()){
+                    $this->addFlash('error', 'Sólo puedes borrar tus videos');
+                    return $this->redirect('/');
+                }
+            }
+        }
+            $form = $this->createForm(VideoType::class, $video, [
+                'new' => $new,
+                'es_admin' => $this->isGranted('ROLE_ADMIN')
             ]);
 
-        if(!$this->isGranted('ROLE_ADMIN')){
-            $video->setCreator($this->getUser());
-        }
-        $form->handleRequest($request);
+            if (!$this->isGranted('ROLE_ADMIN') and $new == false) {
+                $video->setCreator($this->getUser());
+            }
+            $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            // $file stores the uploaded PDF file
+            if ($form->isSubmitted() && $form->isValid()) {
+                // $file stores the uploaded PDF file
 
-            try {
-                /** @var File $filename */
-                $file = $form->get('miniature')->getData();
+                try {
+                    /** @var File $filename */
+                    $file = $form->get('miniature')->getData();
                     $ruta = $form->get('route')->getData();
-                    if( strpos($ruta, "v=") ){
-                        $divisiones = explode("v=",$ruta);
+                    if (strpos($ruta, "v=")) {
+                        $divisiones = explode("v=", $ruta);
                         $sinParametros = explode("&", $divisiones[1]);
-                        $rutaDefinitiva = "https://www.youtube.com/embed/".$sinParametros[0];
+                        $rutaDefinitiva = "https://www.youtube.com/embed/" . $sinParametros[0];
                         $video->setRoute($rutaDefinitiva);
                     }
 
-                if ($file) {
+                    if ($file) {
 
-                    $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
+                        $fileName = $this->generateUniqueFileName() . '.' . $file->guessExtension();
 
-                    // Move the file to the directory where brochures are stored
-                    try {
-                        $file->move(
-                            "uploads/miniature",
-                            $fileName
-                        );
-                    } catch (FileException $e) {
+                        // Move the file to the directory where brochures are stored
+                        try {
+                            $file->move(
+                                "uploads/miniature",
+                                $fileName
+                            );
+                        } catch (FileException $e) {
 
+                        }
+
+                        // updates the 'brochure' property to store the PDF file name
+                        // instead of its contents
+                        $video->setMiniature($fileName);
+                    } else {
+                        if ($new == true) {
+                            $video->setMiniature("miniatura_predeterminada.png");
+                        }
                     }
 
-                    // updates the 'brochure' property to store the PDF file name
-                    // instead of its contents
-                    $video->setMiniature($fileName);
-                } else {
-                    if($new == true) {
-                        $video->setMiniature("miniatura_predeterminada.png");
-                    }
+
+                    $this->getDoctrine()->getManager()->flush();
+                    $this->addFlash('exito', 'Cambios guardados correctamente.');
+                    return $this->redirectToRoute('videos_listar');
+                } catch (\Exception $e) {
+                    $this->addFlash('error', 'Ha ocurrido un error al guardar los cambios');
+                    $this->addFlash('error', $e->getMessage());
+
                 }
-
-
-                $this->getDoctrine()->getManager()->flush();
-                $this->addFlash('exito', 'Cambios guardados correctamente.');
-                return $this->redirectToRoute('videos_listar');
-            } catch (\Exception $e) {
-                $this->addFlash('error', 'Ha ocurrido un error al guardar los cambios');
-                $this->addFlash('error', $e->getMessage());
-
+                return $this->render('video/form.html.twig', [
+                    'form' => $form->createView(),
+                    'video' => $video,
+                    'es_nueva' => $video->getId() === null
+                ]);
             }
+
             return $this->render('video/form.html.twig', [
                 'form' => $form->createView(),
                 'video' => $video,
                 'es_nueva' => $video->getId() === null
             ]);
-        }
 
-
-        return $this->render('video/form.html.twig', [
-            'form' => $form->createView(),
-            'video' => $video,
-            'es_nueva' => $video->getId() === null
-        ]);
     }
     /**
      * @Route("/videos/eliminar/{id}", name="video_eliminar")
@@ -269,48 +282,56 @@ class VideoController extends Controller
      */
     public function eliminarAction(Request $request, Video $video)
     {
-        if ($request->get('borrar') === '') {
-            try {
-                $files_videos = $video->getFile();
-                $historiales = $video->getHistoriales();
-                $guardados = $video->getGuardados();
-
-                $this->getDoctrine()->getManager()->flush();
-                if($files_videos != null) {
-                    foreach ($files_videos as $item){
-                        $this->getDoctrine()->getManager()->remove($item);
-
-                    }
-                }
-
-                if($guardados != null) {
-                    foreach ($guardados as $item){
-                        $this->getDoctrine()->getManager()->remove($item);
-
-                    }
-                }
-                $this->getDoctrine()->getManager()->flush();
-                if($historiales != null) {
-                    foreach ($historiales as $item){
-                        $this->getDoctrine()->getManager()->remove($item);
-
-                    }
-                }
-                $this->getDoctrine()->getManager()->flush();
-
-
-                $this->getDoctrine()->getManager()->remove($video);
-                $this->getDoctrine()->getManager()->flush();
-                $this->addFlash('exito', 'Video Borrado Con Éxito');
-                return $this->redirectToRoute('videos_listar');
-            } catch (\Exception $e) {
-                $this->addFlash('error', 'Ha ocurrido un error al guardar los cambios');
-                $this->addFlash('error', $e->getMessage());
+        if($this->isGranted('ROLE_ADMIN') == false){
+            if ($video->getCreator() != $this->getUser()) {
+                $this->addFlash('error', 'Sólo puedes borrar tus videos');
+                return $this->redirect('/');
             }
         }
-        return $this->render('video/eliminar.html.twig', [
-            'video' => $video
-        ]);
+
+        if ($request->get('borrar') === '') {
+
+                try {
+                    $files_videos = $video->getFile();
+                    $historiales = $video->getHistoriales();
+                    $guardados = $video->getGuardados();
+
+                    $this->getDoctrine()->getManager()->flush();
+                    if ($files_videos != null) {
+                        foreach ($files_videos as $item) {
+                            $this->getDoctrine()->getManager()->remove($item);
+
+                        }
+                    }
+
+                    if ($guardados != null) {
+                        foreach ($guardados as $item) {
+                            $this->getDoctrine()->getManager()->remove($item);
+
+                        }
+                    }
+                    $this->getDoctrine()->getManager()->flush();
+                    if ($historiales != null) {
+                        foreach ($historiales as $item) {
+                            $this->getDoctrine()->getManager()->remove($item);
+
+                        }
+                    }
+                    $this->getDoctrine()->getManager()->flush();
+
+
+                    $this->getDoctrine()->getManager()->remove($video);
+                    $this->getDoctrine()->getManager()->flush();
+                    $this->addFlash('exito', 'Video Borrado Con Éxito');
+                    return $this->redirectToRoute('videos_listar');
+                } catch (\Exception $e) {
+                    $this->addFlash('error', 'Ha ocurrido un error al guardar los cambios');
+                    $this->addFlash('error', $e->getMessage());
+                }
+            }
+            return $this->render('video/eliminar.html.twig', [
+                'video' => $video
+            ]);
     }
 
     private function generateUniqueFileName()
