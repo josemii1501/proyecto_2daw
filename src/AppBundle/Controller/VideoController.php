@@ -192,6 +192,7 @@ class VideoController extends Controller
      */
     public function formVideoAction(Request $request, Video $video)
     {
+        $correcto = true;
         if(null === $video) {
             $video = new $video();
             $new = true;
@@ -223,11 +224,15 @@ class VideoController extends Controller
                     /** @var File $filename */
                     $file = $form->get('miniature')->getData();
                     $ruta = $form->get('route')->getData();
-                    if (strpos($ruta, "v=")) {
+                    try{
+                        strpos($ruta, "v=");
                         $divisiones = explode("v=", $ruta);
                         $sinParametros = explode("&", $divisiones[1]);
                         $rutaDefinitiva = "https://www.youtube.com/embed/" . $sinParametros[0];
                         $video->setRoute($rutaDefinitiva);
+                    } catch (\Exception $e) {
+                        $this->addFlash('error', 'Ruta no válida');
+                        $correcto = false;
                     }
 
                     if ($file) {
@@ -248,15 +253,17 @@ class VideoController extends Controller
                         // instead of its contents
                         $video->setMiniature($fileName);
                     } else {
-                        if ($new == true) {
+                        if ($video->getId() == null) {
                             $video->setMiniature("miniatura_predeterminada.png");
                         }
                     }
 
+                    if($correcto == true){
+                        $this->getDoctrine()->getManager()->flush();
+                        $this->addFlash('exito', 'Cambios guardados correctamente.');
+                        return $this->redirectToRoute('videos_listar');
+                    }
 
-                    $this->getDoctrine()->getManager()->flush();
-                    $this->addFlash('exito', 'Cambios guardados correctamente.');
-                    return $this->redirectToRoute('videos_listar');
                 } catch (\Exception $e) {
                     $this->addFlash('error', 'Ha ocurrido un error al guardar los cambios');
                     $this->addFlash('error', $e->getMessage());

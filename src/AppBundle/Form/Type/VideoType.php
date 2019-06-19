@@ -47,7 +47,7 @@ class VideoType extends AbstractType
             ->add('miniature',FileType::class,[
                 'label'=>'Miniatura: ',
                 'mapped'=>false,
-                'required' => $options['new'],
+                'required'=>false,
                 'constraints' => [
                     new Image([
                         'allowPortrait' => false,
