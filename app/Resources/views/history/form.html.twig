@@ -1,6 +1,14 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}Modificar Historial{% endblock %}
+
+
+        {% block title %}
+            {% if not es_nueva %}
+                Modificar Historial - DevVideos
+            {% else %}
+                Nuevo Historial - DevVideos
+            {% endif %}
+        {% endblock %}
 
 {% block content %}
     {% if not es_nueva %}

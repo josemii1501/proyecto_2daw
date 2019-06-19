@@ -1,6 +1,15 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}Modificar Suscripcion{% endblock %}
+
+
+        {% block title %}
+            {% if not es_nueva %}
+                Modificar Suscripcion - DevVideos
+            {% else %}
+                Nueva Suscripcion - DevVIdeos
+            {% endif %}
+
+        {% endblock %}
 
 {% block content %}
     {% if not es_nueva %}
