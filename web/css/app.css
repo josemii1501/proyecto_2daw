@@ -75,6 +75,12 @@ body{
     border-radius: 0.2em;
     margin-bottom: 3em;
 }
+.navbar-brand{
+    max-width: 75%;
+}
+.logo_barra{
+    max-width: 100%;
+}
 .login-password, .login-username{
     border-bottom: 2px solid #efefef;
     width: 100%;
@@ -342,10 +348,6 @@ a:hover{
 .imagen_video img{
     width: 100%;
     max-width: 100%;
-}
-.navbar-toggler {
-    margin: auto;
-    width: 100%;
 }
 .video_descripcion{
     display: none;
@@ -664,10 +666,13 @@ a:hover{
     .botonera_login{
         display: flex;
         width: 100%;
+        flex-wrap: wrap;
         justify-content: space-around;
     }
     .login-btn{
         flex-basis: 40%;
         display: block;
+        max-width: 49%;
+        padding: 0.25em auto;
     }
 }
