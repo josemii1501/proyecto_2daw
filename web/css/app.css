@@ -629,6 +629,10 @@ a:hover{
         text-align: left;
         display: inline-block;
     }
+    .archivo{
+        padding-top: 0.25em;
+        padding-bottom: 0.25em;
+    }
     .panel_avatar_canal{
         padding: 4px;
         border-radius: 1em;
