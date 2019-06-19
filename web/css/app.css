@@ -78,6 +78,9 @@ body{
 .navbar-brand{
     max-width: 75%;
 }
+.select2-results li{
+    color: black;
+}
 .logo_barra{
     max-width: 100%;
 }
