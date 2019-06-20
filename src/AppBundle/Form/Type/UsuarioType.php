@@ -41,7 +41,13 @@ class UsuarioType extends AbstractType
             ])
             ->add('login',null,[
                 'label'=>'Usuario: ',
-                'required'=> true
+                'required'=> true,
+                'constraints' => [
+                    new Length([
+                        'min' => 6,
+                    ]),
+                    new NotBlank()
+                ]
             ])
             ->add('avatar',FileType::class,[
                 'label'=>'Avatar: ',

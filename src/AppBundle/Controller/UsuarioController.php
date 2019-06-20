@@ -201,15 +201,24 @@ class UsuarioController extends Controller
     public function formNuevoUsuario(UserPasswordEncoderInterface $passwordEncoder,Request $request)
     {
         if($this->getUser()){
-            $this->addFlash('error', 'Parece que ya tienes una cuenta');
-            return $this->redirect('/');
-        } else {
+            if(!$this->isGranted('ROLE_ADMIN')){
+                $this->addFlash('error', 'Parece que ya tienes una cuenta');
+                return $this->redirect('/');
+            }else {
+                $usuario = New Usuario();
+
+                $this->getDoctrine()->getManager()->persist($usuario);
+
+                return $this->formUsuarioAction($passwordEncoder, $request, $usuario);
+            }
+        }else {
             $usuario = New Usuario();
 
             $this->getDoctrine()->getManager()->persist($usuario);
 
             return $this->formUsuarioAction($passwordEncoder, $request, $usuario);
         }
+
 
     }
 
