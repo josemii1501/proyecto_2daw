@@ -45,8 +45,7 @@ class CategoryController extends Controller
      */
     public function formCategoriaAction(Request $request, Category $category)
     {
-        if(null === $category) {
-            $category = new $category();
+        if(null === $category->getId()) {
             $new = true;
         } else {
             $new = false;

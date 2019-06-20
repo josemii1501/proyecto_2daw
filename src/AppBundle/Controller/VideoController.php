@@ -193,8 +193,7 @@ class VideoController extends Controller
     public function formVideoAction(Request $request, Video $video)
     {
         $correcto = true;
-        if(null === $video) {
-            $video = new $video();
+        if(null === $video->getId()) {
             $new = true;
         } else {
             $new = false;

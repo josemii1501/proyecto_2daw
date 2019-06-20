@@ -19,28 +19,34 @@ class UsuarioType extends AbstractType
     {
         $builder
             ->add('name',null,[
+                'required'=>true,
                 'label'=>'Nombre: '
             ])
             ->add('lastname',null,[
+                'required'=>true,
                 'label'=>'Apellidos: '
             ])
             ->add('email',null,[
+                'required'=>true,
                 'label'=>'Email: '
             ])
             ->add('phone',null,[
+                'required'=>true,
                 'label'=>'Teléfono: '
             ])
             ->add('birthday',null,[
                 'label'=>'Fecha Nacimiento: ',
+                'required'=>true,
                 'widget' => 'single_text'
             ])
             ->add('login',null,[
-                'label'=>'Usuario: '
+                'label'=>'Usuario: ',
+                'required'=> true
             ])
             ->add('avatar',FileType::class,[
                 'label'=>'Avatar: ',
                 'mapped'=>false,
-                'required' => $options['new'],
+                'required' => false,
                 'constraints' => [
                     new Image([
                         'allowPortrait' => false,
@@ -52,10 +58,13 @@ class UsuarioType extends AbstractType
                 ],
             ])
             ->add('url_web_site',null,[
-                'label'=>'URL: '
+                'label'=>'URL: ',
+                'required'=>true
+
             ])
             ->add('description',null,[
-                'label'=>'Descripción: '
+                'label'=>'Descripción: ',
+                'required'=>true
             ]);
             if ($options['es_admin']) {
                 $builder            ->add('publisher',null,[
@@ -70,6 +79,7 @@ class UsuarioType extends AbstractType
                     ->add('nuevaClave', RepeatedType::class, [
                         'type' => PasswordType::class,
                         'mapped' => false,
+                        'required'=>true,
                         'first_options' => [
                             'label' => 'Nueva contraseña: ',
                             'constraints' => [

@@ -45,8 +45,7 @@ class HistoryController extends Controller
      */
     public function formHistorialAction(Request $request, History $history)
     {
-        if(null === $history) {
-            $history = new $history();
+        if(null === $history->getId()) {
             $new = true;
         } else {
             $new = false;

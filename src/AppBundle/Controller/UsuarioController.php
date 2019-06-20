@@ -221,7 +221,6 @@ class UsuarioController extends Controller
     public function formUsuarioAction(UserPasswordEncoderInterface $passwordEncoder, Request $request, Usuario $usuario)
     {
         if(null === $usuario->getId()) {
-            $usuario = new Usuario();
             $new = true;
         } else {
             $new = false;
@@ -232,7 +231,6 @@ class UsuarioController extends Controller
         ]);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            // $file stores the uploaded PDF file
             if($new == true){
                 $usuario->setClave(
                     $passwordEncoder->encodePassword(
@@ -244,12 +242,10 @@ class UsuarioController extends Controller
             try {
                 /** @var File $filename */
                 $file = $form->get('avatar')->getData();
-
-                if ($file) {
+                if ($file != null) {
 
                     $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
 
-                    // Move the file to the directory where brochures are stored
                     try {
                         $file->move(
                             "uploads/avatar",
@@ -259,19 +255,16 @@ class UsuarioController extends Controller
 
                     }
 
-                    // updates the 'brochure' property to store the PDF file name
-                    // instead of its contents
                     $usuario->setAvatar($fileName);
                 } else {
                     if($new == true){
                         $usuario->setAvatar("avatar_predeterminado.png");
                     }
                 }
-
-                if($usuario->isPublisher() === null){
+                if($usuario->isPublisher() == null){
                     $usuario->setPublisher(false);
                 }
-                if($usuario->isAdmin() === null){
+                if($usuario->isAdmin() == null){
                     $usuario->setAdmin(false);
                 }
                 $this->getDoctrine()->getManager()->flush();
@@ -279,6 +272,7 @@ class UsuarioController extends Controller
                 return $this->redirectToRoute('usuarios_listar');
             } catch (\Exception $e) {
                 $this->addFlash('error', 'Ha ocurrido un error al guardar los cambios');
+                $this->addFlash('error', $e->getMessage());
             }
             return $this->render('user/form.html.twig', [
                 'form' => $form->createView(),

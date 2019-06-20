@@ -13,10 +13,12 @@ class SuscriptionType extends AbstractType
     {
         $builder
             ->add('chanel',null,[
-                'label'=> 'Canal: '
+                'label'=> 'Canal: ',
+                'required'=>true
             ])
             ->add('suscriptor',null,[
-                'label'=>'Suscriptor: '
+                'label'=>'Suscriptor: ',
+                'required'=>true
         ]);
     }
 

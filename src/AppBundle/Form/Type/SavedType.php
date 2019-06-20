@@ -13,10 +13,12 @@ class SavedType extends AbstractType
     {
         $builder
             ->add('video', null, [
-                'label'=> 'Video: '
+                'label'=> 'Video: ',
+                'required'=>true
             ])
             ->add('usuario', null,[
-                'label'=>'Usuario: '
+                'label'=>'Usuario: ',
+                'required'=>true
             ]);
     }
 
