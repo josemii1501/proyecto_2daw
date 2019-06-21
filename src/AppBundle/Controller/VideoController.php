@@ -201,7 +201,7 @@ class VideoController extends Controller
         if($video->getId() != null){
             if($this->isGranted('ROLE_ADMIN') == false){
                 if($video->getCreator() != $this->getUser()){
-                    $this->addFlash('error', 'Sólo puedes borrar tus videos');
+                    $this->addFlash('error', 'Sólo puedes subir tus videos');
                     return $this->redirect('/');
                 }
             }
@@ -211,15 +211,20 @@ class VideoController extends Controller
                 'es_admin' => $this->isGranted('ROLE_ADMIN')
             ]);
 
-            if (!$this->isGranted('ROLE_ADMIN') and $new == false) {
-                $video->setCreator($this->getUser());
-            }
+
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
                 // $file stores the uploaded PDF file
 
                 try {
+                    if($new == false){
+                        if (!$this->isGranted('ROLE_ADMIN')) {
+                            $video->setCreator($this->getUser());
+                        }
+                    } else {
+                        $video->setCreator($this->getUser());
+                    }
                     /** @var File $filename */
                     $file = $form->get('miniature')->getData();
                     $ruta = $form->get('route')->getData();
