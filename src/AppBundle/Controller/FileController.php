@@ -65,7 +65,6 @@ class FileController extends Controller
     public function formFileAction(Request $request, File $archivo)
     {
         if(null === $archivo) {
-            $archivo = new $archivo();
             $new = true;
         } else {
             $new = false;
@@ -85,6 +84,7 @@ class FileController extends Controller
                 if ($file) {
                     $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
 
+                    $archivo->setExtension($file->guessExtension());
                     // Move the file to the directory where brochures are stored
                     try {
                         $file->move(

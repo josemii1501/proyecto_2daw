@@ -33,6 +33,17 @@ class File
     private $date;
 
     /**
+     * @ORM\Column(type="string")
+     * @var string
+     */
+    private $extension;
+
+    /**
+     * @ORM\Column(type="string")
+     * @var string
+     */
+    private $nombre;
+    /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Video", inversedBy="file")
      * @ORM\JoinColumn(nullable=true)
      * @var video
@@ -79,6 +90,42 @@ class File
     public function setDate($date)
     {
         $this->date = $date;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getExtension()
+    {
+        return $this->extension;
+    }
+
+    /**
+     * @param string $extension
+     * @return File
+     */
+    public function setExtension($extension)
+    {
+        $this->extension = $extension;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNombre()
+    {
+        return $this->nombre;
+    }
+
+    /**
+     * @param string $nombre
+     * @return File
+     */
+    public function setNombre($nombre)
+    {
+        $this->nombre = $nombre;
         return $this;
     }
 

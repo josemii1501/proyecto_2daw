@@ -35,6 +35,7 @@ class Video
 
     /**
      * @ORM\Column(type="text")
+     * @ORM\JoinColumn(nullable=false)
      * @var string
      */
     private $description;

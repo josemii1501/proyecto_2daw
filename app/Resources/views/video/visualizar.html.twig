@@ -46,7 +46,7 @@
                 {% else %}
                     <ul>
                     {% for file in video.file %}
-                    <li class="archivo"><a href="{{ asset(ruta_archivo ~ file.file ) }}"><i class="fas fa-file-alt"></i> {{ file.file }}</a></li>
+                    <li class="archivo"><a href="{{ asset(ruta_archivo ~ file.file ) }}" target="_blank"><i class="fas fa-file-alt"></i> {{ file.nombre }}</a></li>
                     {% endfor %}
                     </ul>
                 {% endif %}
