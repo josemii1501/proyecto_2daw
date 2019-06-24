@@ -28,7 +28,8 @@ class VideoType extends AbstractType
 
         $builder
             ->add('title',null,[
-                'label'=>'Titulo: '
+                'label'=>'Titulo: ',
+                'required'=>true
             ])
 
             ->add('category',null,[
@@ -36,10 +37,12 @@ class VideoType extends AbstractType
                 'choice_label'=> function(Category $category) {
                     return $category->getName();
                 },
-                'mapped'=> true
+                'mapped'=> true,
+                'required'=>true
             ])
             ->add('route',null,[
-                'label'=>'Ruta: '
+                'label'=>'Ruta: ',
+                'required'=>true
             ])
             ->add('description',null,[
                 'label'=>'Descripción: '

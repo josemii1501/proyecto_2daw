@@ -16,7 +16,7 @@ class ArchivoType extends AbstractType
             ->add('file', FileType::class, [
                 'label'=>'Archivo: ',
                 'mapped'=>false,
-                'required' => $options['new']
+                'required' => true
             ])
             ->add('nombre', null, [
                 'label'=>'Nombre: ',

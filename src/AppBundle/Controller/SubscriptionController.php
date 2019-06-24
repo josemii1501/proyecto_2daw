@@ -64,8 +64,7 @@ class SubscriptionController extends Controller
      */
     public function formSuscripcionAction(Request $request, Suscription $suscription)
     {
-        if(null === $suscription) {
-            $suscription = new $suscription();
+        if(null === $suscription->getId()) {
             $new = true;
         } else {
             $new = false;

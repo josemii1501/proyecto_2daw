@@ -46,8 +46,7 @@ class SavedController extends Controller
      */
     public function formSavedAction(Request $request, Saved $saved)
     {
-        if(null === $saved) {
-            $saved = new $saved();
+        if(null === $saved->getId()) {
             $new = true;
         } else {
             $new = false;

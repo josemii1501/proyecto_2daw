@@ -15,12 +15,13 @@ class CategoryType extends AbstractType
     {
         $builder
             ->add('name', null,[
-                'label'=>'Nombre: '
+                'label'=>'Nombre: ',
+                'required'=>true
             ])
             ->add('photo', FileType::class, [
                 'label'=>'Imagen: ',
                 'mapped'=>false,
-                'required' => $options['new'],
+                'required' => false,
                 'constraints' => [
                     new Image([
                         'allowPortrait' => false,

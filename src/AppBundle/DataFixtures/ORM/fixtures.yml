@@ -19,7 +19,7 @@ AppBundle\Entity\Usuario:
     email (unique): <email()>
     phone: <es_ES:phoneNumber()>
     birthday: <dateTime('now','CET')>
-    login (unique): <es_ES:word()>
+    login (unique): "publicador1"
     clave: <codificaClave('usuario')>
     avatar: "avatar_predeterminado.png"
     urlWebSite: <url()>
@@ -33,7 +33,7 @@ AppBundle\Entity\Usuario:
     email (unique): <email()>
     phone: <es_ES:phoneNumber()>
     birthday: <dateTime('now','CET')>
-    login (unique): <es_ES:word()>
+    login (unique): "publicador2"
     clave: <codificaClave('usuario')>
     avatar: "avatar_predeterminado.png"
     urlWebSite: <url()>
@@ -47,7 +47,7 @@ AppBundle\Entity\Usuario:
     email (unique): <email()>
     phone: <es_ES:phoneNumber()>
     birthday: <dateTime('now','CET')>
-    login (unique): <es_ES:word()>
+    login (unique): "publicador3"
     clave: <codificaClave('usuario')>
     avatar: "avatar_predeterminado.png"
     urlWebSite: <url()>
