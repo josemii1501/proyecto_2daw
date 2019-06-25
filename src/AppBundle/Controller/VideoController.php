@@ -229,11 +229,18 @@ class VideoController extends Controller
                     $file = $form->get('miniature')->getData();
                     $ruta = $form->get('route')->getData();
                     try{
-                        strpos($ruta, "v=");
-                        $divisiones = explode("v=", $ruta);
-                        $sinParametros = explode("&", $divisiones[1]);
-                        $rutaDefinitiva = "https://www.youtube.com/embed/" . $sinParametros[0];
-                        $video->setRoute($rutaDefinitiva);
+
+                        $posicion = strpos($ruta, "youtube.com");
+                        if($posicion != null){
+                            $divisiones = explode("v=", $ruta);
+                            $sinParametros = explode("&", $divisiones[1]);
+                            $rutaDefinitiva = "https://www.youtube.com/embed/" . $sinParametros[0];
+                            $video->setRoute($rutaDefinitiva);
+                        } else {
+                            $divisiones = explode("youtu.be/", $ruta);
+                            $rutaDefinitiva = "https://www.youtube.com/embed/" . $divisiones[1];
+                            $video->setRoute($rutaDefinitiva);
+                        }
                     } catch (\Exception $e) {
                         $this->addFlash('error', 'Ruta no válida');
                         $correcto = false;
